@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3071910306263946872}
   - component: {fileID: 6457105440439955073}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7733310809289935584}
   - component: {fileID: 411534111128241452}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3926992022136746941}
-  m_Layer: 0
+  - component: {fileID: 1854174079162875708}
+  - component: {fileID: 2783976159002704139}
+  m_Layer: 13
   m_Name: Barrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,6 +208,44 @@ Transform:
   - {fileID: 7733310809289935584}
   m_Father: {fileID: 6537361973821545895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1854174079162875708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995942792850245470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917809824c7c7cf4d9b533cc5308f4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 2783976159002704139}
+  circle: {fileID: 411534111128241452}
+  parentItem: {fileID: 0}
+  addedItem: {fileID: 0}
+  itemType: 0
+--- !u!135 &2783976159002704139
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995942792850245470}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2460254330107525191
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,7 +255,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5999243660645450714}
-  m_Layer: 0
+  - component: {fileID: 5167624673438221335}
+  - component: {fileID: 6023993033292228006}
+  m_Layer: 13
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -238,6 +280,44 @@ Transform:
   - {fileID: 3071910306263946872}
   m_Father: {fileID: 6537361973821545895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5167624673438221335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460254330107525191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917809824c7c7cf4d9b533cc5308f4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 6023993033292228006}
+  circle: {fileID: 6457105440439955073}
+  parentItem: {fileID: 0}
+  addedItem: {fileID: 0}
+  itemType: 0
+--- !u!135 &6023993033292228006
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460254330107525191}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3087337294711952075
 GameObject:
   m_ObjectHideFlags: 0
@@ -501,12 +581,12 @@ MonoBehaviour:
   itemType: 0
   description: Gun
   itemAnchors:
-  - anchor: {fileID: 3926992022136746941}
-    avaliableTypes: 06000000
-  - anchor: {fileID: 5999243660645450714}
-    avaliableTypes: 05000000
-  - anchor: {fileID: 8369897315607741326}
-    avaliableTypes: 04000000
+  - anchor: {fileID: 1854174079162875708}
+    avaliableType: 6
+  - anchor: {fileID: 5167624673438221335}
+    avaliableType: 5
+  - anchor: {fileID: 3548174853562153206}
+    avaliableType: 4
   itemPlaceholder: {fileID: 7124626896435517644}
   itemAnchor: {fileID: 5228918849567749266}
   handGrabPosOffset: {x: -0.141, y: 0, z: 0.314}
@@ -516,7 +596,8 @@ MonoBehaviour:
   rb: {fileID: 1486633355609335662}
   isHovered: 0
   isGrabed: 0
-  addedItems: []
+  inCrafting: 0
+  parentItem: {fileID: 0}
 --- !u!54 &1486633355609335662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -696,7 +777,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6348718964423564710}
   - component: {fileID: 5268761189886310642}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,7 +894,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8369897315607741326}
-  m_Layer: 0
+  - component: {fileID: 3548174853562153206}
+  - component: {fileID: 7827378496114595298}
+  m_Layer: 13
   m_Name: Stock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -836,3 +919,41 @@ Transform:
   - {fileID: 6348718964423564710}
   m_Father: {fileID: 6537361973821545895}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3548174853562153206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595532242942117734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917809824c7c7cf4d9b533cc5308f4ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collider: {fileID: 7827378496114595298}
+  circle: {fileID: 5268761189886310642}
+  parentItem: {fileID: 0}
+  addedItem: {fileID: 0}
+  itemType: 0
+--- !u!135 &7827378496114595298
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8595532242942117734}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

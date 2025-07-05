@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -23,7 +24,8 @@ public class Hand : MonoBehaviour
     public Item currentItem;
     public Item hoveredItem;
     private Item _newHoverItem;
-    
+    private ItemAnchorTarget _anchorTarget;
+
 
     [Range(0, 1)]
     public float lookAtWeight = 1.0f;
@@ -75,6 +77,27 @@ public class Hand : MonoBehaviour
                     CraftingMgr.Instance.SetCurrentItem(currentItem);
                     DropItem(true);
                 }
+            }else  if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
+                           LayerMask.NameToLayer("ItemAnchor")))
+            {
+                if (hit.transform.TryGetComponent(out _anchorTarget))
+                {
+                    if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
+                    {
+                        _anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
+                        DropItem(true);
+                    }
+                    else
+                    {
+                        DropItem();
+                    }
+
+                }
+                else
+                {
+                    DropItem();
+                }
+
             }
             else
             {
@@ -192,6 +215,24 @@ public class Hand : MonoBehaviour
                     currentItem.SetOutlineColor(Color.white);
                 }
             }
+            else
+            {
+
+                if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
+                        LayerMask.NameToLayer("ItemAnchor")))
+                {
+                    if (hit.transform.TryGetComponent(out _anchorTarget))
+                    {
+                        currentItem.SetOutlineColor(!_anchorTarget.addedItem ?  Color.white :  _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.white);
+                    }
+                    else
+                    {
+                        currentItem.SetOutlineColor(Color.white);
+                    }
+
+                }
+            }
+
         }
 
     }
@@ -279,4 +320,41 @@ public class Hand : MonoBehaviour
         }
         CraftingMgr.Instance.RefreshCollider();
     }
+
+    // public bool CheckCanConnectItem(Item parent, Item item, bool connect)
+    // {
+    //     bool finded = false;
+    //     float minDist = Mathf.Infinity;
+    //     ItemAnchor closestAnchor = new ItemAnchor();
+    //     int index = 0;
+    //     for (int i = 0; i < parent.itemAnchors.Length; i++)
+    //     {
+    //         if (parent.addedItems[i]) continue;
+    //         if (parent.itemAnchors[i].avaliableType == item.itemType)
+    //         {
+    //             finded = true;
+    //             float dist = Vector3.Distance(parent.itemAnchors[i].anchor.position.With(y: 0),
+    //                 item.transform.position.With(y: 0));
+    //             if (dist < minDist)
+    //             {
+    //                 minDist = dist;
+    //                 closestAnchor = parent.itemAnchors[i];
+    //                 index = i;
+    //             }
+    //         }
+    //     }
+    //
+    //     if (finded)
+    //     {
+    //         if (connect)
+    //         {
+    //             parent.SetItemToAnchor(closestAnchor.anchor, item, index);
+    //             DropItem(true);
+    //         }
+    //
+    //         return true;
+    //     }
+    //
+    //     return false;
+    // }
 }
