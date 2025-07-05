@@ -9,11 +9,9 @@ public class ClientController : MonoBehaviour
     public int CurrentClientInt;
 
     [HideInInspector] public List<int> ClientIds;
-    [HideInInspector] public List<string> ClientNames;
     [HideInInspector] public List<Sprite> ClientBodies;
     [HideInInspector] public List<Sprite> ClientFaces;
     [HideInInspector] public List<Mesh> ClientHeads;
-    [HideInInspector] public List<string> ClientSpeeches;
 
     public void Start()
     {
@@ -31,11 +29,9 @@ public class ClientController : MonoBehaviour
     public void InitializeClients()
     {
         ClientIds = ClientDataRef.CreateClientIDs();
-        ClientNames = ClientDataRef.CreateClientNames();
         ClientBodies = ClientDataRef.CreateClientBodies();
         ClientFaces = ClientDataRef.CreateClientFaces();
         ClientHeads = ClientDataRef.CreateClientHeads();
-        ClientSpeeches = ClientDataRef.CreateClientSpeeches();
     }
 
     public Client GetNextClient(int index)
@@ -43,11 +39,9 @@ public class ClientController : MonoBehaviour
         Client nextClient = new Client();
         
         nextClient.ClientId = ClientIds[index];
-        nextClient.ClientName = ClientNames[index];
         nextClient.ClientBody = ClientBodies[index];
         nextClient.ClientFace = ClientFaces[index];
         nextClient.ClientHead = ClientHeads[index];
-        nextClient.ClientSpeech = ClientSpeeches[index];
 
         return nextClient;
     }
@@ -55,12 +49,10 @@ public class ClientController : MonoBehaviour
     public void CreateNextClient()
     {
         Client currentClient = GetNextClient(CurrentClientInt);
-        
+
         ClientRef.ClientHead.mesh = currentClient.ClientHead;
         ClientRef.ClientBody.sprite = currentClient.ClientBody;
         ClientRef.ClientFace.sprite = currentClient.ClientFace;
-        ClientRef.ClientNameTMP.text = currentClient.ClientName;
-        ClientRef.ClientSpeechTMP.text = currentClient.ClientSpeech;
 
         CurrentClientInt++;
     }
@@ -68,10 +60,8 @@ public class ClientController : MonoBehaviour
     public class Client
     {
         public int ClientId;
-        public string ClientName;
         public Sprite ClientBody;
         public Sprite ClientFace;
         public Mesh ClientHead;
-        public string ClientSpeech;
     }
 }

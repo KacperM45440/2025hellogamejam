@@ -8,8 +8,8 @@ public class Hand : MonoBehaviour
     public bool active = true;
     [SerializeField] private LayerMask inputLayerMask;
     [SerializeField] private LayerMask grabLayerMask;
-    [SerializeField] private Transform moveTarget;
-    [SerializeField] private Transform rotationTarget;
+    public Transform moveTarget;
+    public Transform rotationTarget;
     [SerializeField] private Transform socket;
     [SerializeField] private float handSpeed;
     [SerializeField] private float handOffset;
@@ -17,6 +17,8 @@ public class Hand : MonoBehaviour
     [SerializeField] private float rotationTargetRadius = 3f;
 
     private bool _blockFollow = false;
+    public bool hitFrontWall = false;
+    private float _moveSpeed;
 
     public Item currentItem;
     public Item hoveredItem;
@@ -37,6 +39,7 @@ public class Hand : MonoBehaviour
     void Awake()
     {
         _camera = Camera.main;
+        _moveSpeed = handSpeed;
     }
 
     void Update()
@@ -47,6 +50,13 @@ public class Hand : MonoBehaviour
         Controller();
         TrackHandPosition();
         RotateHand();
+        _handVelocity = (moveTarget.position - _previousHandPosition) / Time.deltaTime;
+        _previousHandPosition = moveTarget.position;
+        
+        if (_moveSpeed < handSpeed && !_blockFollow)
+        {
+            _moveSpeed += Time.deltaTime * 20f;
+        }
     }
 
     private void Controller()
@@ -64,8 +74,11 @@ public class Hand : MonoBehaviour
 
     private void TrackHandPosition()
     {
+
         if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out _hit, 100f,inputLayerMask))
         {
+
+            hitFrontWall = _hit.transform.CompareTag("FrontWall");
             Vector3 dir = (_camera.transform.position - _hit.point).normalized * handOffset;
             if (handSpeed < 0)
             {
@@ -73,7 +86,7 @@ public class Hand : MonoBehaviour
             }
             else
             {
-                moveTarget.position = Vector3.Lerp(moveTarget.position,_hit.point + dir, handSpeed * Time.deltaTime );
+                moveTarget.position = Vector3.Lerp(moveTarget.position,_hit.point + dir, _moveSpeed * Time.deltaTime );
             }
 
         }
@@ -81,18 +94,40 @@ public class Hand : MonoBehaviour
 
     private void RotateHand()
     {
-        float xDiscance = moveTarget.position.x - rotationTarget.position.x;
-        float zDiscance = moveTarget.position.z - rotationTarget.position.z;
-        float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
-        float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
-
-        float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-        float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-
-        Quaternion targetRotation = Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
-        moveTarget.rotation = targetRotation;
-        _handVelocity = (moveTarget.position - _previousHandPosition) / Time.deltaTime;
-        _previousHandPosition = moveTarget.position;
+        
+        // float xDiscance = moveTarget.position.x - rotationTarget.position.x;
+        // float zDiscance = moveTarget.position.z - rotationTarget.position.z;
+        // float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
+        // float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
+        //
+        // float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+        // float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+        //
+        // Quaternion targetRotation =
+        //     Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
+        // moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+        
+        if (!hitFrontWall)
+        {
+            float xDiscance = moveTarget.position.x - rotationTarget.position.x;
+            float zDiscance = moveTarget.position.z - rotationTarget.position.z;
+            float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
+            float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
+        
+            float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+            float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+        
+            Quaternion targetRotation =
+                Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
+            moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+           
+        }
+        else
+        {
+            Quaternion targetRotation =
+                Quaternion.Euler(-65f, 0f, 0f);
+            moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+        }
     }
     
     private void FixedUpdate()
@@ -162,6 +197,7 @@ public class Hand : MonoBehaviour
         handRb.isKinematic = true;
         _blockFollow = true;
         if (_grabSequence != null) _grabSequence.Kill();
+        _moveSpeed = 0;
 
         _grabSequence = DOTween.Sequence();
         Vector3 targetHandMove = currentItem.transform.position +
@@ -170,19 +206,22 @@ public class Hand : MonoBehaviour
 
         float d = 0.25f;
         _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
-        _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d/2f).SetEase(Ease.InCubic).OnComplete(() =>
+        _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d).SetEase(Ease.InCubic).OnComplete(() =>
         {
+            moveTarget.position = handRb.position;
+            moveTarget.rotation = handRb.rotation;
             currentItem.transform.parent = socket;
             currentItem.StartGrab();
             currentItem.DOKill();
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
+     
         }));
-        _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
-            {
-                backMovePosition =  moveTarget.position;
-            })
-            .SetEase(Ease.InCubic));
+        // _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
+        //     {
+        //         backMovePosition =  moveTarget.position;
+        //     })
+        //     .SetEase(Ease.InCubic));
 
         _grabSequence.OnComplete(() =>
         {

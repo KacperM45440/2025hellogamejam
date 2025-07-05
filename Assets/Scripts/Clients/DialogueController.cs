@@ -6,7 +6,7 @@ public class DialogueController : MonoBehaviour
 {
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
-    public ClientScript ClientScriptRef;
+    public BubbleController BubbleRef;
 
     [HideInInspector] public Dialogue mainDialogue;
     [HideInInspector] public List<string> currentDialogue;
@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour
     {
         if (StageManagerRef.GetCurrentGameStage() == GameStage.EnterStore)
         {
-            ProgressStage();
+            ProgressStage(); // DEBUG ONLY, PLUG INTO GAME FLOW
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -58,14 +58,15 @@ public class DialogueController : MonoBehaviour
 
     public void ProgressDialogue()
     {
-        try
+        if (currentSubdialogue <= currentDialogue.Count - 1)
         {
-            ClientScriptRef.ClientSpeechTMP.SetText(currentDialogue[currentSubdialogue]);
+            BubbleRef.NextText(currentSubdialogue, currentDialogue[currentSubdialogue]);
             currentSubdialogue++;
         }
-        catch
+        else
         {
             currentSubdialogue = 0;
+            BubbleRef.ClearText();
             ProgressStage();
         }
     }
