@@ -18,7 +18,7 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-        currentGameStage = GameStage.Menu;
+        currentGameStage = GameStage.EnterStore;
     }
 
     public GameStage GetCurrentGameStage()

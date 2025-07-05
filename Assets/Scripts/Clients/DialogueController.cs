@@ -8,15 +8,28 @@ public class DialogueController : MonoBehaviour
     public DialogueData DialogueDataRef;
     public ClientScript ClientScriptRef;
 
-    public Dialogue mainDialogue;
-    public List<string> currentDialogue;
-    public int currentSubdialogue = 0;
+    [HideInInspector] public Dialogue mainDialogue;
+    [HideInInspector] public List<string> currentDialogue;
+    [HideInInspector] public int currentSubdialogue = 0;
     
     [HideInInspector] public List<List<string>> DialogueGreetings;
     [HideInInspector] public List<List<string>> DialogueRequests;
     [HideInInspector] public List<List<string>> DialogueResponsesGood;
     [HideInInspector] public List<List<string>> DialogueResponsesAverage;
     [HideInInspector] public List<List<string>> DialogueResponsesBad;
+
+    public void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            ProgressDialogue();
+        }
+    }
+
+    private void DebugStateSet()
+    {
+        ProgressStage();
+    }
 
     public void InitializeDialogue()
     {
@@ -27,11 +40,29 @@ public class DialogueController : MonoBehaviour
         DialogueResponsesBad = DialogueDataRef.CreateResponseBad();
     }
 
+    public void ChangeMainDialogue(int index)
+    {
+        mainDialogue = new Dialogue();
+
+        mainDialogue.Greeting = DialogueGreetings[index];
+        mainDialogue.Request = DialogueRequests[index];
+        mainDialogue.ResponseGood = DialogueResponsesGood[index];
+        mainDialogue.ResponseAverage = DialogueResponsesAverage[index];
+        mainDialogue.ResponseBad = DialogueResponsesBad[index];
+    }
 
     public void ProgressDialogue()
     {
-        string dialogueLine = currentDialogue[currentSubdialogue];
-        if (dialogueLine == null)
+        Debug.Log(StageManagerRef.GetCurrentGameStage());
+        Debug.Log(currentDialogue);
+        string dialogueLine = "";
+        try
+        {
+            dialogueLine = currentDialogue[currentSubdialogue];
+            ClientScriptRef.ClientSpeechTMP.SetText(dialogueLine);
+            currentSubdialogue++;
+        }
+        catch
         {
             ProgressStage();
         }
