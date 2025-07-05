@@ -17,7 +17,8 @@ public class StoreItem : MonoBehaviour
     [SerializeField] [Range(0, 100)] private int discountChance = 0;
     [SerializeField] [Range(1, 99)] private int discountModifierMin = 20;
     [SerializeField] [Range(1, 99)] private int discountModifierMax = 80;
-
+    [SerializeField] private Image frame;
+    [SerializeField] private Sprite Sprite;
     private int thisWeaponID = 0;
     private int currentOrderCount = 0;
     private int currentPrice = 0;
@@ -70,6 +71,7 @@ public class StoreItem : MonoBehaviour
             return;
         }
         discountParent.SetActive(true);
+        frame.GetComponent<Image>().sprite = Sprite;
         float discountModifier = Random.Range(discountModifierMin, discountModifierMax + 1);
         int discountedPrice = Mathf.RoundToInt(currentPrice * (discountModifier / 100f));
         discountPriceField.text = discountedPrice.ToString() + "$B";
