@@ -14,7 +14,6 @@ public class TabletController : MonoBehaviour
     [SerializeField] private NewsletterClass newsletterRef;
     [SerializeField] private GameObject storeContainer;
     [SerializeField] private GameObject storeItemPrefab;
-    [SerializeField] private TextMeshProUGUI totalPriceHeader;
     [SerializeField] private TextMeshProUGUI totalPriceFooter;
     [SerializeField] private Button orderButton;
     [SerializeField] private GameObject warningText;
@@ -47,7 +46,8 @@ public class TabletController : MonoBehaviour
 
     public void Awake()
     {
-        if(moneyControllerRef == null)
+        totalPriceFooter.text = "0 $B";
+        if (moneyControllerRef == null)
         {
             Debug.LogWarning("PODEPNIJ MONEY CONTROLLER");
         }
@@ -74,22 +74,25 @@ public class TabletController : MonoBehaviour
 
     public void PlaceOrder()
     {
-        Debug.Log("Placed order");
-        loadingScreen.SetActive(true);
-        loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
-        shopScreen.SetActive(false);
-
-        //send list of bought items to the game controller
-        foreach (StoreItem item in storeItems)
+        if (currentTotalPrice != 0)
         {
-            int itemID;
-            int itemCount;
-            item.GetOrderCount(out itemID, out itemCount);
-            if (itemCount <= 0)
+            Debug.Log("Placed order");
+            loadingScreen.SetActive(true);
+            loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
+            shopScreen.SetActive(false);
+
+            //send list of bought items to the game controller
+            foreach (StoreItem item in storeItems)
             {
-                continue;
+                int itemID;
+                int itemCount;
+                item.GetOrderCount(out itemID, out itemCount);
+                if (itemCount <= 0)
+                {
+                    continue;
+                }
+                Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemID.ToString());
             }
-            Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemID.ToString());
         }
     }
 
@@ -119,7 +122,6 @@ public class TabletController : MonoBehaviour
     public void UpdateTotalPrice(int priceChange)
     {
         currentTotalPrice += priceChange;
-        totalPriceHeader.text = currentTotalPrice.ToString() + "$B";
         totalPriceFooter.text = currentTotalPrice.ToString() + "$B";
         bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
         if(enoughMoney)
