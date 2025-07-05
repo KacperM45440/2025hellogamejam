@@ -79,8 +79,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClientDataRef: {fileID: 6757430112606304542}
-  ClientAmount: 0
-  CurrentClient: 0
+  ClientRef: {fileID: 2717770531341719923}
+  ClientAmount: 9
+  CurrentClientInt: 0
+  ClientIds: 
   ClientNames: []
   ClientBodies: []
   ClientFaces: []
@@ -98,46 +100,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8968c8b40bf0db47b3b564ad5bdc8c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Client1ID: 1
   Client1Name: John Evil
-  Client1Body: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  Client1Face: {fileID: 0}
+  Client1Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
+  Client1Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client1Head: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   Client1Speech: hello i am john evil
+  Client2ID: 2
   Client2Name: John Evil Junior
-  Client2Body: {fileID: 0}
-  Client2Face: {fileID: 0}
-  Client2Head: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  Client2Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
+  Client2Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
+  Client2Head: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   Client2Speech: have you met my brother?
+  Client3ID: 3
   Client3Name: 
   Client3Body: {fileID: 0}
   Client3Face: {fileID: 0}
   Client3Head: {fileID: 0}
   Client3Speech: 
+  Client4ID: 4
   Client4Name: 
   Client4Body: {fileID: 0}
   Client4Face: {fileID: 0}
   Client4Head: {fileID: 0}
   Client4Speech: 
+  Client5ID: 5
   Client5Name: 
   Client5Body: {fileID: 0}
   Client5Face: {fileID: 0}
   Client5Head: {fileID: 0}
   Client5Speech: 
+  Client6ID: 6
   Client6Name: 
   Client6Body: {fileID: 0}
   Client6Face: {fileID: 0}
   Client6Head: {fileID: 0}
   Client6Speech: 
+  Client7ID: 7
   Client7Name: 
   Client7Body: {fileID: 0}
   Client7Face: {fileID: 0}
   Client7Head: {fileID: 0}
   Client7Speech: 
+  Client8ID: 8
   Client8Name: 
   Client8Body: {fileID: 0}
   Client8Face: {fileID: 0}
   Client8Head: {fileID: 0}
   Client8Speech: 
+  Client9ID: 9
   Client9Name: 
   Client9Body: {fileID: 0}
   Client9Face: {fileID: 0}
@@ -200,6 +211,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d05f470506e0b541af98635a6608693, type: 3}
+--- !u!114 &2717770531341719923 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7550486955724961573, guid: 9d05f470506e0b541af98635a6608693, type: 3}
+  m_PrefabInstance: {fileID: 5584395401782439510}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c1cacdecbf56c14091ebf89f7247ba0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &6520224174881596852 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1658379441193765858, guid: 9d05f470506e0b541af98635a6608693, type: 3}

@@ -1,13 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ClientController : MonoBehaviour
 {
     public ClientData ClientDataRef;
+    public ClientScript ClientRef;
     public int ClientAmount;
     public int CurrentClientInt;
-    public GameObject CurrentClientGO;
 
+    [HideInInspector] public List<int> ClientIds;
     [HideInInspector] public List<string> ClientNames;
     [HideInInspector] public List<Sprite> ClientBodies;
     [HideInInspector] public List<Sprite> ClientFaces;
@@ -19,8 +21,17 @@ public class ClientController : MonoBehaviour
         InitializeClients();
     }
 
+    public void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CreateNextClient();
+        }
+    }
+
     public void InitializeClients()
     {
+        ClientIds = ClientDataRef.CreateClientIDs();
         ClientNames = ClientDataRef.CreateClientNames();
         ClientBodies = ClientDataRef.CreateClientBodies();
         ClientFaces = ClientDataRef.CreateClientFaces();
@@ -32,6 +43,7 @@ public class ClientController : MonoBehaviour
     {
         Client nextClient = new Client();
         
+        nextClient.ClientId = ClientIds[index];
         nextClient.ClientName = ClientNames[index];
         nextClient.ClientBody = ClientBodies[index];
         nextClient.ClientFace = ClientFaces[index];
@@ -41,15 +53,22 @@ public class ClientController : MonoBehaviour
         return nextClient;
     }
 
-    public void CreateClient()
+    public void CreateNextClient()
     {
         Client currentClient = GetNextClient(CurrentClientInt);
-        CurrentClientGO.GetComponent<MeshFilter>().mesh = currentClient.ClientHead;
+        
+        ClientRef.ClientHead.mesh = currentClient.ClientHead;
+        ClientRef.ClientBody.sprite = currentClient.ClientBody;
+        ClientRef.ClientFace.sprite = currentClient.ClientFace;
+        ClientRef.ClientNameTMP.text = currentClient.ClientName;
+        ClientRef.ClientSpeechTMP.text = currentClient.ClientSpeech;
+
         CurrentClientInt++;
     }
 
     public class Client
     {
+        public int ClientId;
         public string ClientName;
         public Sprite ClientBody;
         public Sprite ClientFace;
