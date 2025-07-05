@@ -205,6 +205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1658379441193765858}
   - component: {fileID: 7550486955724961573}
+  - component: {fileID: 55235910565872663}
   m_Layer: 0
   m_Name: Current Client
   m_TagString: Untagged
@@ -245,7 +246,29 @@ MonoBehaviour:
   ClientHead: {fileID: 4951738739562742424}
   ClientFace: {fileID: 80072419550375361}
   ClientBody: {fileID: 7574084267824669422}
-  SpeechBubble: {fileID: 0}
+  animatorRef: {fileID: 55235910565872663}
+--- !u!95 &55235910565872663
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5522441253690848800}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d90e96660c4cba4448d164fc90c8dee3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6988812019678564435
 GameObject:
   m_ObjectHideFlags: 0

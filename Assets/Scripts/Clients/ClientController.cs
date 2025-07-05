@@ -58,7 +58,7 @@ public class ClientController : MonoBehaviour
         CurrentClientInt++;
 
         //W³¹cz animacjê klienta podchodz¹cego do lady
-        //ClientRef.GetComponent<Animator>().SetTrigger("WalkToCounter");
+        ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
     }
 
     //Metoda wywo³ana z animacji
