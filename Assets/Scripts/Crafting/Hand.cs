@@ -29,7 +29,6 @@ public class Hand : MonoBehaviour
     public float lookAtWeight = 1.0f;
     public float maxWristPitch = 45f;
     
-    private RaycastHit _hit;
     private Camera _camera;
     private Vector3 _handVelocity;
     private Vector3 _previousHandPosition;
@@ -68,25 +67,38 @@ public class Hand : MonoBehaviour
         
         if (Input.GetMouseButtonUp(0) && currentItem)
         {
-            DropItem();
+
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
+            {
+                if (hit.transform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
+                {
+                    CraftingMgr.Instance.SetCurrentItem(currentItem);
+                    DropItem(true);
+                }
+            }
+            else
+            {
+                DropItem();
+            }
         }
+        
     }
 
     private void TrackHandPosition()
     {
 
-        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out _hit, 100f,inputLayerMask))
+        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,inputLayerMask))
         {
 
-            hitFrontWall = _hit.transform.CompareTag("FrontWall");
-            Vector3 dir = (_camera.transform.position - _hit.point).normalized * handOffset;
+            hitFrontWall = hit.transform.CompareTag("FrontWall");
+            Vector3 dir = (_camera.transform.position - hit.point).normalized * handOffset;
             if (handSpeed < 0)
             {
-                moveTarget.position = _hit.point + dir;
+                moveTarget.position = hit.point + dir;
             }
             else
             {
-                moveTarget.position = Vector3.Lerp(moveTarget.position,_hit.point + dir, _moveSpeed * Time.deltaTime );
+                moveTarget.position = Vector3.Lerp(moveTarget.position,hit.point + dir, _moveSpeed * Time.deltaTime );
             }
 
         }
@@ -141,27 +153,44 @@ public class Hand : MonoBehaviour
     
     private void LookingForItem()
     {
-        if(currentItem) return;
-        //if (Physics.Raycast(moveTarget.position, Vector3.down,  out RaycastHit hit, 10f, grabLayerMask))
-        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,grabLayerMask))
+        if (!currentItem)
         {
-            if (hit.transform.TryGetComponent(out _newHoverItem))
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
             {
-                if (_newHoverItem != hoveredItem && hoveredItem)
+                if (hit.transform.TryGetComponent(out _newHoverItem))
+                {
+                    if (_newHoverItem != hoveredItem && hoveredItem)
+                    {
+                        hoveredItem.SetHover(false);
+                    }
+
+                    hoveredItem = _newHoverItem;
+                    hoveredItem.SetHover(true);
+                    _newHoverItem = null;
+                }
+            }
+            else
+            {
+                if (hoveredItem)
                 {
                     hoveredItem.SetHover(false);
+                    hoveredItem = null;
                 }
-                hoveredItem = _newHoverItem;
-                hoveredItem.SetHover(true);
-                _newHoverItem = null;
             }
         }
         else
         {
-            if (hoveredItem)
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
             {
-                hoveredItem.SetHover(false);
-                hoveredItem = null;
+                if (hit.transform.CompareTag("Crafting") && currentItem)
+                {
+                    currentItem.SetOutlineColor(Color.green);
+
+                }
+                else
+                {
+                    currentItem.SetOutlineColor(Color.white);
+                }
             }
         }
 
@@ -229,18 +258,25 @@ public class Hand : MonoBehaviour
             handRb.isKinematic = false;
         
         });
+        if (CraftingMgr.Instance.currentItem == currentItem)
+        {
+            CraftingMgr.Instance.currentItem = null;
+        }
+        CraftingMgr.Instance.RefreshCollider();
 
     }
 
-    public void DropItem()
+    public void DropItem(bool toCrafting = false)
     {
         if(!currentItem) return;
-        currentItem.Drop(_handVelocity);
+        currentItem.Drop(_handVelocity, toCrafting);
+
         currentItem = null;
         if (_grabSequence != null)
         {
             _grabSequence.Kill();
             if (_blockFollow) _blockFollow = false;
         }
+        CraftingMgr.Instance.RefreshCollider();
     }
 }

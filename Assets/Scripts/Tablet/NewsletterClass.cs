@@ -15,12 +15,12 @@ public class NewsletterClass : MonoBehaviour
     private int startingDay = 4;
     private string startingDate = "/07/20XX";
 
-    public void InitializeArticle(int dayNum, string titleText, string contentText, string imageResourcesRef)
+    public void LoadArticle(int dayNum, string titleText, string contentText, string imageResourcesRef)
     {
         SetDate(dayNum);
         titleField.text = titleText;
         contentField.text = contentText;
-        imageField.sprite = Resources.Load<Sprite>(imageResourcesRef);
+        imageField.sprite = Resources.Load<Sprite>("ArticleImages/"+imageResourcesRef);
     }
 
     private void SetDate(int dayNum)
