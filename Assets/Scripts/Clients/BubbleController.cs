@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BubbleController : MonoBehaviour
 {
-    public Vector3 StartPosition;
+    private Vector3 StartPosition;
     private RectTransform rectRef;
 
     private void Start()

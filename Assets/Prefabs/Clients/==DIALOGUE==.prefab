@@ -172,11 +172,106 @@ MonoBehaviour:
   Client1ResponseBad:
   - Great heavens, what is this?!
   - Are you trying to insult me?!
-  Client2Greeting: []
-  Client2Request: []
-  Client2ResponseGood: []
-  Client2ResponseAverage: []
-  Client2ResponseBad: []
+  Client2Greeting:
+  - Well hello...
+  - Time is money, so please do it as fast as you can.
+  Client2Request:
+  - I am preparing to cut down the forest.
+  - I need something that will make it quicker.
+  - I'm not talking about simple chainsaw nor a simple gun...
+  - It has to be more efficient than that.
+  Client2ResponseGood:
+  - My, my... you are better than I thought!
+  Client2ResponseAverage:
+  - As I said before, time is money...
+  - This won't give me more money.
+  Client2ResponseBad:
+  - Tsk... you've just lost a great customer.
+  Client3Greeting:
+  - Hello.
+  - I've heard a lot of good things about your facility...
+  - ... so I've decided to *shoot my shot*.
+  Client3Request:
+  - I am tired of cooking!
+  - When I see prey, I want to immidiately eat it!
+  - I *hate* wasting time in the kitchen!
+  - Can you make me a gun that will cook meat at the same time?
+  Client3ResponseGood:
+  - Finally, I don't have to cook anymore.
+  Client3ResponseAverage:
+  - Well... it's... something...
+  Client3ResponseBad:
+  - Which part of "I DON'T LIKE COOKING' did you not understand?!
+  Client4Greeting:
+  - Hello darling, aren't you something sweet?
+  - Look, I'm not familiar with places like this, but...
+  - I heard you could help me with a little problem of mine...
+  Client4Request:
+  - You see... I've met a wonderful guy. Rich, I might add!
+  - 'Until one day, I''ve caught a glimpse of his bank account... '
+  - ...only to find out that he lost ALL of his money!
+  - How cruel of him to lie to me like that!
+  - I want to teach him a lesson.
+  - I need a gun as beautiful as me, but also quiet and natural.
+  - Could you prepare something like this for me, darling?
+  Client4ResponseGood:
+  - That's marvelous!
+  - This should teach him a lesson!
+  Client4ResponseAverage:
+  - I thought you were better than this...
+  Client4ResponseBad:
+  - Ugh, I cannot do it with a gun as ugly as this!
+  Client5Greeting:
+  - Shhh...
+  - Just pretend I'm not here.
+  Client5Request:
+  - I need a gun.
+  - Quick, neat, without any other sources of light.
+  - I need to be invisible.
+  - Do it fast.
+  Client5ResponseGood:
+  - Thanks a lot.
+  Client5ResponseAverage:
+  - You could've done better...
+  Client5ResponseBad:
+  - '*deathstare*'
+  Client6Greeting:
+  - Um...
+  - What a terrible day.
+  Client6Request:
+  - Well...
+  - I want to kill myself, but...
+  - ...I am a coward.
+  - I can't even put a gun to my head.
+  - So I was thinking...
+  - ...maybe you could make me a gun...
+  - ...that will shoot me even when I aim in another direction?
+  Client6ResponseGood:
+  - Thank you for ending my misery.
+  Client6ResponseAverage:
+  - Um... I hope it's going to work.
+  Client6ResponseBad:
+  - How am I supposed to kill myself with... this?
+  Client7Greeting:
+  - '*muffled* ...hello...'
+  Client7Request:
+  - '*muffled* ...night...'
+  - '*muffled* ...mutants...'
+  - '*muffled* ...kaboom...'
+  - '*muffled*'
+  Client7ResponseGood: []
+  Client7ResponseAverage: []
+  Client7ResponseBad: []
+  Client8Greeting: []
+  Client8Request: []
+  Client8ResponseGood: []
+  Client8ResponseAverage: []
+  Client8ResponseBad: []
+  Client9Greeting: []
+  Client9Request: []
+  Client9ResponseGood: []
+  Client9ResponseAverage: []
+  Client9ResponseBad: []
 --- !u!1 &8697409525533974473
 GameObject:
   m_ObjectHideFlags: 0
