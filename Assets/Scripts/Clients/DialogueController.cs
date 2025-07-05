@@ -20,15 +20,20 @@ public class DialogueController : MonoBehaviour
 
     public void FixedUpdate()
     {
+        if (StageManagerRef.GetCurrentGameStage() == GameStage.EnterStore)
+        {
+            ProgressStage();
+        }
         if (Input.GetKeyDown(KeyCode.Q))
         {
             ProgressDialogue();
         }
     }
 
-    private void DebugStateSet()
+    public void Start()
     {
-        ProgressStage();
+        InitializeDialogue();
+        ChangeMainDialogue(0);
     }
 
     public void InitializeDialogue()
@@ -53,17 +58,14 @@ public class DialogueController : MonoBehaviour
 
     public void ProgressDialogue()
     {
-        Debug.Log(StageManagerRef.GetCurrentGameStage());
-        Debug.Log(currentDialogue);
-        string dialogueLine = "";
         try
         {
-            dialogueLine = currentDialogue[currentSubdialogue];
-            ClientScriptRef.ClientSpeechTMP.SetText(dialogueLine);
+            ClientScriptRef.ClientSpeechTMP.SetText(currentDialogue[currentSubdialogue]);
             currentSubdialogue++;
         }
         catch
         {
+            currentSubdialogue = 0;
             ProgressStage();
         }
     }
