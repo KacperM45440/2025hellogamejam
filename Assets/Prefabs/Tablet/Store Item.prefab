@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65f4e2bb6f974ef4681abd1f62d8bce8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tabletControllerRef: {fileID: 0}
   imageField: {fileID: 6278877737508947060}
   nameField: {fileID: 4388158986660539698}
   descriptionField: {fileID: 8846054054857676579}
@@ -237,7 +238,7 @@ MonoBehaviour:
   discountParent: {fileID: 3700530590774538757}
   discountPriceField: {fileID: 3418769515380115894}
   orderCountField: {fileID: 850269440503529581}
-  discountChance: 50
+  discountChance: 30
   discountModifierMin: 20
   discountModifierMax: 80
 --- !u!114 &7819005100015755225

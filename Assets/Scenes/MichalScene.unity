@@ -779,6 +779,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488483a9f8e34e5419e764e8962955a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyCounter: {fileID: 505086435}
 --- !u!4 &564284466
 Transform:
   m_ObjectHideFlags: 0
@@ -1012,7 +1013,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 869349266}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1942757023}
+        m_TargetAssemblyTypeName: TabletController, Assembly-CSharp
+        m_MethodName: PlaceOrder
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &869349266
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1860,7 +1873,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1722387538
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2430,9 +2443,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c847eb932a9286a49bebb6b59dbe3d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moneyControllerRef: {fileID: 564284465}
   newsletterRef: {fileID: 2021394618}
   storeContainer: {fileID: 1813228756}
   storeItemPrefab: {fileID: 1032562678300679592, guid: d9190566fefb5894ead8035534f3cac1, type: 3}
+  totalPriceHeader: {fileID: 2011690983}
+  totalPriceFooter: {fileID: 1255065557}
+  orderButton: {fileID: 869349265}
+  warningText: {fileID: 1722387537}
   AllEvents: []
   possibleEvents: []
 --- !u!114 &1942757024

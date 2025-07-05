@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class StoreItem : MonoBehaviour
 {
+    [SerializeField] private TabletController tabletControllerRef;
     [SerializeField] private Image imageField;
     [SerializeField] private TextMeshProUGUI nameField;
     [SerializeField] private TextMeshProUGUI descriptionField;
@@ -19,35 +20,37 @@ public class StoreItem : MonoBehaviour
     private int currentOrderCount = 0;
     private int currentPrice = 0;
 
-    public void InitializeItem(string imageResourcesRef, string nameText, string descriptionText, int initialPrice)
+    public void InitializeItem(string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
     {
         imageField.sprite = Resources.Load<Sprite>(imageResourcesRef);
         nameField.text = nameText;
         descriptionField.text = descriptionText;
         initialPriceField.text = initialPrice.ToString();
-        //odniesienie do kontrollera sklepu
+        tabletControllerRef = controllerRef;
         currentPrice = initialPrice;
         RandomizeDiscount();
     }
 
     public void OrderMore()
     {
-        if(currentOrderCount < 9)
+        if (currentOrderCount >= 9)
         {
-            currentOrderCount++;
-            orderCountField.text = currentOrderCount.ToString();
+            return;
         }
-        //UpdatePrice();
+        currentOrderCount++;
+        orderCountField.text = currentOrderCount.ToString();
+        tabletControllerRef.UpdateTotalPrice(currentPrice);
     }
 
     public void OrderLess()
     {
-        if (currentOrderCount > 0)
+        if (currentOrderCount <= 0)
         {
-            currentOrderCount--;
-            orderCountField.text = currentOrderCount.ToString();
+            return;
         }
-        //UpdatePrice();
+        currentOrderCount--;
+        orderCountField.text = currentOrderCount.ToString();
+        tabletControllerRef.UpdateTotalPrice(-currentPrice);
     }
 
     private void RandomizeDiscount()
@@ -61,5 +64,6 @@ public class StoreItem : MonoBehaviour
         float discountModifier = Random.Range(discountModifierMin, discountModifierMax + 1);
         int discountedPrice = Mathf.RoundToInt(currentPrice * (discountModifier / 100f));
         discountPriceField.text = discountedPrice.ToString();
+        currentPrice = discountedPrice;
     }
 }

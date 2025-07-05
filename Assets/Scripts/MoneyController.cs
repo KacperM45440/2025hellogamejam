@@ -1,14 +1,15 @@
+using TMPro;
 using UnityEngine;
 
 public class MoneyController : MonoBehaviour
 {
-
+    [SerializeField] private TextMeshProUGUI moneyCounter;
     private int currentMoney = 0;
 
     public void gainMoney(int amount)
     {
         currentMoney += amount;
-        Debug.Log("Money gained: " + amount + ". Current total: " + currentMoney);
+        UpdateUI();
     }
 
     public void spendMoney(int amount)
@@ -16,9 +17,15 @@ public class MoneyController : MonoBehaviour
         if (CheckIfPlayerHasEnough(amount))
         {
             currentMoney -= amount;
+            UpdateUI();
             return;
         }
         Debug.LogError("Player doesn't have enough money");
+    }
+
+    public void UpdateUI()
+    {
+        moneyCounter.text = currentMoney.ToString();
     }
 
     public bool CheckIfPlayerHasEnough(int cost)

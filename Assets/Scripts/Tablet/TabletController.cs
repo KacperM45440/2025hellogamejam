@@ -4,6 +4,7 @@ using System.Net.Sockets;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
 
 public class TabletController : MonoBehaviour
@@ -14,6 +15,8 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameObject storeItemPrefab;
     [SerializeField] private TextMeshProUGUI totalPriceHeader;
     [SerializeField] private TextMeshProUGUI totalPriceFooter;
+    [SerializeField] private Button orderButton;
+    [SerializeField] private GameObject warningText;
 
     public List<Event> AllEvents = new List<Event>();
     public List<Event> possibleEvents = new List<Event>();
@@ -61,35 +64,48 @@ public class TabletController : MonoBehaviour
 
     public void PlaceOrder()
     {
-
+        Debug.Log("Placed order");
     }
 
     private void GenerateStoreItems()
     {
         //pêtla foreach, przechodz¹ca przez wszystkie przedmioty
         GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100);
+        newItem.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
         GameObject newItem2 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem2.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100);
+        newItem2.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
         GameObject newItem3 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem3.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100);
+        newItem3.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
         GameObject newItem4 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem4.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100);
+        newItem4.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
         GameObject newItem5 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem5.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100);
+        newItem5.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
         GameObject newItem6 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem6.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100);
+        newItem6.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
         GameObject newItem7 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem7.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100);
+        newItem7.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
         GameObject newItem8 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem8.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100);
+        newItem8.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
         GameObject newItem9 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem9.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100);
+        newItem9.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
     }
 
-    public void Update()
+    public void UpdateTotalPrice(int priceChange)
     {
-        
+        currentTotalPrice += priceChange;
+        totalPriceHeader.text = "Total Price: " + currentTotalPrice.ToString();
+        totalPriceFooter.text = "Total Price: " + currentTotalPrice.ToString();
+        bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
+        if(enoughMoney)
+        {
+            warningText.SetActive(false);
+            orderButton.interactable = true;
+        }
+        else
+        {
+            warningText.SetActive(true);
+            orderButton.interactable = true;
+        }
     }
 
     private Event GetRandomEvent()
