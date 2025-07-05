@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CameraMgr : Singleton<CameraMgr>
@@ -13,6 +15,9 @@ public class CameraMgr : Singleton<CameraMgr>
     [SerializeField] private float cameraSpeed;
     [SerializeField] private Transform cameraAnchor;
     private Camera _camera;
+    public List<Transform> cameraPosPoints;
+    public int currentPosIndex = 1;
+    public bool isMoving = false;
 
     public override void Awake()
     {
@@ -37,6 +42,19 @@ public class CameraMgr : Singleton<CameraMgr>
         _camera.transform.localRotation = Quaternion.Lerp(_camera.transform.localRotation, rotation,
             cameraSpeed * 0.5f * Time.deltaTime);
 
+        if (!isMoving)
+        {
+            if (pos.x >= maxCamerMoveRadius)
+            {
+                ChangePos(-1);
+            }
+            
+            if (pos.x <= -maxCamerMoveRadius)
+            {
+                ChangePos(1);
+            }
+        }
+
     }
     
 
@@ -50,5 +68,21 @@ public class CameraMgr : Singleton<CameraMgr>
         }
         return angle;
     }
-    
+
+    public void ChangePos(int value)
+    {
+        if(isMoving) return;
+        int oldIndex = currentPosIndex;
+        currentPosIndex -= value;
+        currentPosIndex = Mathf.Clamp(currentPosIndex, 0, cameraPosPoints.Count - 1);
+        if(oldIndex == currentPosIndex) return;
+        isMoving = true;
+        transform.DOKill(true);
+        transform.DOMove(cameraPosPoints[currentPosIndex].position, 1f).OnComplete(() =>
+        {
+            isMoving = false;
+        });
+    }
+
+
 }
