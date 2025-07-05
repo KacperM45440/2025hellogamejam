@@ -4,9 +4,9 @@ using UnityEngine;
 public class ClientController : MonoBehaviour
 {
     public ClientData ClientDataRef;
+    public ClientScript ClientRef;
     public int ClientAmount;
     public int CurrentClientInt;
-    public GameObject CurrentClientGO;
 
     [HideInInspector] public List<string> ClientNames;
     [HideInInspector] public List<Sprite> ClientBodies;
@@ -17,6 +17,14 @@ public class ClientController : MonoBehaviour
     public void Start()
     {
         InitializeClients();
+    }
+
+    public void FixedUpdate()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            CreateNextClient();
+        }
     }
 
     public void InitializeClients()
@@ -41,15 +49,17 @@ public class ClientController : MonoBehaviour
         return nextClient;
     }
 
-    public void CreateClient()
+    public void CreateNextClient()
     {
         Client currentClient = GetNextClient(CurrentClientInt);
-        CurrentClientGO.GetComponent<MeshFilter>().mesh = currentClient.ClientHead;
+        ClientRef.ClientHead.mesh = currentClient.ClientHead;
+        ClientRef.ClientBody.sprite = currentClient.ClientBody;
         CurrentClientInt++;
     }
 
     public class Client
     {
+        public int ClientId;
         public string ClientName;
         public Sprite ClientBody;
         public Sprite ClientFace;

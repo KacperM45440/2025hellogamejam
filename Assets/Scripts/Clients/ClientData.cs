@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ClientData : MonoBehaviour
 {
+    public int Client1ID = 1;
     public string Client1Name;
     public Sprite Client1Body;
     public Sprite Client1Face;
@@ -11,6 +12,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client2ID = 2;
     public string Client2Name;
     public Sprite Client2Body;
     public Sprite Client2Face;
@@ -18,7 +20,8 @@ public class ClientData : MonoBehaviour
     public string Client2Speech;
 
     [Space]
-
+    
+    public int Client3ID = 3;
     public string Client3Name;
     public Sprite Client3Body;
     public Sprite Client3Face;
@@ -27,6 +30,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client4ID = 4;
     public string Client4Name;
     public Sprite Client4Body;
     public Sprite Client4Face;
@@ -35,6 +39,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client5ID = 5;
     public string Client5Name;
     public Sprite Client5Body;
     public Sprite Client5Face;
@@ -42,6 +47,7 @@ public class ClientData : MonoBehaviour
     public string Client5Speech;
 
     [Space]
+
 
     public string Client6Name;
     public Sprite Client6Body;
