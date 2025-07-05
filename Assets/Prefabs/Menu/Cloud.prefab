@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 5016075616394602019}
   - component: {fileID: 996189165599599341}
+  - component: {fileID: 760767337824502912}
   - component: {fileID: 3371661493210211987}
   - component: {fileID: 977372546574791574}
+  - component: {fileID: 5397775869178906878}
   m_Layer: 5
   m_Name: Cloud
   m_TagString: Untagged
@@ -46,6 +48,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8112745780142623230}
   m_CullTransparentMesh: 1
+--- !u!114 &760767337824502912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112745780142623230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ea254c3cce377943bae3ad5f24b3c5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxLifetime: 10
+  cloud: {fileID: 5397775869178906878}
 --- !u!114 &3371661493210211987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,3 +106,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
+--- !u!225 &5397775869178906878
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112745780142623230}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
