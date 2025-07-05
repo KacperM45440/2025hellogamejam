@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2955681719c135c48a4f05bb84396383
+guid: 3c6bc8399314a4f4c9888fbc06641a1a
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -44,7 +44,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 21
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plaster2_0
+      name: bee_0
       rect:
         serializedVersion: 2
-        x: 190
-        y: 192
-        width: 316
-        height: 314
+        x: 142
+        y: 300
+        width: 90
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33bd73d3450a46247b91ef6c7ce6904b
-      internalID: -306995497
+      spriteID: f21caf3d9d7822f4986c01c035a31558
+      internalID: 2066793964
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
+    spriteID: ffc0f9e157c612642a45495000744250
     internalID: 0
     vertices: []
     indices: 
@@ -158,7 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Plaster2_0: -306995497
+      bee_0: 2066793964
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

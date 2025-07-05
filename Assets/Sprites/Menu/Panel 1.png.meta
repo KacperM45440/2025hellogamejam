@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1ffbac3b637dc3147b12dd60274633a5
+guid: f63171a427be43d44b20e06783c61c03
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,23 +123,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Plaster_0
+      name: Panel 1_0
       rect:
         serializedVersion: 2
-        x: 162
-        y: 138
-        width: 376
-        height: 424
+        x: 10
+        y: 16
+        width: 1893
+        height: 1033
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 245, y: 318, z: 334, w: 215}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97d963a63d296df49b2f96094cb4300b
-      internalID: -751040545
+      spriteID: be2589cb52798d541a7afc9f1914a786
+      internalID: 1596280854
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bbc71718c01ea8f429ba9028f13983df
+    spriteID: 0a59af90d55b9ff4f856e5604b650348
     internalID: 0
     vertices: []
     indices: 
@@ -158,7 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Plaster_0: -751040545
+      Panel 1_0: 1596280854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

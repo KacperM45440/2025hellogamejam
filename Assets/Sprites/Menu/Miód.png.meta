@@ -123,13 +123,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "Mi\xF3d_1"
+      name: "Mi\xF3d_0"
       rect:
         serializedVersion: 2
-        x: 218
-        y: 114
-        width: 274
-        height: 235
+        x: 220
+        y: 131
+        width: 279
+        height: 246
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,8 +138,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02decfd6645cbb8469f39630d9d9b157
-      internalID: -1180761275
+      spriteID: e87571d060ea89449ac05c8f04d817ca
+      internalID: 737102533
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c25ea8bad9b052449ad52e44fb446c68
+    spriteID: b79fd4d0bab7c9743850d2c52b038177
     internalID: 0
     vertices: []
     indices: 
@@ -158,9 +158,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "Mi\xF3d_0": 252640452
-      "Mi\xF3d_1": -1180761275
-      "Mi\xF3d_2": 487388163
+      "Mi\xF3d_0": 737102533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
