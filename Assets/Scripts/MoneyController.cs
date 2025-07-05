@@ -4,7 +4,7 @@ using UnityEngine;
 public class MoneyController : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI moneyCounter;
-    private int currentMoney = 0;
+    [SerializeField] private int currentMoney = 0;
 
     public void gainMoney(int amount)
     {
@@ -25,7 +25,7 @@ public class MoneyController : MonoBehaviour
 
     public void UpdateUI()
     {
-        moneyCounter.text = currentMoney.ToString();
+        moneyCounter.text = currentMoney.ToString() + "$B";
     }
 
     public bool CheckIfPlayerHasEnough(int cost)

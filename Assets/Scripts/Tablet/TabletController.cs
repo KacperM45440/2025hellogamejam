@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using TMPro;
@@ -17,9 +18,13 @@ public class TabletController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI totalPriceFooter;
     [SerializeField] private Button orderButton;
     [SerializeField] private GameObject warningText;
+    [SerializeField] private GameObject shopScreen;
+    [SerializeField] private GameObject loadingScreen;
 
     public List<Event> AllEvents = new List<Event>();
     public List<Event> possibleEvents = new List<Event>();
+
+    public List<StoreItem> storeItems = new List<StoreItem>();
 
     private int currentDay = 0;
     private int currentTotalPrice = 0;
@@ -42,6 +47,11 @@ public class TabletController : MonoBehaviour
 
     public void Awake()
     {
+        if(moneyControllerRef == null)
+        {
+            Debug.LogWarning("PODEPNIJ MONEY CONTROLLER");
+        }
+
         LoadEvents();
         foreach (Event e in AllEvents)
         {
@@ -49,7 +59,7 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Start()//DO USUNIÊCIA
     {
         PullOutTablet();
     }
@@ -65,36 +75,52 @@ public class TabletController : MonoBehaviour
     public void PlaceOrder()
     {
         Debug.Log("Placed order");
+        loadingScreen.SetActive(true);
+        loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
+        shopScreen.SetActive(false);
+
+        //send list of bought items to the game controller
+        foreach (StoreItem item in storeItems)
+        {
+            int itemID;
+            int itemCount;
+            item.GetOrderCount(out itemID, out itemCount);
+            if (itemCount <= 0)
+            {
+                continue;
+            }
+            Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemID.ToString());
+        }
+    }
+
+    public void DeliveryCompleted()
+    {
+        StartCoroutine(PutTabletAway());
+    }
+
+    private IEnumerator PutTabletAway()
+    {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Tablet Turns Off");
     }
 
     private void GenerateStoreItems()
     {
-        //pêtla foreach, przechodz¹ca przez wszystkie przedmioty
-        GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
-        GameObject newItem2 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem2.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
-        GameObject newItem3 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem3.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
-        GameObject newItem4 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem4.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
-        GameObject newItem5 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem5.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
-        GameObject newItem6 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem6.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
-        GameObject newItem7 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem7.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample Item", "This is a sample item description.", 100, this);
-        GameObject newItem8 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem8.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample2 Item", "This is a sample item description.", 100, this);
-        GameObject newItem9 = Instantiate(storeItemPrefab, storeContainer.transform);
-        newItem9.GetComponent<StoreItem>().InitializeItem("store_item_image", "Sample 3Item", "This is a sample item description.", 100, this);
+        //Pêtla for jest tymczasowa - zostanie zast¹piona wszystkimi rzeczami
+        for (int i = 0; i < 8; i++)
+        {
+            GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
+            StoreItem newStoreItem = newItem.GetComponent<StoreItem>();
+            newStoreItem.InitializeItem(i, "store_item_image "+ i, "Sample Item", "This is a sample item description.", 100, this);
+            storeItems.Add(newStoreItem);
+        }
     }
 
     public void UpdateTotalPrice(int priceChange)
     {
         currentTotalPrice += priceChange;
-        totalPriceHeader.text = "Total Price: " + currentTotalPrice.ToString();
-        totalPriceFooter.text = "Total Price: " + currentTotalPrice.ToString();
+        totalPriceHeader.text = currentTotalPrice.ToString() + "$B";
+        totalPriceFooter.text = currentTotalPrice.ToString() + "$B";
         bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
         if(enoughMoney)
         {
@@ -104,7 +130,7 @@ public class TabletController : MonoBehaviour
         else
         {
             warningText.SetActive(true);
-            orderButton.interactable = true;
+            orderButton.interactable = false;
         }
     }
 
