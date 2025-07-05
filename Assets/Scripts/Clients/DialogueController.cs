@@ -22,7 +22,7 @@ public class DialogueController : MonoBehaviour
     {
         if (StageManagerRef.GetCurrentGameStage() == GameStage.EnterStore)
         {
-            ProgressStage();
+            ProgressStage(); // DEBUG ONLY, PLUG INTO GAME FLOW
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
