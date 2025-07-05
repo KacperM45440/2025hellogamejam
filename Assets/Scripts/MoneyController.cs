@@ -6,6 +6,11 @@ public class MoneyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyCounter;
     [SerializeField] private int currentMoney = 0;
 
+    public void Start()
+    {
+        UpdateUI();
+    }
+
     public void gainMoney(int amount)
     {
         currentMoney += amount;
