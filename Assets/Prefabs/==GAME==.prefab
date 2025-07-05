@@ -284,6 +284,75 @@ Transform:
   - {fileID: 9098837916007385916}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5029122334869933794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7250769505651845673}
+  - component: {fileID: 6864060316383394697}
+  m_Layer: 0
+  m_Name: Dialogue Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7250769505651845673
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5029122334869933794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2333057920097836751}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &6864060316383394697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5029122334869933794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517c9c51fb9658740ab6a0ac4749be52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Client1Greeting:
+  - Greetings...
+  - 'I, the mighty General, require your assistance in making myself a brand new... '
+  - Special... "honey"...
+  - As I am preparing for my next...
+  - Battle.
+  Client1Request:
+  - But, as you can predict, it cannot be just a plain ol' gun.
+  - It has to be something greater!
+  - Something you've never seen before!
+  - I desire a gun that will make all my enemies shiver!
+  - It has to be loud, and fast!
+  - Do you think you are able to create something like that?
+  Client1ResponseGood: []
+  Client1ResponseAverage: []
+  Client1ResponseBad: []
+  Client2Greeting: []
+  Client2Request: []
+  Client2ResponseGood: []
+  Client2ResponseAverage: []
+  Client2ResponseBad: []
 --- !u!1 &6283526214347086386
 GameObject:
   m_ObjectHideFlags: 0
@@ -312,6 +381,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7250769505651845673}
   - {fileID: 7988987387497295522}
   m_Father: {fileID: 8248561260787668466}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
