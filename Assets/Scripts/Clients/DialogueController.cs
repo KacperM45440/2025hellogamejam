@@ -18,6 +18,7 @@ public class DialogueController : MonoBehaviour
     [HideInInspector] public List<List<string>> DialogueResponsesAverage;
     [HideInInspector] public List<List<string>> DialogueResponsesBad;
 
+
     public void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Q))//przerobiæ na lewy przycik myszki na kliencie
