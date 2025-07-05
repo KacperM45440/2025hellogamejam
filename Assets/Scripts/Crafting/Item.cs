@@ -17,8 +17,8 @@ public enum ItemType
 [Serializable]
 public struct ItemAnchor
 {
-    public Transform anchor;
-    public ItemType[] avaliableTypes;
+    public ItemAnchorTarget anchor;
+    public ItemType avaliableType;
 }
 
 
@@ -40,9 +40,10 @@ public class Item : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     public bool isHovered = false;
     public bool isGrabed;
+    public bool inCrafting;
 
     private SpriteRenderer[] _circles;
-    public Item[] addedItems;
+    public Item parentItem;
 
 
     private void Awake()
@@ -50,10 +51,11 @@ public class Item : MonoBehaviour
         _circles = new SpriteRenderer[itemAnchors.Length];
         for (int i = 0; i < itemAnchors.Length; i++)
         {
-            _circles[i] = itemAnchors[i].anchor.GetChild(0).GetComponent<SpriteRenderer>();
+            _circles[i] = itemAnchors[i].anchor.circle;
+            itemAnchors[i].anchor.parentItem = this;
+            itemAnchors[i].anchor.itemType = itemAnchors[i].avaliableType;
         }
 
-        addedItems = new Item[itemAnchors.Length];
         ClearCircles();
     }
 
@@ -78,8 +80,9 @@ public class Item : MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("ItemGrabed");
         rb.isKinematic = true;
         isGrabed = true;
+        inCrafting = false;
 
-        if (itemType == ItemType.FRAME)
+        if (itemType == ItemType.FRAME && !CraftingMgr.Instance.currentItem)
         {
             itemPlaceholder.transform.parent = CraftingMgr.Instance.craftingAnchor;
             itemPlaceholder.transform.localPosition = -itemAnchor.transform.localPosition;
@@ -98,6 +101,7 @@ public class Item : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
         isGrabed = true;
+        inCrafting = true;
     }
 
     public void Drop(Vector3 velocity, bool toCrafting = false)
@@ -144,14 +148,15 @@ public class Item : MonoBehaviour
         {
             Transform circle = _circles[i].transform;
 
-            if (addedItems[i])
+            if (itemAnchors[i].anchor.addedItem)
             {
                 if (circle.localScale.x != 0)
                 {
                     circle.DOKill();
                     circle.DOScale(0f, 0.25f).SetEase(Ease.InOutBack);
+                    itemAnchors[i].anchor.collider.enabled = false;
                 }
-                addedItems[i].RefreshCircles();
+                itemAnchors[i].anchor.addedItem.RefreshCircles();
             }
             else
             {
@@ -159,6 +164,7 @@ public class Item : MonoBehaviour
                 {
                     circle.DOKill();
                     circle.DOScale(0.5f, 0.25f).SetEase(Ease.InOutBack);
+                    itemAnchors[i].anchor.collider.enabled = true;
                 }
             }
         }
@@ -171,13 +177,26 @@ public class Item : MonoBehaviour
             Transform circle = _circles[i].transform;
             circle.DOKill();
             circle.DOScale(0f, 0.25f).SetEase(Ease.InOutBack);
-            if (addedItems[i])
+            itemAnchors[i].anchor.collider.enabled = false;
+            if (itemAnchors[i].anchor.addedItem)
             {
-                addedItems[i].ClearCircles();
+                itemAnchors[i].anchor.addedItem.ClearCircles();
             }
         }
     }
-    
+
+    public void SetItemToAnchor(ItemAnchorTarget anchor, Item item)
+    {
+        item.PlaceToCrafting();
+        item.transform.parent = anchor.transform;
+        item.transform.DOKill();
+        item.transform.DOLocalRotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.25f);
+        item.transform.DOLocalMove(-item.itemAnchor.transform.localPosition, 0.25f).OnComplete(() =>
+        {
+            CraftingMgr.Instance.currentItem.RefreshCircles();
+        });;
+    }
+
 }
 
 
