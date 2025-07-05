@@ -8,6 +8,11 @@ public class MoneyController : MonoBehaviour
 
     public void Start()
     {
+        if(moneyCounter == null)
+        {
+            Debug.LogError("Money Counter is not assigned in MoneyController");
+            return;
+        }
         UpdateUI();
     }
 

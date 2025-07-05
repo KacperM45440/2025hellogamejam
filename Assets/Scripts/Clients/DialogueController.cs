@@ -20,11 +20,7 @@ public class DialogueController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (StageManagerRef.GetCurrentGameStage() == GameStage.EnterStore)
-        {
-            ProgressStage(); // DEBUG ONLY, PLUG INTO GAME FLOW
-        }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))//przerobiæ na lewy przycik myszki na kliencie
         {
             ProgressDialogue();
         }

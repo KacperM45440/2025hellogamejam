@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ClientController : MonoBehaviour
 {
+    public DialogueController dialogueControllerRef;
     public ClientData ClientDataRef;
     public ClientScript ClientRef;
     public int ClientAmount;
@@ -55,6 +56,16 @@ public class ClientController : MonoBehaviour
         ClientRef.ClientFace.sprite = currentClient.ClientFace;
 
         CurrentClientInt++;
+
+        //W³¹cz animacjê klienta podchodz¹cego do lady
+        //ClientRef.GetComponent<Animator>().SetTrigger("WalkToCounter");
+    }
+
+    //Metoda wywo³ana z animacji
+    public void ClientArrived()
+    {
+        dialogueControllerRef.ProgressStage();
+        dialogueControllerRef.ProgressDialogue();
     }
 
     public class Client

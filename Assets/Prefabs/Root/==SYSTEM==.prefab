@@ -353,6 +353,9 @@ GameObject:
   - component: {fileID: 7084917852180575029}
   - component: {fileID: 505569472094209997}
   - component: {fileID: 5238029434060443212}
+  - component: {fileID: 1889272767572215593}
+  - component: {fileID: 3572493483141366180}
+  - component: {fileID: 8877996245894395276}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -399,3 +402,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf494d8b23b389c438ba207d121bf311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1889272767572215593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317903139063553553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488483a9f8e34e5419e764e8962955a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyCounter: {fileID: 0}
+  currentMoney: 0
+--- !u!114 &3572493483141366180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317903139063553553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c450ce9a17019ff4b9b686e08a510b49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryScriptRef: {fileID: 0}
+  moneyControllerRef: {fileID: 1889272767572215593}
+  clientControllerRef: {fileID: 0}
+--- !u!114 &8877996245894395276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6317903139063553553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d56dca745ce441b488e991329ae32192, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingInventory: []
+  currentInventory: []
+  spawnedItems: []
+  itemPrefab: {fileID: 0}

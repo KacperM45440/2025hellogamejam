@@ -4,7 +4,6 @@ public class StageManager : MonoBehaviour
 {
     public enum GameStage
     {
-        Menu,
         EnterStore,
         Greeting,
         Request,
