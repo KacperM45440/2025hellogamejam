@@ -39,6 +39,7 @@ public class CameraMgr : Singleton<CameraMgr>
 
     }
     
+
     private float FixMinusAngle(float angle)
     {
         if (angle < 0f) {
@@ -49,4 +50,5 @@ public class CameraMgr : Singleton<CameraMgr>
         }
         return angle;
     }
+    
 }
