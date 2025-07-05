@@ -319,17 +319,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 052506572c2339f4aa2d58c2231a42c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
+  name: Gun
   price: 0
-  iconName: 
+  iconName: Gun
   itemType: 0
-  description: 
+  description: Gun
   itemAnchors:
   - anchor: {fileID: 3926992022136746941}
     avaliableTypes: 00000000
   itemPlaceholder: {fileID: 2372117841023953455}
-  handGrabPosOffset: {x: 0, y: 0, z: 0}
-  handGrabRotOffset: {x: 0, y: 0, z: 0}
+  handGrabPosOffset: {x: -0.141, y: 0, z: 0.314}
+  handGrabRotOffset: {x: 0, y: -100, z: 0}
   itemSprite: {fileID: 2014666159043588951}
   outline: {fileID: 4868507348052808591}
   rb: {fileID: 1486633355609335662}

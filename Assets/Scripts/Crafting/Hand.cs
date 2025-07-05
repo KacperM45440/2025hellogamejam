@@ -7,6 +7,7 @@ public class Hand : MonoBehaviour
 
     public bool active = true;
     [SerializeField] private LayerMask inputLayerMask;
+    [SerializeField] private LayerMask grabLayerMask;
     [SerializeField] private Transform moveTarget;
     [SerializeField] private Transform rotationTarget;
     [SerializeField] private Transform socket;
@@ -43,7 +44,6 @@ public class Hand : MonoBehaviour
         Controller();
         TrackHandPosition();
         RotateHand();
-        LookingForItem();
     }
 
     private void Controller()
@@ -96,13 +96,29 @@ public class Hand : MonoBehaviour
         if (!active) return;
         if (_blockFollow) return;
         MoveHand();
+        LookingForItem();
     }
     
     private void LookingForItem()
     {
         if(currentItem) return;
-        
-        
+        //if (Physics.Raycast(moveTarget.position, Vector3.down,  out RaycastHit hit, 10f, grabLayerMask))
+        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,grabLayerMask))
+        {
+            if (hit.transform.TryGetComponent(out hoveredItem))
+            {
+                hoveredItem.SetHover(true);
+            }
+        }
+        else
+        {
+            if (hoveredItem)
+            {
+                hoveredItem.SetHover(false);
+                hoveredItem = null;
+            }
+        }
+
     }
 
     private void MoveHand()
@@ -134,30 +150,37 @@ public class Hand : MonoBehaviour
         hoveredItem = null;
         handRb.isKinematic = true;
         _blockFollow = true;
+        if (_grabSequence != null) _grabSequence.Kill();
+
         _grabSequence = DOTween.Sequence();
 
-        float d = 1f;
+        float d = 0.25f;
         _grabSequence.Insert(0f, handRb.transform.DOLocalRotate(Vector3.zero, d / 2f));
-        _grabSequence.Insert(0f, handRb.DOMove(currentItem.transform.position + Vector3.up * 0.25f, d).OnComplete(
-            () =>
-            {
-                currentItem.transform.parent = socket;
-                currentItem.DOKill();
-                currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.25f);
-                currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.25f);
-
-            }));
+        _grabSequence.Insert(0f, handRb.transform.DOMove(currentItem.transform.position + Vector3.up * 0.15f, d).SetEase(Ease.InCubic));
+  
         _grabSequence.OnComplete(() =>
         {
+            currentItem.transform.parent = socket;
+            currentItem.StartDrag();
+            currentItem.DOKill();
+            currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.25f);
+            currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.25f);
             _blockFollow = false;
+            handRb.isKinematic = false;
+
         });
 
     }
 
     public void DropItem()
     {
-        if(currentItem) return;
-        currentItem.SetHover(false);
+        if(!currentItem) return;
+        currentItem.Drop();
         currentItem = null;
+        if (_grabSequence != null)
+        {
+            _grabSequence.Kill();
+            if (_blockFollow) _blockFollow = false;
+        }
     }
 }
