@@ -1,4 +1,5 @@
 using System;
+using DG.Tweening;
 using UnityEngine;
 
 public class Hand : MonoBehaviour
@@ -8,10 +9,17 @@ public class Hand : MonoBehaviour
     [SerializeField] private LayerMask inputLayerMask;
     [SerializeField] private Transform moveTarget;
     [SerializeField] private Transform rotationTarget;
+    [SerializeField] private Transform socket;
     [SerializeField] private float handSpeed;
     [SerializeField] private float handOffset;
     [SerializeField] private Rigidbody handRb;
     [SerializeField] private float rotationTargetRadius = 3f;
+
+    private bool _blockFollow = false;
+
+    public Item currentItem;
+    public Item hoveredItem;
+    
 
     [Range(0, 1)]
     public float lookAtWeight = 1.0f;
@@ -19,6 +27,8 @@ public class Hand : MonoBehaviour
     
     private RaycastHit _hit;
     private Camera _camera;
+
+    private Sequence _grabSequence;
     
     void Awake()
     {
@@ -28,7 +38,29 @@ public class Hand : MonoBehaviour
     void Update()
     {
         if(!active) return;
+        if(_blockFollow) return;
 
+        Controller();
+        TrackHandPosition();
+        RotateHand();
+        LookingForItem();
+    }
+
+    private void Controller()
+    {
+        if (Input.GetMouseButtonDown(0) && hoveredItem && !currentItem)
+        {
+            GrabItem();
+        }
+        
+        if (Input.GetMouseButtonUp(0) && currentItem)
+        {
+            DropItem();
+        }
+    }
+
+    private void TrackHandPosition()
+    {
         if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out _hit, 100f,inputLayerMask))
         {
             Vector3 dir = (_camera.transform.position - _hit.point).normalized * handOffset;
@@ -42,17 +74,14 @@ public class Hand : MonoBehaviour
             }
 
         }
-        
-      RotateHand();
     }
-
 
     private void RotateHand()
     {
         float xDiscance = moveTarget.position.x - rotationTarget.position.x;
         float zDiscance = moveTarget.position.z - rotationTarget.position.z;
-        float xScale = moveTarget.position.x > rotationTarget.position.x ? -1f : 1f;
-        float zScale = moveTarget.position.z > rotationTarget.position.z ? 1f : -1f;
+        float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
+        float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
 
         float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
         float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
@@ -61,8 +90,22 @@ public class Hand : MonoBehaviour
         moveTarget.rotation = targetRotation;
 
     }
-
+    
     private void FixedUpdate()
+    {
+        if (!active) return;
+        if (_blockFollow) return;
+        MoveHand();
+    }
+    
+    private void LookingForItem()
+    {
+        if(currentItem) return;
+        
+        
+    }
+
+    private void MoveHand()
     {
         handRb.linearVelocity = (moveTarget.position - handRb.position)/Time.fixedDeltaTime;
 
@@ -82,5 +125,39 @@ public class Hand : MonoBehaviour
             return angle - 360f;
         }
         return angle;
+    }
+
+    public void GrabItem()
+    {
+        if(!hoveredItem) return;
+        currentItem = hoveredItem;
+        hoveredItem = null;
+        handRb.isKinematic = true;
+        _blockFollow = true;
+        _grabSequence = DOTween.Sequence();
+
+        float d = 1f;
+        _grabSequence.Insert(0f, handRb.transform.DOLocalRotate(Vector3.zero, d / 2f));
+        _grabSequence.Insert(0f, handRb.DOMove(currentItem.transform.position + Vector3.up * 0.25f, d).OnComplete(
+            () =>
+            {
+                currentItem.transform.parent = socket;
+                currentItem.DOKill();
+                currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.25f);
+                currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.25f);
+
+            }));
+        _grabSequence.OnComplete(() =>
+        {
+            _blockFollow = false;
+        });
+
+    }
+
+    public void DropItem()
+    {
+        if(currentItem) return;
+        currentItem.SetHover(false);
+        currentItem = null;
     }
 }
