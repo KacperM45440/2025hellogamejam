@@ -48,7 +48,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
-
+    public int Client6ID = 6;
     public string Client6Name;
     public Sprite Client6Body;
     public Sprite Client6Face;
@@ -57,6 +57,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client7ID = 7;
     public string Client7Name;
     public Sprite Client7Body;
     public Sprite Client7Face;
@@ -65,6 +66,7 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client8ID = 8;
     public string Client8Name;
     public Sprite Client8Body;
     public Sprite Client8Face;
@@ -73,12 +75,30 @@ public class ClientData : MonoBehaviour
 
     [Space]
 
+    public int Client9ID = 9;
     public string Client9Name;
     public Sprite Client9Body;
     public Sprite Client9Face;
     public Mesh Client9Head;
     public string Client9Speech;
 
+    public List<int> CreateClientIDs()
+    {
+        List<int> clientIDs = new List<int>
+        {
+            Client1ID,
+            Client2ID,
+            Client3ID,
+            Client4ID,
+            Client5ID,
+            Client6ID,
+            Client7ID,
+            Client8ID,
+            Client9ID,
+        };
+
+        return clientIDs;
+    }
 
     public List<string> CreateClientNames()
     {
