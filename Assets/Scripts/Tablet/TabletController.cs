@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net.Sockets;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -19,14 +20,19 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameObject warningText;
     [SerializeField] private GameObject shopScreen;
     [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private Button nextArticleButton;
+    [SerializeField] private Button previousArticleButton;
 
     public List<Event> AllEvents = new List<Event>();
     public List<Event> possibleEvents = new List<Event>();
+    public List<Event> queuedEvents = new List<Event>();
 
     public List<StoreItem> storeItems = new List<StoreItem>();
 
     private int currentDay = 0;
     private int currentTotalPrice = 0;
+    private int dailyClients = 3;
+    private int currentViewedArticle = 0;
 
     [System.Serializable]
     public class Event
@@ -34,13 +40,13 @@ public class TabletController : MonoBehaviour
         public string title;
         public string contents;
         public string imageNameRef;
-        public List<int> clients = new List<int>();
-        public Event(string myTitle, string myContents, string myImageNameRef, List<int> myClients)
+        public int clientID;
+        public Event(string myTitle, string myContents, string myImageNameRef, int myClientID)
         {
             title = myTitle;
             contents = myContents;
             imageNameRef = myImageNameRef;
-            clients = myClients;
+            clientID = myClientID;
         }
     }
 
@@ -67,9 +73,44 @@ public class TabletController : MonoBehaviour
     public void PullOutTablet()
     {
         currentDay++;
-        Event currentEvent = GetRandomEvent();
-        newsletterRef.InitializeArticle(currentDay, currentEvent.title, currentEvent.contents, currentEvent.imageNameRef);
+        for (int i = 0; i < dailyClients; i++)
+        {
+            queuedEvents.Add(GetRandomEvent());
+        }
+        Event defaultArticle = queuedEvents[0];
+        currentViewedArticle = 0;
+        newsletterRef.LoadArticle(currentDay, defaultArticle.title, defaultArticle.contents, defaultArticle.imageNameRef);
         GenerateStoreItems();
+    }
+
+    public void NextArticle()
+    {
+        currentViewedArticle++;
+        if (currentViewedArticle >= queuedEvents.Count - 1)
+        {
+            nextArticleButton.interactable = false;
+        }
+        if (currentViewedArticle > 0)
+        {
+            previousArticleButton.interactable = true;
+        }
+        Event currentEvent = queuedEvents[currentViewedArticle];
+        newsletterRef.LoadArticle(currentDay, currentEvent.title, currentEvent.contents, currentEvent.imageNameRef);
+    }
+
+    public void PreviousArticle()
+    {
+        currentViewedArticle--;
+        if (currentViewedArticle <= 0)
+        {
+            previousArticleButton.interactable = false;
+        }
+        if (currentViewedArticle < queuedEvents.Count - 1)
+        {
+            nextArticleButton.interactable = true;
+        }
+        Event currentEvent = queuedEvents[currentViewedArticle];
+        newsletterRef.LoadArticle(currentDay, currentEvent.title, currentEvent.contents, currentEvent.imageNameRef);
     }
 
     public void PlaceOrder()
@@ -81,7 +122,7 @@ public class TabletController : MonoBehaviour
             loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
             shopScreen.SetActive(false);
 
-            //send list of bought items to the game controller
+
             foreach (StoreItem item in storeItems)
             {
                 int itemID;
@@ -91,6 +132,8 @@ public class TabletController : MonoBehaviour
                 {
                     continue;
                 }
+                //send list of bought items to the game controller
+                //PRZY MERGOWANIU U¯YJ TEJ LISTY DO ODCZYTANIA JAKIE PRZEDMIOTY GRACZ ZAKUPI£
                 Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemID.ToString());
             }
         }
@@ -109,6 +152,7 @@ public class TabletController : MonoBehaviour
 
     private void GenerateStoreItems()
     {
+        //PRZY MERGOWANIU TUTAJ POWINNA POJAWIÆ SIÊ PÊTLA TWORZ¥CA ELEMENT SKLEPOWY DLA KA¯DEGO ELEMENTU KTÓRY MO¯NA KUPIÆ
         //Pêtla for jest tymczasowa - zostanie zast¹piona wszystkimi rzeczami
         for (int i = 0; i < 8; i++)
         {
@@ -136,12 +180,27 @@ public class TabletController : MonoBehaviour
         }
     }
 
+    public List<int> GetQueuedClientIDs()//PRZY MERGOWANIU U¯YJ TEJ METODY TO ODCZYTANIA JAKICH KLIENTÓW ZESPAWNOWAÆ NASTÊPNEGO DNIA
+    {
+        List<int> clientIDs = new List<int>();
+        foreach (Event ev in queuedEvents)
+        {
+            clientIDs.Add(ev.clientID);
+        }
+        return clientIDs;
+    }
+
     private Event GetRandomEvent()
     {
         int chosenEventIndex = UnityEngine.Random.Range(0, possibleEvents.Count);
         Event currentEvent = possibleEvents[chosenEventIndex];
         possibleEvents.RemoveAt(chosenEventIndex);
         return currentEvent;
+    }
+
+    private void ClearQueuedEvents()
+    {
+        queuedEvents.Clear();
     }
 
     private void ResetPossibleEvents()
@@ -152,11 +211,13 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    private void LoadEvents()//Temporary articles - place articles here
+    private void LoadEvents()
     {
-        AllEvents.Add(new Event("Day 1: The Beginning", "Today marks the start of our journey. We are excited to explore new horizons and share our experiences with you.", "day1_image", new List<int> { 1, 2, 3 }));
-        AllEvents.Add(new Event("Day 2: Discoveries", "On the second day, we made some fascinating discoveries that will shape our future endeavors.", "day2_image", new List<int> { 1, 2, 3 }));
-        AllEvents.Add(new Event("Day 3: Challenges", "Every journey has its challenges. Today, we faced some obstacles but learned valuable lessons.", "day3_image", new List<int> { 1, 2, 3 }));
-        AllEvents.Add(new Event("Day 4: Triumphs", "Despite the challenges, we celebrated our triumphs and looked forward to what lies ahead.", "day4_image", new List<int> { 1, 2, 3 }));
+        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 0));
+        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 0));
+        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 0));
+        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 0));
+        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 0));//Notatka, mo¿e jednak zwiêkszony wskaŸnik samobójstw?
+        AllEvents.Add(new Event("Stalker", "Opis eventu ze stalkerem.", "StalkerArticleImage", 0));
     }
 }
