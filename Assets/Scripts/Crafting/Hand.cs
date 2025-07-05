@@ -153,21 +153,26 @@ public class Hand : MonoBehaviour
         if (_grabSequence != null) _grabSequence.Kill();
 
         _grabSequence = DOTween.Sequence();
+        Vector3 targetHandMove = currentItem.transform.position +
+                                 (socket.localPosition - currentItem.handGrabPosOffset) + Vector3.up * 0.2f;
 
         float d = 0.25f;
-        _grabSequence.Insert(0f, handRb.transform.DOLocalRotate(Vector3.zero, d / 2f));
-        _grabSequence.Insert(0f, handRb.transform.DOMove(currentItem.transform.position + Vector3.up * 0.15f, d).SetEase(Ease.InCubic));
-  
-        _grabSequence.OnComplete(() =>
+        _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
+        _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d/2f).SetEase(Ease.InCubic).OnComplete(() =>
         {
             currentItem.transform.parent = socket;
             currentItem.StartDrag();
             currentItem.DOKill();
-            currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.25f);
-            currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.25f);
+            currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
+            currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
+        }));
+        _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(moveTarget.position, d/2f).SetEase(Ease.InCubic));
+
+        _grabSequence.OnComplete(() =>
+        {
             _blockFollow = false;
             handRb.isKinematic = false;
-
+        
         });
 
     }
