@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 4779006098069043148}
   - component: {fileID: 1486633355609335662}
   - component: {fileID: 4706554517477961556}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TestItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,6 +334,7 @@ MonoBehaviour:
   outline: {fileID: 4868507348052808591}
   rb: {fileID: 1486633355609335662}
   isHovered: 0
+  isGrabed: 0
 --- !u!54 &1486633355609335662
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -342,8 +343,8 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5612041653851114978}
   serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
+  m_Mass: 10
+  m_Drag: 0.05
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}

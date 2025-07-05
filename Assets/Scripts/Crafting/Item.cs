@@ -38,6 +38,7 @@ public class Item : MonoBehaviour
     [SerializeField] private SpriteRenderer outline;
     [SerializeField] private Rigidbody rb;
     public bool isHovered = false;
+    public bool isGrabed;
 
 
     public void SetHover(bool hover)
@@ -47,19 +48,32 @@ public class Item : MonoBehaviour
         outline.DOFade(isHovered ? 1f : 0f, 0.25f);
     }
 
-    public void StartDrag()
+    public void StartGrab()
     {
         SetHover(true);
         rb.isKinematic = true;
+        isGrabed = true;
     }
 
-    public void Drop()
+    public void Drop(Vector3 velocity)
     {
         SetHover(false);
         rb.isKinematic = false;
+        rb.linearVelocity = velocity;
         transform.parent = null;
+        isGrabed = false;
     }
 
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("KillZone") && !isGrabed)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            transform.position = CraftingMgr.Instance.GetItemSpawnPosition();
+            transform.eulerAngles =  transform.eulerAngles.With(x: 0, z: 0);
+        }
+    }
 }
 
 

@@ -20,6 +20,7 @@ public class Hand : MonoBehaviour
 
     public Item currentItem;
     public Item hoveredItem;
+    private Item _newHoverItem;
     
 
     [Range(0, 1)]
@@ -28,6 +29,8 @@ public class Hand : MonoBehaviour
     
     private RaycastHit _hit;
     private Camera _camera;
+    private Vector3 _handVelocity;
+    private Vector3 _previousHandPosition;
 
     private Sequence _grabSequence;
     
@@ -88,7 +91,8 @@ public class Hand : MonoBehaviour
 
         Quaternion targetRotation = Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
         moveTarget.rotation = targetRotation;
-
+        _handVelocity = (moveTarget.position - _previousHandPosition) / Time.deltaTime;
+        _previousHandPosition = moveTarget.position;
     }
     
     private void FixedUpdate()
@@ -97,6 +101,7 @@ public class Hand : MonoBehaviour
         if (_blockFollow) return;
         MoveHand();
         LookingForItem();
+
     }
     
     private void LookingForItem()
@@ -105,9 +110,15 @@ public class Hand : MonoBehaviour
         //if (Physics.Raycast(moveTarget.position, Vector3.down,  out RaycastHit hit, 10f, grabLayerMask))
         if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,grabLayerMask))
         {
-            if (hit.transform.TryGetComponent(out hoveredItem))
+            if (hit.transform.TryGetComponent(out _newHoverItem))
             {
+                if (_newHoverItem != hoveredItem && hoveredItem)
+                {
+                    hoveredItem.SetHover(false);
+                }
+                hoveredItem = _newHoverItem;
                 hoveredItem.SetHover(true);
+                _newHoverItem = null;
             }
         }
         else
@@ -155,18 +166,23 @@ public class Hand : MonoBehaviour
         _grabSequence = DOTween.Sequence();
         Vector3 targetHandMove = currentItem.transform.position +
                                  (socket.localPosition - currentItem.handGrabPosOffset) + Vector3.up * 0.2f;
+        Vector3 backMovePosition = moveTarget.position;
 
         float d = 0.25f;
         _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
         _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d/2f).SetEase(Ease.InCubic).OnComplete(() =>
         {
             currentItem.transform.parent = socket;
-            currentItem.StartDrag();
+            currentItem.StartGrab();
             currentItem.DOKill();
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
         }));
-        _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(moveTarget.position, d/2f).SetEase(Ease.InCubic));
+        _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
+            {
+                backMovePosition =  moveTarget.position;
+            })
+            .SetEase(Ease.InCubic));
 
         _grabSequence.OnComplete(() =>
         {
@@ -180,7 +196,7 @@ public class Hand : MonoBehaviour
     public void DropItem()
     {
         if(!currentItem) return;
-        currentItem.Drop();
+        currentItem.Drop(_handVelocity);
         currentItem = null;
         if (_grabSequence != null)
         {
