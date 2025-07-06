@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using UnityEngine;
-
+using UnityEditor.SceneManagement;
+using UnityEngine.SceneManagement;
 public class GameFlowController : MonoBehaviour
 {
     public InventoryScript inventoryScriptRef;
@@ -49,5 +51,21 @@ public class GameFlowController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         RopeRef.gameObject.GetComponent<Animator>().enabled = false;
+    }
+
+    public void WinGame()
+    {
+        EndGame(true);
+    }
+
+    public void LoseGame()
+    {
+        EndGame(false);
+    }
+
+    private void EndGame(bool win)
+    {
+        PlayerPrefs.SetInt("GameWin", Convert.ToInt32(win));
+        SceneManager.LoadScene(3);
     }
 }

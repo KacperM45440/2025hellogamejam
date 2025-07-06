@@ -68,9 +68,9 @@ public class ClientController : MonoBehaviour
 
     public void CreateNextClient()
     {
-        if (ClientRef.transform.childCount > 2)
+        if (ClientRef.transform.childCount > 3)
         {
-            Destroy(ClientRef.transform.GetChild(2).gameObject);
+            Destroy(ClientRef.transform.GetChild(3).gameObject);
         }
 
         CurrentClient = GetNextClient(CurrentClientInt);
@@ -86,22 +86,23 @@ public class ClientController : MonoBehaviour
         ClientRef.ClientHead = newHead;
 
         ClientRef.ClientBody.sprite = CurrentClient.ClientBody;
+        ClientRef.Outline.sprite = CurrentClient.ClientBody;
 
         CurrentClientInt++;
 
 
-        //W³¹cz animacjê klienta podchodz¹cego do lady
+        //Wï¿½ï¿½cz animacjï¿½ klienta podchodzï¿½cego do lady
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
         StartCoroutine(WaitForClientArrival());
     }
 
     private IEnumerator WaitForClientArrival()
     {
-        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJŒCIA KLIENTA
+        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJï¿½CIA KLIENTA
         ClientArrived();
     }
 
-    //Metoda wywo³ana z animacji
+    //Metoda wywoï¿½ana z animacji
     public void ClientArrived()
     {
         dialogueControllerRef.ProgressStage();
@@ -116,7 +117,7 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator WaitForGunInspection()
     {
-        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJŒCIA KLIENTA
+        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJï¿½CIA KLIENTA
         //ClientReviewGun();
     }
 

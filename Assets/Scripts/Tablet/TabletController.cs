@@ -11,6 +11,7 @@ using static UnityEngine.ParticleSystem;
 
 public class TabletController : MonoBehaviour
 {
+    [SerializeField] private InventoryScript inventoryRef;
     [SerializeField] private AllItemsInGame allItemsRef;
     [SerializeField] private MoneyController moneyControllerRef;
     [SerializeField] private NewsletterClass newsletterRef;
@@ -61,6 +62,10 @@ public class TabletController : MonoBehaviour
         if (allItemsRef == null)
         {
             Debug.LogWarning("PODEPNIJ WSZYSTKIE ITEMKI");
+        }
+        if (inventoryRef == null)
+        {
+            Debug.LogWarning("PODEPNIJ INVENTORY");
         }
 
         LoadEvents();
@@ -126,20 +131,22 @@ public class TabletController : MonoBehaviour
             loadingScreen.SetActive(true);
             loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
             shopScreen.SetActive(false);
-
+            moneyControllerRef.spendMoney(currentTotalPrice);
 
             foreach (StoreItem item in storeItems)
             {
-                int itemID;
+                GameObject itemGO;
                 int itemCount;
-                item.GetOrderCount(out itemID, out itemCount);
+                item.GetOrderCount(out itemGO, out itemCount);
                 if (itemCount <= 0)
                 {
                     continue;
                 }
-                //send list of bought items to the game controller
-                //PRZY MERGOWANIU U¯YJ TEJ LISTY DO ODCZYTANIA JAKIE PRZEDMIOTY GRACZ ZAKUPI£
-                Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemID.ToString());
+                for (int i = 0; i < itemCount; i++)
+                {
+                    inventoryRef.AddToInventory(itemGO);
+                }
+                Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemGO.name.ToString());
             }
         }
     }
@@ -162,7 +169,7 @@ public class TabletController : MonoBehaviour
         {
             GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
             StoreItem newStoreItem = newItem.GetComponent<StoreItem>();
-            newStoreItem.InitializeItem(i, item.iconName, item.name, item.description, item.price, this);
+            newStoreItem.InitializeItem(item.gameObject, item.iconName, item.name, item.description, item.price, this);
             storeItems.Add(newStoreItem);
             i++;
         }

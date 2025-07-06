@@ -263,6 +263,26 @@ public class Hand : MonoBehaviour
                     _rope.SetOutline(false);
                 }
             }
+            
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit clientHit, 100f,
+                    clientMask))
+            {
+                if (clientHit.collider.TryGetComponent(out _clientScript))
+                {
+                    _clientScript.SetOutline(true);
+                }
+                else if (_clientScript)
+                {
+                    _clientScript.SetOutline(false);
+                }
+            }
+            else
+            {
+                if (_clientScript)
+                {
+                    _clientScript.SetOutline(false);
+                }
+            }
         }
         else
         {
@@ -295,8 +315,11 @@ public class Hand : MonoBehaviour
             else
             {
                 currentItem.SetOutlineColor(Color.white);
+                // if(_clientScript)
+                // {
+                //     _clientScript.SetOutline(false);
+                // }
             }
-
         }
     }
 

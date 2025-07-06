@@ -19,20 +19,19 @@ public class StoreItem : MonoBehaviour
     [SerializeField] [Range(1, 99)] private int discountModifierMax = 80;
     [SerializeField] private Image frame;
     [SerializeField] private Sprite Sprite;
-    private int thisWeaponID = 0;
+    private GameObject thisWeaponGO;
     private int currentOrderCount = 0;
     private int currentPrice = 0;
 
-    public void InitializeItem(int weaponID, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
+    public void InitializeItem(GameObject weaponGO, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
     {
-        Debug.Log(nameText + " initialized with image: " + imageResourcesRef);
         imageField.sprite = Resources.Load<Sprite>("WeaponIcons/"+imageResourcesRef);
         nameField.text = nameText;
         descriptionField.text = descriptionText;
         initialPriceField.text = initialPrice.ToString() + " $B";
         tabletControllerRef = controllerRef;
         currentPrice = initialPrice;
-        thisWeaponID = weaponID;
+        thisWeaponGO = weaponGO;
         RandomizeDiscount();
     }
 
@@ -58,9 +57,9 @@ public class StoreItem : MonoBehaviour
         tabletControllerRef.UpdateTotalPrice(-currentPrice);
     }
 
-    public void GetOrderCount(out int returnID, out int returnCount)
+    public void GetOrderCount(out GameObject itemGO, out int returnCount)
     {
-        returnID = thisWeaponID;
+        itemGO = thisWeaponGO;
         returnCount = currentOrderCount;
     }
 

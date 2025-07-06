@@ -21,6 +21,7 @@ public class MoneyController : MonoBehaviour
 
     public void gainMoney(int amount)
     {
+        Debug.Log("Gaining money: " + amount.ToString() + "$B");
         currentMoney += amount;
         currentMoneyInJar += amount;
         UpdateUI();
@@ -39,6 +40,7 @@ public class MoneyController : MonoBehaviour
 
     public void UpdateUI()
     {
+        Debug.Log("Updating money UI: " + currentMoney.ToString() + "$B");
         moneyCounter.text = currentMoney.ToString() + "$B";
     }
 
