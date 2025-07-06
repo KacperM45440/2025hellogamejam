@@ -23,7 +23,7 @@ public class DialogueController : MonoBehaviour
 
     public void FixedUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Q))//przerobiæ na lewy przycik myszki na kliencie
+        if (Input.GetMouseButtonDown(0))
         {
             ProgressDialogue();
         }
