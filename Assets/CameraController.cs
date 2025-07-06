@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class CameraMgr : Singleton<CameraMgr>
+public class CameraController : Singleton<CameraController>
 {
-
+    public GameFlowController FlowControllerRef;
     public Hand hand;
     [SerializeField] private float maxCamerMoveRadius = 5f;
     [Range(0f, 1f)]
@@ -21,13 +21,21 @@ public class CameraMgr : Singleton<CameraMgr>
     public Rope rope;
     public Transform tabletTransform;
     public bool isTablet;
+    
+    private bool canMoveToWorkshop = false;
+
+    private string controllerName = "CameraController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     public override void Awake()
     {
         base.Awake();
         _camera = Camera.main;
     }
-
 
     void Update()
     {
@@ -79,10 +87,16 @@ public class CameraMgr : Singleton<CameraMgr>
         return angle;
     }
 
+    public void UnlockWorkshop()
+    {
+        canMoveToWorkshop = true;
+        FlowControllerRef.FinishRequirement(controllerName);
+    }
+
     public void ChangePos(int value)
     {
         if(isMoving) return;
-        if(!rope.finished) return;  
+        if(!canMoveToWorkshop) return;  
         int oldIndex = currentPosIndex;
         currentPosIndex -= value;
         currentPosIndex = Mathf.Clamp(currentPosIndex, 0, cameraPosPoints.Count - 1);

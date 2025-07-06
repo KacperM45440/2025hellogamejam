@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,7 +40,7 @@ public class Hand : MonoBehaviour
     private Vector3 _handVelocity;
     private Vector3 _previousHandPosition;
 
-    private Sequence _grabSequence;
+    private DG.Tweening.Sequence _grabSequence;
     private Rope _rope;
     private ClientScript _clientScript;
 
@@ -94,21 +95,26 @@ public class Hand : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out _clientScript))
                 {
-                    _clientScript.ClientController.ClientReceiveGun(currentItem);
-                    GameObject gun = currentItem.gameObject;
-                    currentItem.itemPlaceholder.DOKill();
-                    Destroy(currentItem.itemPlaceholder.gameObject);
-                    CraftingMgr.Instance.currentItem = null;
-                    CraftingMgr.Instance.RefreshCollider();
-                    _gripValue = 0f;
-                    currentItem = null;
-                    gun.transform.DOMove(_clientScript.transform.position, 0.25f);
-                    gun.transform.DOScale(0f, 0.25f).OnComplete(() =>
+                    if (_clientScript.ClientController.GetClientCanReceiveGun())
                     {
-                        Destroy(gun);
-                    });
-
-
+                        _clientScript.ClientController.ClientReceiveGun(currentItem);
+                        GameObject gun = currentItem.gameObject;
+                        currentItem.itemPlaceholder.DOKill();
+                        Destroy(currentItem.itemPlaceholder.gameObject);
+                        CraftingMgr.Instance.currentItem = null;
+                        CraftingMgr.Instance.RefreshCollider();
+                        _gripValue = 0f;
+                        currentItem = null;
+                        gun.transform.DOMove(_clientScript.transform.position, 0.25f);
+                        gun.transform.DOScale(0f, 0.25f).OnComplete(() =>
+                        {
+                            Destroy(gun);
+                        });
+                    }
+                    else
+                    {
+                        //Tutaj klient móglby powiedzieæ coœ w stylu "nie przyjmê tego, albo daj mi dokoñczyæ.
+                    }
                 }
             }
         }

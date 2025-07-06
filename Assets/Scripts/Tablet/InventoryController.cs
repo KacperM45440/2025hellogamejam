@@ -2,11 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryScript : MonoBehaviour
+public class InventoryController : MonoBehaviour
 {
     public List<GameObject> startingInventory = new();
     public List<GameObject> currentInventory = new();
     public List<GameObject> spawnedItems = new();
+
+    private string controllerName = "InventoryController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     private void Start()
     {

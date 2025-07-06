@@ -5,6 +5,14 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class ClientController : MonoBehaviour
 {
+    public enum ClientMood
+    {
+        Bad,
+        Neutral,
+        Good
+    }
+
+    public GameFlowController GameFlowControllerRef;
     public MoneyController moneyControllerRef;
     public DialogueController dialogueControllerRef;
     public StageManager StageManagerRef;
@@ -27,6 +35,15 @@ public class ClientController : MonoBehaviour
     public List<int> todaysClients = new List<int>();
 
     private int currentClientSatisfaction = 0;
+    private ClientMood currentClientMood;
+    private bool canReveiveGun = false;
+
+    private string controllerName = "ClientController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     public void Start()
     {
@@ -62,6 +79,11 @@ public class ClientController : MonoBehaviour
         return nextClient;
     }
 
+    public int GetTodaysClientsCount()
+    {
+        return todaysClients.Count;
+    }
+
     public void CreateNextClient()
     {
         if (ClientRef.transform.childCount > 3)
@@ -69,11 +91,11 @@ public class ClientController : MonoBehaviour
             Destroy(ClientRef.transform.GetChild(3).gameObject);
         }
 
+        CurrentClientInt = todaysClients[0];
         CurrentClient = GetNextClient(CurrentClientInt);
         BubbleRef.ClearText();
         dialogueControllerRef.ChangeMainDialogue(CurrentClientInt);
-        StageManagerRef.SetCurrentGameStage(StageManager.GameStage.EnterStore);
-        
+        StageManagerRef.SetCurrentGameStage(StageManager.GameStage.ClientEnterStore);
 
         GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
         newHead.transform.Rotate(new Vector3(0, 0, 90));
@@ -84,10 +106,6 @@ public class ClientController : MonoBehaviour
         ClientRef.ClientBody.sprite = CurrentClient.ClientBody;
         ClientRef.Outline.sprite = CurrentClient.ClientBody;
 
-        CurrentClientInt++;
-
-
-        //W��cz animacj� klienta podchodz�cego do lady
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
         StartCoroutine(WaitForClientArrival());
     }
@@ -95,42 +113,50 @@ public class ClientController : MonoBehaviour
     private IEnumerator WaitForClientArrival()
     {
         yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
-        ClientArrived();
+        GameFlowControllerRef.FinishRequirement(controllerName); // Informujemy GameFlowController, że klient dotarł
+        //ClientArrived();
     }
 
     public void ClientArrived()
     {
+        //TO zrobi Game Flow Controller
+        /*
         dialogueControllerRef.ProgressStage();
         dialogueControllerRef.ProgressDialogue();
+        */
+    }
+
+    public void SetClientCanReceiveGun(bool canReceive)
+    {
+        canReveiveGun = canReceive;
+    }
+
+    public bool GetClientCanReceiveGun()
+    {
+        return canReveiveGun;
     }
 
     public void ClientReceiveGun(Item gun)
     {
-        ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
-        StartCoroutine(WaitForGunInspection(gun));
-    }
+        if(!canReveiveGun)
+        {
+            return;
+        }
+        canReveiveGun = false;
 
-    private IEnumerator WaitForGunInspection(Item gun)
-    {
-        yield return new WaitForSeconds(3f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
         List<ItemCharacteristics> itemCharacteristicsList = new List<ItemCharacteristics>();
         itemCharacteristicsList.AddRange(gun.characteristics);
         for (int i = 0; i < gun.itemAnchors.Length; i++)
         {
-            try
+            if (gun.itemAnchors[i].anchor.addedItem != null)
             {
                 itemCharacteristicsList.AddRange(gun.itemAnchors[i].anchor.addedItem.characteristics);
             }
-            catch (System.Exception)
-            {
-            }
-
         }
-
-        ClientReviewGun(itemCharacteristicsList);
+        ClientCalculateSatisfaction(itemCharacteristicsList);
     }
 
-    public void ClientReviewGun(List<ItemCharacteristics> itemCharacteristics)
+    public void ClientCalculateSatisfaction(List<ItemCharacteristics> itemCharacteristics)
     {
         foreach (ItemCharacteristics characteristic in itemCharacteristics)
         {
@@ -148,8 +174,44 @@ public class ClientController : MonoBehaviour
             }
         }
 
+        switch (currentClientSatisfaction)
+        {
+            case <= 0:
+                currentClientMood = ClientMood.Bad;
+                break;
+            case <= 5:
+                currentClientMood = ClientMood.Neutral;
+                break;
+            default:
+                currentClientMood = ClientMood.Good;
+                break;
+        }
+
+        ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
+        StartCoroutine(WaitForGunInspection());
+    }
+
+    private IEnumerator WaitForGunInspection()
+    {
+        yield return new WaitForSeconds(3f);
+        GameFlowControllerRef.FinishRequirement(controllerName);
+
+        //dialogueControllerRef.WeaponFeedback(currentClientMood);
+
+        //PIENIĄDZE POWINIEN PRZEKAZAĆ PO ODDANIU FEEDBACKU
+        //Debug.Log("Final payment is: " + payment);
+        //moneyControllerRef.gainMoney(payment);
+    }
+
+    public ClientMood GetCurrentClientMood()
+    {
+        return currentClientMood;
+    }
+
+    private int CalculatePayment()
+    {
         int payment = DefaultClientPayment;
-        if (currentClientSatisfaction < 0)
+        if (currentClientSatisfaction <= 0)
         {
             payment = 50;
         }
@@ -157,33 +219,39 @@ public class ClientController : MonoBehaviour
         {
             payment += (50 * currentClientSatisfaction);
         }
+        return payment;
+    }
 
+    public void ClientPaysThenLeaves()
+    {
+        //ClientRef.GetComponent<Animator>().SetTrigger("Pay");
+        StartCoroutine(WaitAfterPaying());
+    }
 
-
-        Debug.Log("Final payment is: " + payment);
+    private IEnumerator WaitAfterPaying()
+    {
+        yield return new WaitForSeconds(2f);
+        int payment = CalculatePayment();
         moneyControllerRef.gainMoney(payment);
+        yield return new WaitForSeconds(2f);
+        ClientRef.GetComponent<Animator>().SetTrigger("LeaveShop");
+        StartCoroutine(WaitAfterLeavingShop());
+    }
 
-        string mood;
-        if (currentClientSatisfaction <= 0)
-        {
-            mood = "Bad";
-        }
-        else if (currentClientSatisfaction <= 3)
-        {
-            mood = "Average";
-        }
-        else
-        {
-            mood = "Good";
-        }
-        dialogueControllerRef.WeaponFeedback(mood);
-        //WŁĄCZ KWESTIW ZALEŻNIE OD JAKOŚCI
+    private IEnumerator WaitAfterLeavingShop()
+    {
+        yield return new WaitForSeconds(3f);
 
+        //Tylko aby wizualnie klient zniknął póki nie ma animacji wychodzenia
+        ClientRef.transform.position = new Vector3(ClientRef.transform.position.x, ClientRef.transform.position.y - 1f, ClientRef.transform.position.z);
+
+        todaysClients.RemoveAt(0);
+        GameFlowControllerRef.FinishRequirement(controllerName);
     }
 
     public void ClientGaveItem()
     {
-        ClientRef.transform.position = new Vector3(-99999f, ClientRef.transform.position.y - 0.5f, ClientRef.transform.position.z);
+        ClientRef.transform.position = new Vector3(ClientRef.transform.position.x, ClientRef.transform.position.y - 1f, ClientRef.transform.position.z);
         StartCoroutine(WaitAfterGivingItem());
     }
 
@@ -199,7 +267,7 @@ public class ClientController : MonoBehaviour
         }
         else
         {
-            StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Newspaper);
+            StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
         }
     }
 

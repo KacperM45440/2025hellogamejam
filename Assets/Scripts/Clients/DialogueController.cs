@@ -5,7 +5,7 @@ using GameStage = StageManager.GameStage;
 public class DialogueController : Singleton<DialogueController>
 {
     public GameFlowController FlowControllerRef;
-    public InventoryScript inventoryRef;
+    public InventoryController inventoryRef;
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
     public ClientController ClientRef;
@@ -21,6 +21,12 @@ public class DialogueController : Singleton<DialogueController>
     [HideInInspector] public List<List<string>> DialogueResponsesAverage;
     [HideInInspector] public List<List<string>> DialogueResponsesBad;
 
+    private string controllerName = "DialogueController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     public void Update()
     {
@@ -73,40 +79,51 @@ public class DialogueController : Singleton<DialogueController>
         else
         {
             BubbleRef.ClearText();
-
-            if (ClientRef.CurrentClientInt == 1)
-            {
-                if (!FlowControllerRef.RopeSpawned)
-                {
-                    FlowControllerRef.SpawnRope();
-                }
-
-                if (!FlowControllerRef.RopeTugged)
-                {
-                    return;
-                }
-            }
-
-            ProgressStage();
+            FlowControllerRef.FinishRequirement(controllerName);
+            //ProgressStage();
         }
     }
 
-    public void WeaponFeedback(string feedback) // string is a placeholder, should be enum
+    private void ClearDialogueQueue()
     {
-        StageManagerRef.SetCurrentGameStage(GameStage.Response);
+        currentDialogue.Clear();
+        currentSubdialogue = 0;
+        BubbleRef.ClearText();
+    }
 
-        switch (feedback)
+    public void PrepareDialogue(GameStage stage)
+    {
+        ClearDialogueQueue();
+        switch (stage)
         {
-            case "Good":
-                currentDialogue = mainDialogue.ResponseGood;
+            case GameStage.ClientEnterStore:
+                currentDialogue = mainDialogue.Greeting;
                 break;
-            case "Average":
-                currentDialogue = mainDialogue.ResponseAverage; 
+            case GameStage.ClientGreeting:
+                currentDialogue = mainDialogue.Request;
                 break;
-            case "Bad":
-                currentDialogue = mainDialogue.ResponseBad;
+            case GameStage.ClientRequest:
+                currentDialogue = mainDialogue.Request;
+                break;
+            case GameStage.ClientGunReview:
+                ClientController.ClientMood mood = ClientRef.GetCurrentClientMood();
+                switch (mood)
+                {
+                    case ClientController.ClientMood.Good:
+                        currentDialogue = mainDialogue.ResponseGood;
+                        break;
+                    case ClientController.ClientMood.Neutral:
+                        currentDialogue = mainDialogue.ResponseAverage;
+                        break;
+                    case ClientController.ClientMood.Bad:
+                        currentDialogue = mainDialogue.ResponseBad;
+                        break;
+                    default:
+                        break;
+                }
                 break;
         }
+        ProgressDialogue();
     }
 
     public void ProgressStage()
@@ -116,27 +133,27 @@ public class DialogueController : Singleton<DialogueController>
 
         switch (stage) 
         {
-            case GameStage.EnterStore:
+            case GameStage.ClientEnterStore:
                 currentSubdialogue = 0;
-                StageManagerRef.SetCurrentGameStage(GameStage.Greeting);
+                StageManagerRef.SetCurrentGameStage(GameStage.ClientGreeting);
                 currentDialogue = mainDialogue.Greeting;
                 break;
-            case GameStage.Greeting:
-                StageManagerRef.SetCurrentGameStage(GameStage.Request);
+            case GameStage.ClientGreeting:
+                StageManagerRef.SetCurrentGameStage(GameStage.ClientRequest);
                 currentSubdialogue = 0;
                 currentDialogue = mainDialogue.Request;
                 break;
-            case GameStage.Request:
+            case GameStage.ClientRequest:
                 currentSubdialogue = 0;
                 inventoryRef.MakeItemsVisible();
                 break;
             // enable flashing arrows here
-            case GameStage.Response:
+            case GameStage.ClientGunReview:
                 currentSubdialogue = 0;
-                StageManagerRef.SetCurrentGameStage(GameStage.LeaveStore);
+                StageManagerRef.SetCurrentGameStage(GameStage.ClientLeaveStore);
                 ClientRef.ClientGaveItem();
                 break;
-            case GameStage.Newspaper:
+            case GameStage.Tablet:
                 FlowControllerRef.ShowTablet();
                 break;
         }

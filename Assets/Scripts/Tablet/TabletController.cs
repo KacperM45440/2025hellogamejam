@@ -14,9 +14,10 @@ using System.Net;
 public class TabletController : MonoBehaviour
 {
     [SerializeField] private Transform Tablet;
-    [SerializeField] private InventoryScript inventoryRef;
+    [SerializeField] private InventoryController inventoryRef;
     [SerializeField] private AllItemsInGame allItemsRef;
     [SerializeField] private MoneyController moneyControllerRef;
+    [SerializeField] private GameFlowController FlowControllerRef;
     [SerializeField] private NewsletterClass newsletterRef;
     [SerializeField] private GameObject storeContainer;
     [SerializeField] private GameObject storeItemPrefab;
@@ -40,6 +41,13 @@ public class TabletController : MonoBehaviour
     private int currentTotalPrice = 0;
     private int dailyClients = 3;
     private int currentViewedArticle = 0;
+
+    private string controllerName = "TabletController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     [System.Serializable]
     public class Event
@@ -96,7 +104,7 @@ public class TabletController : MonoBehaviour
         currentViewedArticle = 0;
         newsletterRef.LoadArticle(currentDay, defaultArticle.title, defaultArticle.contents, defaultArticle.imageNameRef);
         GenerateStoreItems();
-        CameraMgr.Instance.ShowTablet();
+        CameraController.Instance.ShowTablet();
     }
 
     public void NextArticle()
@@ -165,8 +173,9 @@ public class TabletController : MonoBehaviour
     private IEnumerator PutTabletAway()
     {
         yield return new WaitForSeconds(3f);
-        CameraMgr.Instance.HideTablet();
+        CameraController.Instance.HideTablet();
         Debug.Log("Tablet Turns Off");
+        FlowControllerRef.FinishRequirement(controllerName);
     }
 
     private void GenerateStoreItems()

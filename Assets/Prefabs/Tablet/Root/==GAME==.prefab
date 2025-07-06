@@ -582,6 +582,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5707134436333010056}
     - target: {fileID: 8864735837335159971, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: GameFlowControllerRef
+      value: 
+      objectReference: {fileID: 7250743721291627013}
+    - target: {fileID: 8864735837335159971, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
       propertyPath: dialogueControllerRef
       value: 
       objectReference: {fileID: 180965864069063054}

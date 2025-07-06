@@ -75,20 +75,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 7520374114294440157}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77bb5a65c235ad04483d55bdbc94be8e, type: 3}
+  m_Script: {fileID: 11500000, guid: f1d509b18fb572f459cde306f0e8408b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hand: {fileID: 8176777678412122736}
-  maxCamerMoveRadius: 2
-  cameraMoveWeightX: 0.35
-  cameraMoveWeightZ: 0.25
-  cameraSpeed: 5
-  cameraAnchor: {fileID: 4452140280329337533}
-  cameraPosPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  currentPosIndex: 0
+  FlowControllerRef: {fileID: 0}
+  hand: {fileID: 0}
+  maxCamerMoveRadius: 5
+  cameraMoveWeightX: 0
+  cameraMoveWeightZ: 0
+  cameraSpeed: 0
+  cameraAnchor: {fileID: 0}
+  cameraPosPoints: []
+  currentPosIndex: 1
   isMoving: 0
+  rope: {fileID: 0}
+  tabletTransform: {fileID: 0}
+  isTablet: 0
 --- !u!1 &8539805648538367233
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,14 +950,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7832758757748573132, guid: 8045bad3482b6894b9487659a19d1a7e, type: 3}
   m_PrefabInstance: {fileID: 5763776923572092262}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8176777678412122736 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4504922799940482838, guid: 8045bad3482b6894b9487659a19d1a7e, type: 3}
-  m_PrefabInstance: {fileID: 5763776923572092262}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ee20fb787ea81d4ab1009655292230f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

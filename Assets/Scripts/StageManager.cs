@@ -4,21 +4,19 @@ public class StageManager : MonoBehaviour
 {
     public enum GameStage
     {
-        EnterStore,
-        Greeting,
-        Request,
-        Workshop,
-        Response,
-        LeaveStore,
-        Newspaper
+        StartDay,
+        ClientEnterStore,
+        ClientGreeting,
+        Rope,
+        ClientRequest,
+        ClientWaitForGun,
+        ClientGunReview,
+        ClientLeaveStore,
+        Tablet,
+        FinishDay
     }
 
     private GameStage currentGameStage;
-
-    private void Start()
-    {
-        currentGameStage = GameStage.EnterStore;
-    }
 
     public GameStage GetCurrentGameStage()
     {
