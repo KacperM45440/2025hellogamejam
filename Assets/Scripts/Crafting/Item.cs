@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using DG.Tweening;
+using NUnit.Framework;
 using UnityEngine;
 
 
@@ -34,6 +36,7 @@ public class Item : MonoBehaviour
     public Transform itemAnchor;
     public Vector3 handGrabPosOffset;
     public Vector3 handGrabRotOffset;
+    public List<ItemCharacteristics> characteristics = new List<ItemCharacteristics>();
 
     [SerializeField] private SpriteRenderer itemSprite;
     [SerializeField] private SpriteRenderer outline;
