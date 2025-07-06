@@ -59,7 +59,7 @@ public class DialogueController : MonoBehaviour
     {
         if (currentSubdialogue <= currentDialogue.Count - 1)
         {
-            BubbleRef.NextText(currentSubdialogue, currentDialogue[currentSubdialogue]);
+            BubbleRef.NextText(currentSubdialogue, ClientRef.CurrentClient.ClientName, currentDialogue[currentSubdialogue]);
             currentSubdialogue++;
         }
         else
@@ -67,7 +67,7 @@ public class DialogueController : MonoBehaviour
             currentSubdialogue = 0;
             BubbleRef.ClearText();
 
-            if (ClientRef.CurrentClientInt == 1)
+            if (ClientRef.CurrentClientInt == 1 && !FlowControllerRef.RopeTugged)
             {
                 FlowControllerRef.SpawnRope();
                 return;
@@ -110,6 +110,8 @@ public class DialogueController : MonoBehaviour
                 StageManagerRef.SetCurrentGameStage(GameStage.Request);
                 currentDialogue = mainDialogue.Request;
                 break;
+            case GameStage.Request:
+                // enable flashing arrows here
             case GameStage.Response:
                 StageManagerRef.SetCurrentGameStage(GameStage.LeaveStore);
                 break;

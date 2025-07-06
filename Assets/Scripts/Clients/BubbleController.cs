@@ -10,10 +10,11 @@ public class BubbleController : MonoBehaviour
         rectRef = GetComponent<RectTransform>();
         StartPosition = rectRef.localPosition;
     }
-    public void NextText(int index, string givenText)
+    public void NextText(int index, string clientName, string clientSpeech)
     {
         GameObject nextEntry = transform.GetChild(index).gameObject;
-        nextEntry.GetComponent<SpeechScript>().ClientSpeechTMP.text = givenText;
+        nextEntry.GetComponent<SpeechScript>().ClientNameTMP.text = clientName;
+        nextEntry.GetComponent<SpeechScript>().ClientSpeechTMP.text = clientSpeech;
         nextEntry.SetActive(true);
         MoveTextUp(100);
     }
