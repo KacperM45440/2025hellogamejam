@@ -539,7 +539,7 @@ GameObject:
   - component: {fileID: 1486633355609335662}
   - component: {fileID: 4706554517477961556}
   m_Layer: 9
-  m_Name: TestItem
+  m_Name: TestItemFRAME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -577,10 +577,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gun
   price: 0
-  iconName: IMG_
-  itemType: 1
+  iconName: Gun
+  itemType: 0
   description: Gun
-  itemAnchors: []
+  itemAnchors:
+  - anchor: {fileID: 1854174079162875708}
+    avaliableType: 6
+  - anchor: {fileID: 5167624673438221335}
+    avaliableType: 5
+  - anchor: {fileID: 3548174853562153206}
+    avaliableType: 4
   itemPlaceholder: {fileID: 7124626896435517644}
   itemAnchor: {fileID: 5228918849567749266}
   handGrabPosOffset: {x: 0, y: 0, z: 0}
@@ -743,7 +749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6537361973821545895
 Transform:
   m_ObjectHideFlags: 0

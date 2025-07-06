@@ -1,0 +1,123 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &2576523913185052095
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 298021919442338563, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.0999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 2014666159043588951, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a3b5b7877339b6640886048bbfa2d5d8, type: 3}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.1831105
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39953232
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.0218807
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3913222564710750785, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706554517477961556, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706554517477961556, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Size.z
+      value: 0.43
+      objectReference: {fileID: 0}
+    - target: {fileID: 4706554517477961556, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Center.z
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: name
+      value: Military Scope
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: price
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: iconName
+      value: IMG_0782
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: itemType
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: handGrabRotOffset.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: itemAnchors.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4868507348052808591, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 481b4967b11acbf47ba51d296ac1fc31, type: 3}
+    - target: {fileID: 5052842568225523008, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.23
+      objectReference: {fileID: 0}
+    - target: {fileID: 5612041653851114978, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Name
+      value: ItemScopeMilitary Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5875695027952739719, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.0999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 7124626896435517644, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 481b4967b11acbf47ba51d296ac1fc31, type: 3}
+    - target: {fileID: 7632305764029489026, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
