@@ -36,20 +36,27 @@ public class CameraMgr : Singleton<CameraMgr>
         Vector3 pos = transform.InverseTransformPoint(hand.moveTarget.position);
         float yRot = FixMinusAngle(Mathf.Clamp(pos.x, -15f, 15f));
         Quaternion rotation = Quaternion.Euler(hand.hitFrontWall ? 45f : 60f, hand.hitFrontWall ? yRot : 0f, 0f);
+        if (currentPosIndex == 0)
+        {
+            rotation = Quaternion.Euler(25f, yRot, 0f);
+        }
 
         //_camera.transform.localEulerAngles = Vector3.Slerp(_camera.transform.eulerAngles,
         //    new Vector3(hand.hitFrontWall ? 45f : 60f, hand.hitFrontWall ? yRot : 0f, 0f), cameraSpeed * 0.5f * Time.deltaTime);
         _camera.transform.localRotation = Quaternion.Lerp(_camera.transform.localRotation, rotation,
             cameraSpeed * 0.5f * Time.deltaTime);
 
-        if (!isMoving)
+
+        float distanseToChange = maxCamerMoveRadius * 2f;
+        
+        if (!isMoving && hand.moveTarget.position.z <= 1.9f)
         {
-            if (pos.x >= maxCamerMoveRadius)
+            if (pos.x >= distanseToChange)
             {
                 ChangePos(-1);
             }
             
-            if (pos.x <= -maxCamerMoveRadius)
+            if (pos.x <= -distanseToChange)
             {
                 ChangePos(1);
             }
