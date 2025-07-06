@@ -537,7 +537,6 @@ Transform:
   - {fileID: 1392758638}
   - {fileID: 923824815}
   - {fileID: 467087335}
-  - {fileID: 554916135}
   m_Father: {fileID: 1246861010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &367380651
@@ -836,11 +835,11 @@ Transform:
   m_GameObject: {fileID: 554916134}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0662}
-  m_LocalScale: {x: 6.666666, y: 6.666666, z: 6.666666}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2648}
+  m_LocalScale: {x: 6.666666, y: 6.666666, z: 26.666664}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 362992678}
+  m_Father: {fileID: 1246861010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &559984626
 GameObject:
@@ -1982,6 +1981,7 @@ Transform:
   m_Children:
   - {fileID: 1056671980}
   - {fileID: 362992678}
+  - {fileID: 554916135}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1294779224
@@ -4213,6 +4213,7 @@ Transform:
   m_Children:
   - {fileID: 6537361974101510133}
   - {fileID: 5211828804529495212}
+  - {fileID: 5228918849241640640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &3926992022366382575
@@ -4665,7 +4666,6 @@ Transform:
   - {fileID: 5052842567985405714}
   - {fileID: 298021919114139985}
   - {fileID: 5875695028228521941}
-  - {fileID: 5228918849241640640}
   m_Father: {fileID: 3913222565020074003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &5228918849241640640
@@ -4677,11 +4677,11 @@ Transform:
   m_GameObject: {fileID: 8288396107496030075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.0662}
-  m_LocalScale: {x: 6.666666, y: 6.666666, z: 6.666666}
+  m_LocalPosition: {x: 0, y: 0, z: -0.2648}
+  m_LocalScale: {x: 6.666666, y: 6.666666, z: 26.666664}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5211828804529495212}
+  m_Father: {fileID: 3913222565020074003}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5268761189629403808
 SpriteRenderer:

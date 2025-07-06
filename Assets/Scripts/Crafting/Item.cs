@@ -56,6 +56,8 @@ public class Item : MonoBehaviour
             itemAnchors[i].anchor.parentItem = this;
             itemAnchors[i].anchor.itemType = itemAnchors[i].avaliableType;
         }
+        itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
+
 
         ClearCircles();
     }
@@ -66,7 +68,7 @@ public class Item : MonoBehaviour
         if(hover == isHovered) return;
         isHovered = hover;
         outline.color = Color.white;
-        outline.DOFade(isHovered ? 1f : 0f, 0.25f);
+        outline.DOFade(isHovered ? 1f : 0f, 0.5f);
     }
 
     public void SetOutlineColor(Color color)
@@ -76,6 +78,14 @@ public class Item : MonoBehaviour
 
     public void StartGrab()
     {
+        itemSprite.sortingOrder += 10;
+        for (int i = 0; i < itemAnchors.Length; i++)
+        {
+            if (itemAnchors[i].anchor.addedItem)
+            {
+                itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder += 10;
+            }
+        }
         ClearCircles();
         SetHover(true);
         gameObject.layer = LayerMask.NameToLayer("ItemGrabed");
@@ -136,6 +146,17 @@ public class Item : MonoBehaviour
         itemPlaceholder.transform.parent = transform;
         itemPlaceholder.gameObject.SetActive(false);
         gameObject.layer = LayerMask.NameToLayer("Item");
+        
+        
+        itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
+
+        for (int i = 0; i < itemAnchors.Length; i++)
+        {
+            if (itemAnchors[i].anchor.addedItem)
+            {
+                itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
+            }
+        }
 
     }
 
