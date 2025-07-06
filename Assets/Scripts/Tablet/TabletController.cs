@@ -11,6 +11,7 @@ using static UnityEngine.ParticleSystem;
 
 public class TabletController : MonoBehaviour
 {
+    [SerializeField] private AllItemsInGame allItemsRef;
     [SerializeField] private MoneyController moneyControllerRef;
     [SerializeField] private NewsletterClass newsletterRef;
     [SerializeField] private GameObject storeContainer;
@@ -56,6 +57,10 @@ public class TabletController : MonoBehaviour
         if (moneyControllerRef == null)
         {
             Debug.LogWarning("PODEPNIJ MONEY CONTROLLER");
+        }
+        if (allItemsRef == null)
+        {
+            Debug.LogWarning("PODEPNIJ WSZYSTKIE ITEMKI");
         }
 
         LoadEvents();
@@ -152,21 +157,22 @@ public class TabletController : MonoBehaviour
 
     private void GenerateStoreItems()
     {
-        //PRZY MERGOWANIU TUTAJ POWINNA POJAWIÆ SIÊ PÊTLA TWORZ¥CA ELEMENT SKLEPOWY DLA KA¯DEGO ELEMENTU KTÓRY MO¯NA KUPIÆ
-        //Pêtla for jest tymczasowa - zostanie zast¹piona wszystkimi rzeczami
-        for (int i = 0; i < 8; i++)
+        int i = 0;
+        foreach (Item item in allItemsRef.allItems)
         {
             GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
             StoreItem newStoreItem = newItem.GetComponent<StoreItem>();
-            newStoreItem.InitializeItem(i, "store_item_image "+ i, "Sample Item", "This is a sample item description.", 100, this);
+            newStoreItem.InitializeItem(i, item.iconName, item.name, item.description, item.price, this);
             storeItems.Add(newStoreItem);
+            i++;
         }
     }
 
     public void UpdateTotalPrice(int priceChange)
     {
+        Debug.Log("Updating total price "+ currentTotalPrice + " by " + priceChange.ToString() + " $B");
         currentTotalPrice += priceChange;
-        totalPriceFooter.text = currentTotalPrice.ToString() + "$B";
+        totalPriceFooter.text = currentTotalPrice.ToString() + " $B";
         bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
         if(enoughMoney)
         {
@@ -213,11 +219,11 @@ public class TabletController : MonoBehaviour
 
     private void LoadEvents()
     {
-        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 0));
-        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 0));
-        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 0));
-        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 0));
-        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 0));//Notatka, mo¿e jednak zwiêkszony wskaŸnik samobójstw?
-        AllEvents.Add(new Event("Stalker", "Opis eventu ze stalkerem.", "StalkerArticleImage", 0));
+        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 2));
+        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 3));
+        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 4));
+        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 5));
+        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 6));//Notatka, mo¿e jednak zwiêkszony wskaŸnik samobójstw?
+        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 7));
     }
 }

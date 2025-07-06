@@ -503,9 +503,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '1000
-
-'
+  m_text: 300
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -584,6 +582,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 505086433}
   m_CullTransparentMesh: 1
+--- !u!114 &722482321 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 176498434010568593, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+  m_PrefabInstance: {fileID: 2025177217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16d6b5828d7828488c82a77d4994ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &897632958
 GameObject:
   m_ObjectHideFlags: 0
@@ -726,6 +735,63 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6346830116506304739, guid: 64c1063c19e4f8549b7a3d8b0f7de384, type: 3}
   m_PrefabInstance: {fileID: 2627913731245173679}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2025177217
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1028.517
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 521.32465
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 54.50067
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447568222555742543, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019755364606310628, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
+      propertyPath: m_Name
+      value: AllWeaponsReference
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2c91438c65398fc48a98d67424bc28ce, type: 3}
 --- !u!1 &2035824836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +1148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3773737587375780862, guid: 64c1063c19e4f8549b7a3d8b0f7de384, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -650
+      value: -660.8
       objectReference: {fileID: 0}
     - target: {fileID: 4067083432790189499, guid: 64c1063c19e4f8549b7a3d8b0f7de384, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1354,6 +1420,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8525815150634368339, guid: 64c1063c19e4f8549b7a3d8b0f7de384, type: 3}
+      propertyPath: allItemsRef
+      value: 
+      objectReference: {fileID: 722482321}
     - target: {fileID: 8939568394034318862, guid: 64c1063c19e4f8549b7a3d8b0f7de384, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1452,4 +1522,5 @@ SceneRoots:
   - {fileID: 3367468}
   - {fileID: 2078422876}
   - {fileID: 4829885517436685379}
+  - {fileID: 2025177217}
   - {fileID: 2534403}
