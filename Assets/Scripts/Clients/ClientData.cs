@@ -64,24 +64,6 @@ public class ClientData : MonoBehaviour
     public Mesh Client7Head;
     public string Client7Speech;
 
-    [Space]
-
-    public int Client8ID = 8;
-    public string Client8Name;
-    public Sprite Client8Body;
-    public Sprite Client8Face;
-    public Mesh Client8Head;
-    public string Client8Speech;
-
-    [Space]
-
-    public int Client9ID = 9;
-    public string Client9Name;
-    public Sprite Client9Body;
-    public Sprite Client9Face;
-    public Mesh Client9Head;
-    public string Client9Speech;
-
     public List<int> CreateClientIDs()
     {
         List<int> clientIDs = new List<int>
@@ -92,9 +74,7 @@ public class ClientData : MonoBehaviour
             Client4ID,
             Client5ID,
             Client6ID,
-            Client7ID,
-            Client8ID,
-            Client9ID,
+            Client7ID
         };
 
         return clientIDs;
@@ -110,9 +90,7 @@ public class ClientData : MonoBehaviour
             Client4Name,
             Client5Name, 
             Client6Name,
-            Client7Name,
-            Client8Name,
-            Client9Name,
+            Client7Name
         };
 
         return clientNames;
@@ -128,9 +106,7 @@ public class ClientData : MonoBehaviour
             Client4Body,
             Client5Body,
             Client6Body,
-            Client7Body,
-            Client8Body,
-            Client9Body,
+            Client7Body
         };
 
         return clientBodies;
@@ -146,9 +122,7 @@ public class ClientData : MonoBehaviour
             Client4Face,
             Client5Face,
             Client6Face,
-            Client7Face,
-            Client8Face,
-            Client9Face,
+            Client7Face
         };
 
         return clientFaces;
@@ -164,9 +138,7 @@ public class ClientData : MonoBehaviour
             Client4Head,
             Client5Head,
             Client6Head,
-            Client7Head,
-            Client8Head,
-            Client9Head,
+            Client7Head
         };
 
         return clientHeads;
@@ -182,9 +154,7 @@ public class ClientData : MonoBehaviour
             Client4Speech,
             Client5Speech,
             Client6Speech,
-            Client7Speech,
-            Client8Speech,
-            Client9Speech,
+            Client7Speech
         };
 
         return clientSpeech;
