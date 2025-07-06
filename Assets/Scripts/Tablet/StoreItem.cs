@@ -25,7 +25,6 @@ public class StoreItem : MonoBehaviour
 
     public void InitializeItem(int weaponID, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
     {
-        Debug.Log(nameText + " initialized with image: " + imageResourcesRef);
         imageField.sprite = Resources.Load<Sprite>("WeaponIcons/"+imageResourcesRef);
         nameField.text = nameText;
         descriptionField.text = descriptionText;

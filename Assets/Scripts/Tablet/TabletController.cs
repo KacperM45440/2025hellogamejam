@@ -126,7 +126,7 @@ public class TabletController : MonoBehaviour
             loadingScreen.SetActive(true);
             loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
             shopScreen.SetActive(false);
-
+            moneyControllerRef.spendMoney(currentTotalPrice);
 
             foreach (StoreItem item in storeItems)
             {
