@@ -8,9 +8,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.ParticleSystem;
+using DG.Tweening;
+using System.Net;
 
 public class TabletController : MonoBehaviour
 {
+    [SerializeField] private Transform Tablet;
     [SerializeField] private InventoryScript inventoryRef;
     [SerializeField] private AllItemsInGame allItemsRef;
     [SerializeField] private MoneyController moneyControllerRef;
@@ -24,6 +27,8 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameObject loadingScreen;
     [SerializeField] private Button nextArticleButton;
     [SerializeField] private Button previousArticleButton;
+    [SerializeField] private Transform EndPoint;
+    [SerializeField] private Transform StartPoint;
 
     public List<Event> AllEvents = new List<Event>();
     public List<Event> possibleEvents = new List<Event>();
@@ -177,11 +182,11 @@ public class TabletController : MonoBehaviour
 
     public void UpdateTotalPrice(int priceChange)
     {
-        Debug.Log("Updating total price "+ currentTotalPrice + " by " + priceChange.ToString() + " $B");
+        Debug.Log("Updating total price " + currentTotalPrice + " by " + priceChange.ToString() + " $B");
         currentTotalPrice += priceChange;
         totalPriceFooter.text = currentTotalPrice.ToString() + " $B";
         bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
-        if(enoughMoney)
+        if (enoughMoney)
         {
             warningText.SetActive(false);
             orderButton.interactable = true;
@@ -232,5 +237,19 @@ public class TabletController : MonoBehaviour
         AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 5));
         AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 6));//Notatka, mo¿e jednak zwiêkszony wskaŸnik samobójstw?
         AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 7));
+    }
+
+
+    //Animations
+
+    public void MoveIn()
+    {
+        Tablet.DOMove(EndPoint.position, 1);
+
+    }
+    public void MoveOut()
+    {
+        Tablet.DOMove(StartPoint.position, 1);
+
     }
 }

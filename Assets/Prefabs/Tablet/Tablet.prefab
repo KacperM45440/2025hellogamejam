@@ -3555,7 +3555,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7868729988941249146}
   m_HandleRect: {fileID: 1719627211771631567}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3755,15 +3755,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1956577486, guid: a6bdff37fc57da1458de5cd1ea1fc105, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -4029,6 +4029,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c847eb932a9286a49bebb6b59dbe3d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryRef: {fileID: 0}
   allItemsRef: {fileID: 0}
   moneyControllerRef: {fileID: 0}
   newsletterRef: {fileID: 7343910550190922839}
