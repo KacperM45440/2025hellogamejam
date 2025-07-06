@@ -230,9 +230,9 @@ public class Item : MonoBehaviour
         item.transform.parent = anchor.transform;
         item.parentItem = this;
         anchor.addedItem = item;
-        item.transform.DOKill();
-        item.transform.DOLocalRotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.25f);
-        item.transform.DOLocalMove(-item.itemAnchor.transform.localPosition, 0.25f).OnComplete(() =>
+        item.transform.localPosition = Vector3.zero;
+        item.transform.DOLocalRotate(Vector3.zero, 0.25f, RotateMode.Fast);
+        item.transform.DOLocalMove(item.itemAnchor.transform.localPosition, 0.25f).OnComplete(() =>
         {
             CraftingMgr.Instance.currentItem.RefreshCircles();
         });
