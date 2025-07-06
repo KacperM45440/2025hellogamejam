@@ -4,29 +4,28 @@ using UnityEngine;
 
 public class InventoryScript : MonoBehaviour
 {
-    public List<StoreItem> startingInventory = new();
-    public List<StoreItem> currentInventory = new();
+    public List<GameObject> startingInventory = new();
+    public List<GameObject> currentInventory = new();
     public List<GameObject> spawnedItems = new();
-    public GameObject itemPrefab;
 
     private void Start()
     {
-        foreach (StoreItem item in startingInventory)
+        foreach (GameObject item in startingInventory)
         {
             currentInventory.Add(item);
         }
     }
 
-    public void AddToInventory(StoreItem newItem)
+    public void AddToInventory(GameObject newItem)
     {
         currentInventory.Add(newItem);
     }
 
     public void SpawnItems(bool visible)
     {
-        foreach (StoreItem item in currentInventory)
+        foreach (GameObject item in currentInventory)
         {
-            GameObject newItem = Instantiate(itemPrefab);
+            GameObject newItem = Instantiate(item);
             spawnedItems.Add(newItem);
             if (!visible)
             {
@@ -43,7 +42,7 @@ public class InventoryScript : MonoBehaviour
         }
     }
 
-    public void RemoveFromInventory(StoreItem removedItem)
+    public void RemoveFromInventory(GameObject removedItem)
     {
         currentInventory.Remove(removedItem);
     }
