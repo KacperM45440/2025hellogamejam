@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-
     public bool active = true;
     [SerializeField] private LayerMask inputLayerMask;
     [SerializeField] private LayerMask grabLayerMask;
+    [SerializeField] private LayerMask itemAnchorMask;
+
     public Transform moveTarget;
     public Transform rotationTarget;
     [SerializeField] private Transform socket;
@@ -27,16 +28,15 @@ public class Hand : MonoBehaviour
     private ItemAnchorTarget _anchorTarget;
 
 
-    [Range(0, 1)]
-    public float lookAtWeight = 1.0f;
+    [Range(0, 1)] public float lookAtWeight = 1.0f;
     public float maxWristPitch = 45f;
-    
+
     private Camera _camera;
     private Vector3 _handVelocity;
     private Vector3 _previousHandPosition;
 
     private Sequence _grabSequence;
-    
+
     void Awake()
     {
         _camera = Camera.main;
@@ -45,15 +45,15 @@ public class Hand : MonoBehaviour
 
     void Update()
     {
-        if(!active) return;
-        if(_blockFollow) return;
+        if (!active) return;
+        if (_blockFollow) return;
 
         Controller();
         TrackHandPosition();
         RotateHand();
         _handVelocity = (moveTarget.position - _previousHandPosition) / Time.deltaTime;
         _previousHandPosition = moveTarget.position;
-        
+
         if (_moveSpeed < handSpeed && !_blockFollow)
         {
             _moveSpeed += Time.deltaTime * 20f;
@@ -66,10 +66,9 @@ public class Hand : MonoBehaviour
         {
             GrabItem();
         }
-        
+
         if (Input.GetMouseButtonUp(0) && currentItem)
         {
-
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
             {
                 if (hit.transform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
@@ -77,10 +76,11 @@ public class Hand : MonoBehaviour
                     CraftingMgr.Instance.SetCurrentItem(currentItem);
                     DropItem(true);
                 }
-            }else  if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
-                           LayerMask.NameToLayer("ItemAnchor")))
+            }
+            else if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
+                         itemAnchorMask))
             {
-                if (hit.transform.TryGetComponent(out _anchorTarget))
+                if (anchorHit.collider.TryGetComponent(out _anchorTarget))
                 {
                     if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
                     {
@@ -91,28 +91,23 @@ public class Hand : MonoBehaviour
                     {
                         DropItem();
                     }
-
                 }
                 else
                 {
                     DropItem();
                 }
-
             }
             else
             {
                 DropItem();
             }
         }
-        
     }
 
     private void TrackHandPosition()
     {
-
-        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,inputLayerMask))
+        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, inputLayerMask))
         {
-
             hitFrontWall = hit.transform.CompareTag("FrontWall");
             Vector3 dir = (_camera.transform.position - hit.point).normalized * handOffset;
             if (handSpeed < 0)
@@ -121,15 +116,13 @@ public class Hand : MonoBehaviour
             }
             else
             {
-                moveTarget.position = Vector3.Lerp(moveTarget.position,hit.point + dir, _moveSpeed * Time.deltaTime );
+                moveTarget.position = Vector3.Lerp(moveTarget.position, hit.point + dir, _moveSpeed * Time.deltaTime);
             }
-
         }
     }
 
     private void RotateHand()
     {
-        
         // float xDiscance = moveTarget.position.x - rotationTarget.position.x;
         // float zDiscance = moveTarget.position.z - rotationTarget.position.z;
         // float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
@@ -141,21 +134,20 @@ public class Hand : MonoBehaviour
         // Quaternion targetRotation =
         //     Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
         // moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
-        
+
         if (!hitFrontWall)
         {
             float xDiscance = moveTarget.position.x - rotationTarget.position.x;
             float zDiscance = moveTarget.position.z - rotationTarget.position.z;
             float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
             float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
-        
+
             float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
             float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-        
+
             Quaternion targetRotation =
                 Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
             moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
-           
         }
         else
         {
@@ -164,23 +156,22 @@ public class Hand : MonoBehaviour
             moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
         }
     }
-    
+
     private void FixedUpdate()
     {
         if (!active) return;
         if (_blockFollow) return;
         MoveHand();
         LookingForItem();
-
     }
-    
+
     private void LookingForItem()
     {
         if (!currentItem)
         {
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
             {
-                if (hit.transform.TryGetComponent(out _newHoverItem))
+                if (hit.collider.TryGetComponent(out _newHoverItem))
                 {
                     if (_newHoverItem != hoveredItem && hoveredItem)
                     {
@@ -205,41 +196,41 @@ public class Hand : MonoBehaviour
         {
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
             {
-                if (hit.transform.CompareTag("Crafting") && currentItem)
+                if (hit.collider.CompareTag("Crafting") && currentItem)
                 {
                     currentItem.SetOutlineColor(Color.green);
-
                 }
                 else
                 {
                     currentItem.SetOutlineColor(Color.white);
                 }
             }
+            else if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
+                         itemAnchorMask))
+            {
+                if (anchorHit.collider.TryGetComponent(out _anchorTarget))
+                {
+                    currentItem.SetOutlineColor(_anchorTarget.addedItem ? Color.white : _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.red);
+                    //currentItem.SetOutlineColor(Color.green);
+                    _anchorTarget = null;
+                }
+                else
+                {
+                    currentItem.SetOutlineColor(Color.white);
+                }
+
+            }
             else
             {
-
-                if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
-                        LayerMask.NameToLayer("ItemAnchor")))
-                {
-                    if (hit.transform.TryGetComponent(out _anchorTarget))
-                    {
-                        currentItem.SetOutlineColor(!_anchorTarget.addedItem ?  Color.white :  _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.white);
-                    }
-                    else
-                    {
-                        currentItem.SetOutlineColor(Color.white);
-                    }
-
-                }
+                currentItem.SetOutlineColor(Color.white);
             }
 
         }
-
     }
 
     private void MoveHand()
     {
-        handRb.linearVelocity = (moveTarget.position - handRb.position)/Time.fixedDeltaTime;
+        handRb.linearVelocity = (moveTarget.position - handRb.position) / Time.fixedDeltaTime;
 
         Quaternion rotDiff = moveTarget.rotation * Quaternion.Inverse(handRb.rotation);
         rotDiff.ToAngleAxis(out float angleInDegree, out Vector3 rotationAxis);
@@ -250,18 +241,22 @@ public class Hand : MonoBehaviour
 
     private float FixMinusAngle(float angle)
     {
-        if (angle < 0f) {
+        if (angle < 0f)
+        {
             return angle + 360f;
-        } 
-        if (angle >= 360f) {
+        }
+
+        if (angle >= 360f)
+        {
             return angle - 360f;
         }
+
         return angle;
     }
 
     public void GrabItem()
     {
-        if(!hoveredItem) return;
+        if (!hoveredItem) return;
         currentItem = hoveredItem;
         hoveredItem = null;
         handRb.isKinematic = true;
@@ -285,7 +280,6 @@ public class Hand : MonoBehaviour
             currentItem.DOKill();
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
-     
         }));
         // _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
         //     {
@@ -297,19 +291,18 @@ public class Hand : MonoBehaviour
         {
             _blockFollow = false;
             handRb.isKinematic = false;
-        
         });
         if (CraftingMgr.Instance.currentItem == currentItem)
         {
             CraftingMgr.Instance.currentItem = null;
         }
-        CraftingMgr.Instance.RefreshCollider();
 
+        CraftingMgr.Instance.RefreshCollider();
     }
 
     public void DropItem(bool toCrafting = false)
     {
-        if(!currentItem) return;
+        if (!currentItem) return;
         currentItem.Drop(_handVelocity, toCrafting);
 
         currentItem = null;
@@ -318,6 +311,7 @@ public class Hand : MonoBehaviour
             _grabSequence.Kill();
             if (_blockFollow) _blockFollow = false;
         }
+
         CraftingMgr.Instance.RefreshCollider();
     }
 

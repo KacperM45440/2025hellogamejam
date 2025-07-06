@@ -2245,10 +2245,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestItem
       objectReference: {fileID: 0}
-    - target: {fileID: 5612041653851114978, guid: 6e44fd9d7142dda4888aa4f0e0f33b59, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3931,6 +3927,10 @@ PrefabInstance:
     - target: {fileID: 4504922799940482838, guid: 8045bad3482b6894b9487659a19d1a7e, type: 3}
       propertyPath: inputLayerMask.m_Bits
       value: 1216
+      objectReference: {fileID: 0}
+    - target: {fileID: 4504922799940482838, guid: 8045bad3482b6894b9487659a19d1a7e, type: 3}
+      propertyPath: itemAnchorMask.m_Bits
+      value: 8192
       objectReference: {fileID: 0}
     - target: {fileID: 4901423161010742372, guid: 8045bad3482b6894b9487659a19d1a7e, type: 3}
       propertyPath: m_Layer
