@@ -30,6 +30,7 @@ public class ClientController : MonoBehaviour
     public void Start()
     {
         InitializeClients();
+        todaysClients.Add(1);
     }
 
     public void Update()
@@ -104,7 +105,6 @@ public class ClientController : MonoBehaviour
         ClientArrived();
     }
 
-    //Metoda wywo�ana z animacji
     public void ClientArrived()
     {
         dialogueControllerRef.ProgressStage();
@@ -161,6 +161,7 @@ public class ClientController : MonoBehaviour
     private IEnumerator WaitAfterGivingItem()
     {
         yield return new WaitForSeconds(3f);
+
         //SPRAWDZ CZY JEST JESZCZE DZISIAJ KLIENT, JAK NIE, POKAZ TABLETA
         CreateNextClient();
     }
