@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class ClientController : MonoBehaviour
 {
@@ -116,7 +117,14 @@ public class ClientController : MonoBehaviour
         itemCharacteristicsList.AddRange(gun.characteristics);
         for (int i = 0; i < gun.itemAnchors.Length; i++)
         {
-            itemCharacteristicsList.AddRange(gun.itemAnchors[i].anchor.addedItem.characteristics);
+            try
+            {
+                itemCharacteristicsList.AddRange(gun.itemAnchors[i].anchor.addedItem.characteristics);
+            }
+            catch (System.Exception)
+            {
+            }
+
         }
 
         ClientReviewGun(itemCharacteristicsList);
@@ -150,19 +158,49 @@ public class ClientController : MonoBehaviour
             payment += (50 * currentClientSatisfaction);
         }
 
+
+
         Debug.Log("Final payment is: " + payment);
         moneyControllerRef.gainMoney(payment);
-        ClientRef.GetComponent<Animator>().speed = -1f;
-        ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
+
+        string mood;
+        if (currentClientSatisfaction <= 0)
+        {
+            mood = "Bad";
+        }
+        else if (currentClientSatisfaction <= 3)
+        {
+            mood = "Average";
+        }
+        else
+        {
+            mood = "Good";
+        }
+        dialogueControllerRef.WeaponFeedback(mood);
+        //WŁĄCZ KWESTIW ZALEŻNIE OD JAKOŚCI
+
+    }
+
+    public void ClientGaveItem()
+    {
+        ClientRef.transform.position = new Vector3(-99999f, ClientRef.transform.position.y - 0.5f, ClientRef.transform.position.z);
         StartCoroutine(WaitAfterGivingItem());
     }
 
     private IEnumerator WaitAfterGivingItem()
     {
         yield return new WaitForSeconds(3f);
-
         //SPRAWDZ CZY JEST JESZCZE DZISIAJ KLIENT, JAK NIE, POKAZ TABLETA
-        CreateNextClient();
+
+        todaysClients.Remove(CurrentClient.ClientId);
+        if(todaysClients.Count > 0)
+        {
+            CreateNextClient();
+        }
+        else
+        {
+            StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Newspaper);
+        }
     }
 
     public class Client

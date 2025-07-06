@@ -209,7 +209,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 25, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5825553335786923684
@@ -874,6 +874,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6556525757591266360}
     - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
+      propertyPath: tabletControllerRef
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
       propertyPath: DialogueControllerRef
       value: 
       objectReference: {fileID: 180965864069063054}
@@ -1022,6 +1026,18 @@ PrefabInstance:
     - target: {fileID: 5473903262611424242, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
       propertyPath: m_Name
       value: ==PLAYER==
+      objectReference: {fileID: 0}
+    - target: {fileID: 6319510431611531616, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
+      propertyPath: inventoryRef
+      value: 
+      objectReference: {fileID: 3332419181436489261}
+    - target: {fileID: 6319510431611531616, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
+      propertyPath: moneyControllerRef
+      value: 
+      objectReference: {fileID: 5707134436333010056}
+    - target: {fileID: 6532667073425489805, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

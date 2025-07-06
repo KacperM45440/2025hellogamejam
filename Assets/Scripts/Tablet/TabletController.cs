@@ -80,9 +80,9 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    private void Start()//DO USUNIÊCIA
+    private void Start()//DO USUNIï¿½CIA
     {
-        PullOutTablet();
+       // PullOutTablet();
     }
 
     public void PullOutTablet()
@@ -96,6 +96,7 @@ public class TabletController : MonoBehaviour
         currentViewedArticle = 0;
         newsletterRef.LoadArticle(currentDay, defaultArticle.title, defaultArticle.contents, defaultArticle.imageNameRef);
         GenerateStoreItems();
+        CameraMgr.Instance.ShowTablet();
     }
 
     public void NextArticle()
@@ -164,6 +165,7 @@ public class TabletController : MonoBehaviour
     private IEnumerator PutTabletAway()
     {
         yield return new WaitForSeconds(3f);
+        CameraMgr.Instance.HideTablet();
         Debug.Log("Tablet Turns Off");
     }
 
@@ -198,7 +200,7 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    public List<int> GetQueuedClientIDs()//PRZY MERGOWANIU U¯YJ TEJ METODY TO ODCZYTANIA JAKICH KLIENTÓW ZESPAWNOWAÆ NASTÊPNEGO DNIA
+    public List<int> GetQueuedClientIDs()//PRZY MERGOWANIU Uï¿½YJ TEJ METODY TO ODCZYTANIA JAKICH KLIENTï¿½W ZESPAWNOWAï¿½ NASTï¿½PNEGO DNIA
     {
         List<int> clientIDs = new List<int>();
         foreach (Event ev in queuedEvents)
@@ -235,7 +237,7 @@ public class TabletController : MonoBehaviour
         AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 3));
         AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 4));
         AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 5));
-        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 6));//Notatka, mo¿e jednak zwiêkszony wskaŸnik samobójstw?
+        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser?ï¿½Don't worry! We have a solution just for you!ï¿½The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 6));//Notatka, moï¿½e jednak zwiï¿½kszony wskaï¿½nik samobï¿½jstw?
         AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 7));
     }
 

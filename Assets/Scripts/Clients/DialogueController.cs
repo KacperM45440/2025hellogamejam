@@ -134,6 +134,10 @@ public class DialogueController : Singleton<DialogueController>
             case GameStage.Response:
                 currentSubdialogue = 0;
                 StageManagerRef.SetCurrentGameStage(GameStage.LeaveStore);
+                ClientRef.ClientGaveItem();
+                break;
+            case GameStage.Newspaper:
+                FlowControllerRef.ShowTablet();
                 break;
         }
     }
