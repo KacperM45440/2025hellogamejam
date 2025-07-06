@@ -7,6 +7,8 @@ public class GameFlowController : MonoBehaviour
     public MoneyController moneyControllerRef;
     public ClientController clientControllerRef;
     public DialogueController DialogueControllerRef;
+    public Rope RopeRef;
+    public bool RopeSpawned;
     public bool RopeTugged;
     
     private void Start()
@@ -24,14 +26,28 @@ public class GameFlowController : MonoBehaviour
 
     public void SpawnRope()
     {
-        Debug.Log("Spawn Rope");
+        RopeSpawned = true;
+        RopeRef.gameObject.GetComponent<Animator>().SetTrigger("Tug");
+        StartCoroutine(DisableAnim());
     }
 
     public void RopeWasTugged()
     {
         RopeTugged = true;
-        Debug.Log("Rope was tugged, change store look.");
+        StartCoroutine(StoreChangeAnim());
+    }
+    
+    private IEnumerator StoreChangeAnim()
+    {
+        yield return new WaitForSeconds(3f);
+        DialogueControllerRef.currentSubdialogue = 0;
         DialogueControllerRef.ProgressStage();
         DialogueControllerRef.ProgressDialogue();
+    }
+
+    private IEnumerator DisableAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        RopeRef.gameObject.GetComponent<Animator>().enabled = false;
     }
 }
