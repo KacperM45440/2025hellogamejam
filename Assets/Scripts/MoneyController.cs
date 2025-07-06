@@ -1,13 +1,15 @@
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MoneyController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI moneyCounter;
-    [SerializeField] private int currentMoney = 0;
+    public JarScript JarRef;
+    public Image BeeRef;
+    [SerializeField] public TextMeshProUGUI moneyCounter;
+    [SerializeField] public int currentMoney = 0;
 
-    [SerializeField] private int currentMoneyInJar = 0;
-    [SerializeField] private int moneyRequiredToWin = 2000;
+    [SerializeField] public int currentMoneyInJar = 0;
+    [SerializeField] public int moneyRequiredToWin = 2000;
 
     public void Start()
     {
@@ -19,12 +21,22 @@ public class MoneyController : MonoBehaviour
         UpdateUI();
     }
 
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            gainMoney(100);
+        }
+    }
     public void gainMoney(int amount)
     {
         Debug.Log("Gaining money: " + amount.ToString() + "$B");
         currentMoney += amount;
         currentMoneyInJar += amount;
         UpdateUI();
+
+        JarRef.JarGO.gameObject.GetComponent<Animator>().SetTrigger("JarSpin");
+        BeeRef.gameObject.GetComponent<Animator>().SetTrigger("BeeSpin");
     }
 
     public void spendMoney(int amount)
