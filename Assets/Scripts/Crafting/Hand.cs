@@ -94,7 +94,8 @@ public class Hand : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out _clientScript))
                 {
-                   
+                    _clientScript.ClientController.ClientReceiveGun(currentItem);
+                    DropItem();
                 }
             }
         }

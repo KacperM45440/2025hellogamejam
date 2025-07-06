@@ -8,6 +8,7 @@ public class ClientScript : MonoBehaviour
     public SpriteRenderer ClientBody;
     public SpriteRenderer Outline;
     public Animator animatorRef;
+    public ClientController ClientController;
     public bool isOutline;
     public void SetOutline(bool value)
     {
