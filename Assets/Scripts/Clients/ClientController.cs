@@ -115,7 +115,6 @@ public class ClientController : MonoBehaviour
 
     public void ClientReviewGun(List<ItemCharacteristics> itemCharacteristics)
     {
-        //DO NAPRAWIENIA
         foreach (ItemCharacteristics characteristic in itemCharacteristics)
         {
             if (CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))

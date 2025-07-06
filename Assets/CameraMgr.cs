@@ -31,14 +31,14 @@ public class CameraMgr : Singleton<CameraMgr>
 
         Vector3 dir = hand.moveTarget.position.With(y: 0) - transform.position.With(y: 0);
         dir = Vector3.Scale(dir, new Vector3(cameraMoveWeightX, 0f, cameraMoveWeightZ));
-        cameraAnchor.localPosition = Vector3.Lerp(cameraAnchor.localPosition, Vector3.ClampMagnitude(dir.With(y: hand.hitFrontWall ? (currentPosIndex == 0) ? -0.5f : 1f : 0f), maxCamerMoveRadius), cameraSpeed * Time.deltaTime);
+        cameraAnchor.localPosition = Vector3.Lerp(cameraAnchor.localPosition, Vector3.ClampMagnitude(dir.With(y: hand.hitFrontWall ? (currentPosIndex == 0) ? -1f : 1f : 0f), maxCamerMoveRadius), cameraSpeed * Time.deltaTime);
  
         Vector3 pos = transform.InverseTransformPoint(hand.moveTarget.position);
         float yRot = FixMinusAngle(Mathf.Clamp(pos.x, -15f, 15f));
         Quaternion rotation = Quaternion.Euler(hand.hitFrontWall ? 45f : 60f, hand.hitFrontWall ? yRot : 0f, 0f);
         if (currentPosIndex == 0)
         {
-            rotation = Quaternion.Euler(35f, yRot, 0f);
+            rotation = Quaternion.Euler(25f, yRot, 0f);
         }
 
         //_camera.transform.localEulerAngles = Vector3.Slerp(_camera.transform.eulerAngles,
