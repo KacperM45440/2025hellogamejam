@@ -62,6 +62,8 @@ public class DialogueController : MonoBehaviour
             return;
         }
 
+        Debug.Log("sub: " + currentSubdialogue + "count: " + currentDialogue.Count);
+
         if (currentSubdialogue <= currentDialogue.Count - 1)
         {
             BubbleRef.NextText(currentSubdialogue, ClientRef.CurrentClient.ClientName, currentDialogue[currentSubdialogue]);
@@ -76,9 +78,12 @@ public class DialogueController : MonoBehaviour
                 if (!FlowControllerRef.RopeSpawned)
                 {
                     FlowControllerRef.SpawnRope();
-                }              
+                }
 
-                return;
+                if (!FlowControllerRef.RopeTugged)
+                {
+                    return;
+                }
             }
 
             ProgressStage();
@@ -111,16 +116,21 @@ public class DialogueController : MonoBehaviour
         switch (stage) 
         {
             case GameStage.EnterStore:
+                currentSubdialogue = 0;
                 StageManagerRef.SetCurrentGameStage(GameStage.Greeting);
                 currentDialogue = mainDialogue.Greeting;
                 break;
             case GameStage.Greeting:
                 StageManagerRef.SetCurrentGameStage(GameStage.Request);
+                currentSubdialogue = 0;
                 currentDialogue = mainDialogue.Request;
                 break;
             case GameStage.Request:
-                // enable flashing arrows here
+                currentSubdialogue = 0;
+                break;
+            // enable flashing arrows here
             case GameStage.Response:
+                currentSubdialogue = 0;
                 StageManagerRef.SetCurrentGameStage(GameStage.LeaveStore);
                 break;
         }
