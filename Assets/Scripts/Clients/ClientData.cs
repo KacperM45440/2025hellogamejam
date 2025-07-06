@@ -173,4 +173,36 @@ public class ClientData : MonoBehaviour
 
         return clientSpeech;
     }
+
+    public List<List<ItemCharacteristics>> CreatePrefferedCharacteristics()
+    {
+        List<List<ItemCharacteristics>> clientPrefs = new List<List<ItemCharacteristics>>
+        {
+            Client1PrefferedItemCharacteristics,
+            Client2PrefferedItemCharacteristics,
+            Client3PrefferedItemCharacteristics,
+            Client4PrefferedItemCharacteristics,
+            Client5PrefferedItemCharacteristics,
+            Client6PrefferedItemCharacteristics,
+            Client7PrefferedItemCharacteristics
+        };
+
+        return clientPrefs;
+    }
+
+    public List<List<ItemCharacteristics>> CreateHatedCharacteristics()
+    {
+        List<List<ItemCharacteristics>> clientHates = new List<List<ItemCharacteristics>>
+        {
+            Client1HatedItemCharacteristics,
+            Client2HatedItemCharacteristics,
+            Client3HatedItemCharacteristics,
+            Client4HatedItemCharacteristics,
+            Client5HatedItemCharacteristics,
+            Client6HatedItemCharacteristics,
+            Client7HatedItemCharacteristics
+        };
+
+        return clientHates;
+    }
 }

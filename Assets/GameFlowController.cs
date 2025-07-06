@@ -18,4 +18,14 @@ public class GameFlowController : MonoBehaviour
         yield return new WaitForSeconds(5f);
         clientControllerRef.CreateNextClient();
     }
+
+    public void SpawnRope()
+    {
+        Debug.Log("Spawn Rope");
+    }
+
+    public void RopeWasTugged()
+    {
+        Debug.Log("Rope was tugged, change store look.");
+    }
 }

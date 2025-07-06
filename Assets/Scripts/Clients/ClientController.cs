@@ -8,15 +8,18 @@ public class ClientController : MonoBehaviour
     public DialogueController dialogueControllerRef;
     public ClientData ClientDataRef;
     public ClientScript ClientRef;
+    public Client CurrentClient;
     public int ClientAmount;
     public int CurrentClientInt;
     public int DefaultClientPayment = 100;
 
     [HideInInspector] public List<int> ClientIds;
     [HideInInspector] public List<Sprite> ClientBodies;
-    [HideInInspector] public List<Sprite> ClientFaces;
     [HideInInspector] public List<GameObject> ClientHeads;
     [HideInInspector] public List<Vector3> ClientOffsets;
+    [HideInInspector] public List<Mesh> ClientHeads;
+    [HideInInspector] public List<List<ItemCharacteristics>> ClientPrefs;
+    [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
     private int currentClientSatisfaction = 0;
 
@@ -39,6 +42,8 @@ public class ClientController : MonoBehaviour
         ClientBodies = ClientDataRef.CreateClientBodies();
         ClientHeads = ClientDataRef.CreateClientHeads();
         ClientOffsets = ClientDataRef.CreateClientOffsets();
+        ClientPrefs = ClientDataRef.CreatePrefferedCharacteristics();
+        ClientHates = ClientDataRef.CreateHatedCharacteristics();
     }
 
     public Client GetNextClient(int index)
@@ -51,6 +56,8 @@ public class ClientController : MonoBehaviour
         nextClient.ClientBody = ClientBodies[index];
         nextClient.ClientHead = ClientHeads[index];
         nextClient.ClientHeadOffset = ClientOffsets[index];
+        nextClient.PrefferedItemCharacteristics = ClientPrefs[index];
+        nextClient.HatedItemCharacteristics = ClientHates[index];
 
         return nextClient;
     }
@@ -91,17 +98,28 @@ public class ClientController : MonoBehaviour
         dialogueControllerRef.ProgressDialogue();
     }
 
+    public void ClientReceiveGun()
+    {
+        ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
+        StartCoroutine(WaitForGunInspection());
+    }
+
+    private IEnumerator WaitForGunInspection()
+    {
+        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJŒCIA KLIENTA
+        //ClientReviewGun();
+    }
+
     public void ClientReviewGun(List<ItemCharacteristics> itemCharacteristics)
     {
         //DO NAPRAWIENIA
-        /*
         foreach (ItemCharacteristics characteristic in itemCharacteristics)
         {
-            if (ClientRef.CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))
+            if (CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))
             {
                 currentClientSatisfaction += 3;
             }
-            else if (ClientRef.CurrentClient.HatedItemCharacteristics.Contains(characteristic))
+            else if (CurrentClient.HatedItemCharacteristics.Contains(characteristic))
             {
                 currentClientSatisfaction -= 2;
             }
@@ -110,7 +128,6 @@ public class ClientController : MonoBehaviour
                 currentClientSatisfaction++;
             }
         }
-        */
 
         int payment = DefaultClientPayment;
         if (currentClientSatisfaction < 0)
