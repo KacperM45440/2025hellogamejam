@@ -14,6 +14,8 @@ public class InventoryScript : MonoBehaviour
         {
             currentInventory.Add(item);
         }
+        //SpawnItems(true);
+
     }
 
     public void AddToInventory(GameObject newItem)
