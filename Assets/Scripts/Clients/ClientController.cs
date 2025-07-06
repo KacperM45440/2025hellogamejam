@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -59,6 +60,13 @@ public class ClientController : MonoBehaviour
 
         //W³¹cz animacjê klienta podchodz¹cego do lady
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
+        StartCoroutine(WaitForClientArrival());
+    }
+
+    private IEnumerator WaitForClientArrival()
+    {
+        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJŒCIA KLIENTA
+        ClientArrived();
     }
 
     //Metoda wywo³ana z animacji

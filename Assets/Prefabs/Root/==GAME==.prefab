@@ -534,6 +534,10 @@ PrefabInstance:
       propertyPath: ClientSpeechTMP
       value: 
       objectReference: {fileID: 4952087374912595687}
+    - target: {fileID: 8864735837335159971, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: dialogueControllerRef
+      value: 
+      objectReference: {fileID: 180965864069063054}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -736,6 +740,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24d64e1f78a1f1a4c94fbd9ee059cef0, type: 3}
+--- !u!114 &180965864069063054 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3243186926273995893, guid: 24d64e1f78a1f1a4c94fbd9ee059cef0, type: 3}
+  m_PrefabInstance: {fileID: 3423006390280406523}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: faeff67ed5b139d4abe55994252499d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1366342134316805761 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4428954622645005178, guid: 24d64e1f78a1f1a4c94fbd9ee059cef0, type: 3}
