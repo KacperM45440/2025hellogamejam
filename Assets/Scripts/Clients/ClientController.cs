@@ -17,7 +17,6 @@ public class ClientController : MonoBehaviour
     [HideInInspector] public List<Sprite> ClientBodies;
     [HideInInspector] public List<GameObject> ClientHeads;
     [HideInInspector] public List<Vector3> ClientOffsets;
-    [HideInInspector] public List<Mesh> ClientHeads;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientPrefs;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
