@@ -5,6 +5,7 @@ using GameStage = StageManager.GameStage;
 public class DialogueController : Singleton<DialogueController>
 {
     public GameFlowController FlowControllerRef;
+    public InventoryScript inventoryRef;
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
     public ClientController ClientRef;
@@ -127,6 +128,7 @@ public class DialogueController : Singleton<DialogueController>
                 break;
             case GameStage.Request:
                 currentSubdialogue = 0;
+                inventoryRef.MakeItemsVisible();
                 break;
             // enable flashing arrows here
             case GameStage.Response:

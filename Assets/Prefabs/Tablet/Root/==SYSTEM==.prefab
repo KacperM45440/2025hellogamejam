@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moneyCounter: {fileID: 0}
-  currentMoney: 0
+  currentMoney: 100
   currentMoneyInJar: 0
   moneyRequiredToWin: 2000
 --- !u!114 &3572493483141366180

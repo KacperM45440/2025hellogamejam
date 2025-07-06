@@ -569,17 +569,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cd90f0cc5d4d2a540b57c9d71ee846c0, type: 3}
   m_PrefabInstance: {fileID: 100854458}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &131728821 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4518536572831167080, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-  m_PrefabInstance: {fileID: 875912511976362079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 308bb80fa88cb544d9de445b00becf9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &306013576
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6781,18 +6770,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 696265754, guid: 097c05af2bf74af4fb976d83c0085119, type: 3}
-    - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-      propertyPath: BubbleRef
-      value: 
-      objectReference: {fileID: 131728821}
-    - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-      propertyPath: StageManagerRef
-      value: 
-      objectReference: {fileID: 875912511976362081}
-    - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-      propertyPath: moneyControllerRef
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6592382324415927380, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -7207,17 +7184,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4724913446536665066, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
   m_PrefabInstance: {fileID: 875912511976362079}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &875912511976362081 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2142274291390461421, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-  m_PrefabInstance: {fileID: 875912511976362079}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cf494d8b23b389c438ba207d121bf311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &875912511976362082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3582890995105623690, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
