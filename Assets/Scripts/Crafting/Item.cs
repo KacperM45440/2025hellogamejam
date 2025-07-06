@@ -69,6 +69,15 @@ public class Item : MonoBehaviour
     public void SetHover(bool hover)
     {
         if(hover == isHovered) return;
+        if (parentItem)
+        {
+            if (!parentItem.inCrafting)
+            {
+                outline.DOFade(0f, 0.5f);
+                isHovered = false;
+                return;
+            }
+        }
         isHovered = hover;
         outline.color = Color.white;
         outline.DOFade(isHovered ? 1f : 0f, 0.5f);
@@ -90,6 +99,7 @@ public class Item : MonoBehaviour
             {
                 itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder = 10;
                 itemAnchors[i].anchor.addedItem.outline.sortingOrder = 9;
+                itemAnchors[i].anchor.addedItem.gameObject.layer = LayerMask.NameToLayer("ItemGrabed");
 
             }
         }
@@ -164,6 +174,7 @@ public class Item : MonoBehaviour
             {
                 itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
                 itemAnchors[i].anchor.addedItem.outline.sortingOrder = -1;
+                itemAnchors[i].anchor.addedItem.gameObject.layer = LayerMask.NameToLayer("Item");
 
             }
         }
