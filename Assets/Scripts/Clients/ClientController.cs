@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class ClientController : MonoBehaviour
 {
+    public MoneyController moneyControllerRef;
     public DialogueController dialogueControllerRef;
     public ClientData ClientDataRef;
     public ClientScript ClientRef;
     public int ClientAmount;
     public int CurrentClientInt;
+    public int DefaultClientPayment = 100;
 
     [HideInInspector] public List<int> ClientIds;
     [HideInInspector] public List<Sprite> ClientBodies;
     [HideInInspector] public List<Sprite> ClientFaces;
     [HideInInspector] public List<Mesh> ClientHeads;
+
+    private int currentClientSatisfaction = 0;
 
     public void Start()
     {
@@ -38,6 +42,8 @@ public class ClientController : MonoBehaviour
 
     public Client GetNextClient(int index)
     {
+        currentClientSatisfaction = 0;
+
         Client nextClient = new Client();
         
         nextClient.ClientId = ClientIds[index];
@@ -76,11 +82,48 @@ public class ClientController : MonoBehaviour
         dialogueControllerRef.ProgressDialogue();
     }
 
+    public void ClientReviewGun(List<ItemCharacteristics> itemCharacteristics)
+    {
+        //DO NAPRAWIENIA
+        /*
+        foreach (ItemCharacteristics characteristic in itemCharacteristics)
+        {
+            if (ClientRef.CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))
+            {
+                currentClientSatisfaction += 3;
+            }
+            else if (ClientRef.CurrentClient.HatedItemCharacteristics.Contains(characteristic))
+            {
+                currentClientSatisfaction -= 2;
+            }
+            else
+            {
+                currentClientSatisfaction++;
+            }
+        }
+        */
+
+        int payment = DefaultClientPayment;
+        if (currentClientSatisfaction < 0)
+        {
+            payment = 50;
+        }
+        else
+        {
+            payment += (50 * currentClientSatisfaction);
+        }
+
+        Debug.Log("Final payment is: " + payment);
+        moneyControllerRef.gainMoney(payment);
+    }
+
     public class Client
     {
         public int ClientId;
         public Sprite ClientBody;
         public Sprite ClientFace;
         public Mesh ClientHead;
+        public List<ItemCharacteristics> PrefferedItemCharacteristics;
+        public List<ItemCharacteristics> HatedItemCharacteristics;
     }
 }

@@ -9,6 +9,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client1Face;
     public Mesh Client1Head;
     public string Client1Speech;
+    public List<ItemCharacteristics> Client1PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client1HatedItemCharacteristics;
 
     [Space]
 
@@ -18,6 +20,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client2Face;
     public Mesh Client2Head;
     public string Client2Speech;
+    public List<ItemCharacteristics> Client2PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client2HatedItemCharacteristics;
 
     [Space]
     
@@ -27,6 +31,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client3Face;
     public Mesh Client3Head;
     public string Client3Speech;
+    public List<ItemCharacteristics> Client3PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client3HatedItemCharacteristics;
 
     [Space]
 
@@ -36,6 +42,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client4Face;
     public Mesh Client4Head;
     public string Client4Speech;
+    public List<ItemCharacteristics> Client4PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client4HatedItemCharacteristics;
 
     [Space]
 
@@ -45,6 +53,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client5Face;
     public Mesh Client5Head;
     public string Client5Speech;
+    public List<ItemCharacteristics> Client5PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client5HatedItemCharacteristics;
 
     [Space]
 
@@ -54,6 +64,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client6Face;
     public Mesh Client6Head;
     public string Client6Speech;
+    public List<ItemCharacteristics> Client6PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client6HatedItemCharacteristics;
 
     [Space]
 
@@ -63,6 +75,8 @@ public class ClientData : MonoBehaviour
     public Sprite Client7Face;
     public Mesh Client7Head;
     public string Client7Speech;
+    public List<ItemCharacteristics> Client7PrefferedItemCharacteristics;
+    public List<ItemCharacteristics> Client7HatedItemCharacteristics;
 
     public List<int> CreateClientIDs()
     {
