@@ -17,7 +17,6 @@ public class MenuManager : MonoBehaviour
         EnableDisableButtons(true);
         FadeObject.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
         FadeObject.GetComponent<Image>().DOFade(0, duration);
-
     }
 
     private void EnableDisableButtons(bool inOut)
