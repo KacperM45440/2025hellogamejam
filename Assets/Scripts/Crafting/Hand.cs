@@ -12,6 +12,7 @@ public class Hand : MonoBehaviour
 
     public Transform moveTarget;
     public Transform rotationTarget;
+    public Vector3[] rotationTargets;
     [SerializeField] private Transform socket;
     [SerializeField] private float handSpeed;
     [SerializeField] private float handOffset;
@@ -301,6 +302,12 @@ public class Hand : MonoBehaviour
         }
 
         CraftingMgr.Instance.RefreshCollider();
+    }
+
+    public void UpdateRotationTarget(int posIndex)
+    {
+        rotationTarget.DOKill();
+        rotationTarget.DOLocalMove(rotationTargets[posIndex], 0.5f);
     }
 
     // public bool CheckCanConnectItem(Item parent, Item item, bool connect)
