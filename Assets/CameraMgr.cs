@@ -19,6 +19,8 @@ public class CameraMgr : Singleton<CameraMgr>
     public int currentPosIndex = 1;
     public bool isMoving = false;
     public Rope rope;
+    public Transform tabletTransform;
+    public bool isTablet;
 
     public override void Awake()
     {
@@ -92,6 +94,22 @@ public class CameraMgr : Singleton<CameraMgr>
         {
             isMoving = false;
         });
+    }
+
+    public void ShowTablet()
+    {
+        if(isTablet) return;
+        isTablet = true;
+        tabletTransform.DOKill();
+        tabletTransform.DOLocalMove(new Vector3(0f, 0.311f, 2.082f), 0.25f);
+    }
+    
+    public void HideTablet()
+    {
+        if(!isTablet) return;
+        isTablet = false;
+        tabletTransform.DOKill();
+        tabletTransform.DOLocalMove(new Vector3(0f, -5f, 2.082f), 0.25f);
     }
 
 
