@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 303f0b4947f99d040b2fcb5309059b71, type: 3}
   m_Name: SO_WinLose
   m_EditorClassIdentifier: 
-  win: 1
+  win: 0

@@ -86,7 +86,17 @@ public class Hand : MonoBehaviour
                     DialogueController.Instance.ProgressDialogue();
                 }
             }
-            
+        }
+
+        if (Input.GetMouseButtonDown(0) && currentItem)
+        {
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, clientMask))
+            {
+                if (hit.collider.TryGetComponent(out _clientScript))
+                {
+                   
+                }
+            }
         }
 
         if (Input.GetMouseButtonUp(0) && currentItem)
@@ -162,6 +172,7 @@ public class Hand : MonoBehaviour
                                         _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 10f, 2f);
                                         gameFlowController.RopeWasTugged();
                                         _rope.finished = true;
+                                        _rope.ChangeVolume();
                                     });
 
                             });

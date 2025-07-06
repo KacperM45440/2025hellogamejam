@@ -33,14 +33,6 @@ public class ClientController : MonoBehaviour
         todaysClients.Add(1);
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            CreateNextClient();
-        }
-    }
-
     public void InitializeClients()
     {
         ClientIds = ClientDataRef.CreateClientIDs();
