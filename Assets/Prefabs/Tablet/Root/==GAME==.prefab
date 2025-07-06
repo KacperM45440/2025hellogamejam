@@ -849,7 +849,7 @@ PrefabInstance:
     - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
       propertyPath: tabletControllerRef
       value: 
-      objectReference: {fileID: 4061211725040768771}
+      objectReference: {fileID: 0}
     - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
       propertyPath: DialogueControllerRef
       value: 
@@ -1017,17 +1017,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
---- !u!114 &4061211725040768771 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6319510431611531616, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
-  m_PrefabInstance: {fileID: 8065731199267530339}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c847eb932a9286a49bebb6b59dbe3d02, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &5484168076929548422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2590860637819905765, guid: e273b6def3bbab742b9fa0041154f32d, type: 3}
