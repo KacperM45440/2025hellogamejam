@@ -2798,9 +2798,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Barrel
   price: 0
-  iconName: Gun
+  iconName: Barrel
   itemType: 6
-  description: Gun
+  description: Barrel
   itemAnchors: []
   itemPlaceholder: {fileID: 7124626896121987742}
   itemAnchor: {fileID: 5228918849241640640}
@@ -2813,6 +2813,7 @@ MonoBehaviour:
   isGrabed: 0
   inCrafting: 0
   parentItem: {fileID: 0}
+  itemCollider: {fileID: 4706554517204284678}
 --- !u!212 &4868507347743476189
 SpriteRenderer:
   m_ObjectHideFlags: 0

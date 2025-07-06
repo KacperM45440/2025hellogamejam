@@ -44,6 +44,7 @@ public class Item : MonoBehaviour
 
     private SpriteRenderer[] _circles;
     public Item parentItem;
+    public Collider itemCollider;
 
 
     private void Awake()
@@ -107,9 +108,10 @@ public class Item : MonoBehaviour
     public void Drop(Vector3 velocity, bool toCrafting = false)
     {
         SetHover(false);
-        rb.isKinematic = false;
         if (!toCrafting)
         {        
+            itemCollider.isTrigger = false;
+            rb.isKinematic = false;
             rb.linearVelocity = velocity;
             transform.parent = null;
             isGrabed = false;
@@ -188,13 +190,15 @@ public class Item : MonoBehaviour
     public void SetItemToAnchor(ItemAnchorTarget anchor, Item item)
     {
         item.PlaceToCrafting();
+        item.itemCollider.isTrigger = true;
         item.transform.parent = anchor.transform;
+        anchor.addedItem = item;
         item.transform.DOKill();
         item.transform.DOLocalRotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.25f);
         item.transform.DOLocalMove(-item.itemAnchor.transform.localPosition, 0.25f).OnComplete(() =>
         {
             CraftingMgr.Instance.currentItem.RefreshCircles();
-        });;
+        });
     }
 
 }
