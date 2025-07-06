@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private LayerMask inputLayerMask;
     [SerializeField] private LayerMask grabLayerMask;
     [SerializeField] private LayerMask itemAnchorMask;
+    [SerializeField] private LayerMask clientMask;
 
     public GameFlowController gameFlowController;
     public Transform moveTarget;
@@ -39,6 +41,7 @@ public class Hand : MonoBehaviour
 
     private Sequence _grabSequence;
     private Rope _rope;
+    private ClientScript _clientScript;
 
     [SerializeField] private Animator animator;
     private float _gripValue = 0;
@@ -72,6 +75,18 @@ public class Hand : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && hoveredItem && !currentItem)
         {
             GrabItem();
+        }
+        
+        if (Input.GetMouseButtonDown(0) && !hoveredItem && !currentItem)
+        {
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, clientMask))
+            {
+                if (hit.collider.TryGetComponent(out _clientScript))
+                {
+                    DialogueController.Instance.ProgressDialogue();
+                }
+            }
+            
         }
 
         if (Input.GetMouseButtonUp(0) && currentItem)
