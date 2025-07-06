@@ -3,15 +3,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
+using TMPro;
 public class GameFlowController : MonoBehaviour
 {
     public InventoryScript inventoryScriptRef;
     public MoneyController moneyControllerRef;
     public ClientController clientControllerRef;
     public DialogueController DialogueControllerRef;
+    public GameObject blackScreen;
+    public TextMeshProUGUI dayCount;
     public Rope RopeRef;
     public bool RopeSpawned;
     public bool RopeTugged;
+    public int currentDay = 1;
     
     private void Start()
     {
@@ -53,19 +57,37 @@ public class GameFlowController : MonoBehaviour
         RopeRef.gameObject.GetComponent<Animator>().enabled = false;
     }
 
-    public void WinGame()
+    public void EndDay()
     {
-        EndGame(true);
+        StartCoroutine(EndDayAnim());
     }
 
-    public void LoseGame()
+    private IEnumerator EndDayAnim()
     {
-        EndGame(false);
+        blackScreen.SetActive(true);
+        currentDay++;
+        dayCount.text = "Day: "+ currentDay.ToString();
+        yield return new WaitForSeconds(1);
+        dayCount.gameObject.SetActive(true);
+        yield return new WaitForSeconds(3);
+        blackScreen.SetActive(false);
+        dayCount.gameObject.SetActive(false);
+        StartNextDay();
     }
 
-    private void EndGame(bool win)
+    public void StartNextDay()
     {
-        PlayerPrefs.SetInt("GameWin", Convert.ToInt32(win));
+
+    }
+
+    public void EndGame()
+    {
+        bool won = false;
+        if (moneyControllerRef.HasEnoughMoneyInJar())
+        {
+            won = true;
+        }
+        PlayerPrefs.SetInt("GameWin", Convert.ToInt32(won));
         SceneManager.LoadScene(3);
     }
 }
