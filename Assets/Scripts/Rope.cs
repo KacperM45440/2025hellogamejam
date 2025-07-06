@@ -2,6 +2,9 @@ using System;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Rope : MonoBehaviour
 {
@@ -11,11 +14,14 @@ public class Rope : MonoBehaviour
     public SpriteRenderer outline;
     private bool isOutline = false;
     public bool finished = false;
+    public Volume volume;
+    public Light light;
 
 
     private void Awake()
     {
         _camera = Camera.main;
+        volume.weight = 1f;
     }
 
     void Start()
@@ -41,5 +47,12 @@ public class Rope : MonoBehaviour
         outline.DOKill();
         outline.DOFade(value ? 1f : 0f, 0.25f);
     }
-    
+
+    public void ChangeVolume()
+    {
+        DOTween.To(() => volume.weight, x => volume.weight = x, 0f, 1f);
+        DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
+
+    }
+
 }
