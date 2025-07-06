@@ -105,54 +105,56 @@ MonoBehaviour:
   Client1Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client1Head: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   Client1Speech: hello i am john evil
+  Client1PrefferedItemCharacteristics: 000000000200000009000000040000000f000000
+  Client1HatedItemCharacteristics: 01000000030000000500000010000000
   Client2ID: 2
   Client2Name: Evil Businessman
   Client2Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client2Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client2Head: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
   Client2Speech: have you met my brother?
+  Client2PrefferedItemCharacteristics: 020000000c000000060000000f00000007000000
+  Client2HatedItemCharacteristics: 030000000800000010000000
   Client3ID: 3
   Client3Name: Hunter
   Client3Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client3Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client3Head: {fileID: 0}
   Client3Speech: 
+  Client3PrefferedItemCharacteristics: 0b0000000a0000000e000000
+  Client3HatedItemCharacteristics: 00000000110000000f00000010000000
   Client4ID: 4
   Client4Name: Widow
   Client4Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client4Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client4Head: {fileID: 0}
   Client4Speech: 
+  Client4PrefferedItemCharacteristics: 050000000700000001000000
+  Client4HatedItemCharacteristics: 04000000000000000800000010000000
   Client5ID: 5
   Client5Name: Hitman
   Client5Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client5Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client5Head: {fileID: 0}
   Client5Speech: 
+  Client5PrefferedItemCharacteristics: 010000000e00000003000000
+  Client5HatedItemCharacteristics: 0d000000000000000200000010000000
   Client6ID: 6
   Client6Name: Suicide
   Client6Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client6Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client6Head: {fileID: 0}
   Client6Speech: 
+  Client6PrefferedItemCharacteristics: 1000000008000000
+  Client6HatedItemCharacteristics: 0c0000000900000007000000
   Client7ID: 7
   Client7Name: Stalker
   Client7Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
   Client7Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
   Client7Head: {fileID: 0}
   Client7Speech: 
-  Client8ID: 8
-  Client8Name: 
-  Client8Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
-  Client8Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
-  Client8Head: {fileID: 0}
-  Client8Speech: 
-  Client9ID: 9
-  Client9Name: 
-  Client9Body: {fileID: 21300000, guid: 2710ba61a84af79419f533149ba1095f, type: 3}
-  Client9Face: {fileID: 21300000, guid: b503c4e293d78ec41b76abb2e9dbc81a, type: 3}
-  Client9Head: {fileID: 0}
-  Client9Speech: 
+  Client7PrefferedItemCharacteristics: 130000000d0000000a00000009000000
+  Client7HatedItemCharacteristics: 100000000000000003000000
 --- !u!1001 &5584395401782439510
 PrefabInstance:
   m_ObjectHideFlags: 0
