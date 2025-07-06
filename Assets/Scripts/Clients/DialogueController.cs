@@ -21,9 +21,9 @@ public class DialogueController : MonoBehaviour
     [HideInInspector] public List<List<string>> DialogueResponsesBad;
 
 
-    public void FixedUpdate()
+    public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))//przerobiæ na lewy przycik myszki na kliencie
+        if (Input.GetMouseButtonDown(0))
         {
             ProgressDialogue();
         }
@@ -57,6 +57,11 @@ public class DialogueController : MonoBehaviour
 
     public void ProgressDialogue()
     {
+        if (currentDialogue.Count == 0)
+        {
+            return;
+        }
+
         if (currentSubdialogue <= currentDialogue.Count - 1)
         {
             BubbleRef.NextText(currentSubdialogue, ClientRef.CurrentClient.ClientName, currentDialogue[currentSubdialogue]);
@@ -64,12 +69,15 @@ public class DialogueController : MonoBehaviour
         }
         else
         {
-            currentSubdialogue = 0;
             BubbleRef.ClearText();
 
-            if (ClientRef.CurrentClientInt == 1 && !FlowControllerRef.RopeTugged)
+            if (ClientRef.CurrentClientInt == 1)
             {
-                FlowControllerRef.SpawnRope();
+                if (!FlowControllerRef.RopeSpawned)
+                {
+                    FlowControllerRef.SpawnRope();
+                }              
+
                 return;
             }
 

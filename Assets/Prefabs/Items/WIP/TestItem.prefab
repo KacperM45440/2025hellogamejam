@@ -577,20 +577,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Gun
   price: 0
-  iconName: Gun
-  itemType: 0
+  iconName: IMG_
+  itemType: 1
   description: Gun
-  itemAnchors:
-  - anchor: {fileID: 1854174079162875708}
-    avaliableType: 6
-  - anchor: {fileID: 5167624673438221335}
-    avaliableType: 5
-  - anchor: {fileID: 3548174853562153206}
-    avaliableType: 4
+  itemAnchors: []
   itemPlaceholder: {fileID: 7124626896435517644}
   itemAnchor: {fileID: 5228918849567749266}
-  handGrabPosOffset: {x: -0.141, y: 0, z: 0.314}
-  handGrabRotOffset: {x: 0, y: -100, z: 0}
+  handGrabPosOffset: {x: 0, y: 0, z: 0}
+  handGrabRotOffset: {x: 0, y: 0, z: 0}
   itemSprite: {fileID: 2014666159043588951}
   outline: {fileID: 4868507348052808591}
   rb: {fileID: 1486633355609335662}
@@ -749,7 +743,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6537361973821545895
 Transform:
   m_ObjectHideFlags: 0

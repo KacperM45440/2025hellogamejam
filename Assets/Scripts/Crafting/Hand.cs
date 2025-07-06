@@ -10,6 +10,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private LayerMask grabLayerMask;
     [SerializeField] private LayerMask itemAnchorMask;
 
+    public GameFlowController gameFlowController;
     public Transform moveTarget;
     public Transform rotationTarget;
     public Vector3[] rotationTargets;
@@ -37,7 +38,10 @@ public class Hand : MonoBehaviour
     private Vector3 _previousHandPosition;
 
     private Sequence _grabSequence;
+    private Rope _rope;
 
+    [SerializeField] private Animator animator;
+    private float _gripValue = 0;
     void Awake()
     {
         _camera = Camera.main;
@@ -59,6 +63,8 @@ public class Hand : MonoBehaviour
         {
             _moveSpeed += Time.deltaTime * 20f;
         }
+        animator.SetFloat("Grip", _gripValue);
+        
     }
 
     private void Controller()
@@ -101,6 +107,47 @@ public class Hand : MonoBehaviour
             else
             {
                 DropItem();
+            }
+        }
+        if (Input.GetMouseButtonUp(0) && !currentItem)
+        {
+
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
+            {
+                if (hit.collider.TryGetComponent(out _rope))
+                {
+                    _blockFollow = true;
+                    handRb.isKinematic = true;
+                    _moveSpeed = 0f;
+                    handRb.transform.DOKill();        
+                    //DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
+                    _gripValue = 1f;
+                    animator.SetFloat("Grip", 1f);
+                    handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
+                    handRb.transform.DOMove(_rope.handeTarget.position + Vector3.down * 0.25f, 0.25f).OnComplete(() =>
+                    {
+                        handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
+                        {
+                            moveTarget.position = handRb.position;
+                            moveTarget.rotation = handRb.rotation;
+
+                            _blockFollow = false;
+                            handRb.isKinematic = false;
+                            _blockFollow = false;
+                            DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+
+                        });
+                        _rope.handeTarget.DOKill();
+                        _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>
+                        {
+                            _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 5f, 1f);
+                            gameFlowController.RopeWasTugged();
+                        });
+                        
+                    });
+                   
+
+                }
             }
         }
     }
@@ -170,6 +217,16 @@ public class Hand : MonoBehaviour
                     hoveredItem = _newHoverItem;
                     hoveredItem.SetHover(true);
                     _newHoverItem = null;
+                }
+
+                if (hit.collider.TryGetComponent(out _rope))
+                {
+                    _rope.SetOutline(true);
+   
+                }
+                else if(_rope)
+                {
+                    _rope.SetOutline(false);
                 }
             }
             else
@@ -270,6 +327,9 @@ public class Hand : MonoBehaviour
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
         }));
+        
+        DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
+
         // _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
         //     {
         //         backMovePosition =  moveTarget.position;
@@ -302,6 +362,8 @@ public class Hand : MonoBehaviour
         }
 
         CraftingMgr.Instance.RefreshCollider();
+        DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+
     }
 
     public void UpdateRotationTarget(int posIndex)
