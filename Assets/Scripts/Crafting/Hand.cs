@@ -308,6 +308,11 @@ public class Hand : MonoBehaviour
     public void GrabItem()
     {
         if (!hoveredItem) return;
+        if (hoveredItem.parentItem)
+        {
+            if(!hoveredItem.parentItem.inCrafting) return;
+        }
+
         currentItem = hoveredItem;
         hoveredItem = null;
         handRb.isKinematic = true;
