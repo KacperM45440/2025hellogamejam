@@ -4,8 +4,10 @@ using GameStage = StageManager.GameStage;
 
 public class DialogueController : MonoBehaviour
 {
+    public GameFlowController FlowControllerRef;
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
+    public ClientController ClientRef;
     public BubbleController BubbleRef;
 
     [HideInInspector] public Dialogue mainDialogue;
@@ -64,6 +66,13 @@ public class DialogueController : MonoBehaviour
         {
             currentSubdialogue = 0;
             BubbleRef.ClearText();
+
+            if (ClientRef.CurrentClientInt == 1)
+            {
+                FlowControllerRef.SpawnRope();
+                return;
+            }
+
             ProgressStage();
         }
     }

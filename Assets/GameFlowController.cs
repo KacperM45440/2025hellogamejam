@@ -6,6 +6,7 @@ public class GameFlowController : MonoBehaviour
     public InventoryScript inventoryScriptRef;
     public MoneyController moneyControllerRef;
     public ClientController clientControllerRef;
+    public DialogueController DialogueControllerRef;
     private void Start()
     {
         //Inicjalizacja rêki
@@ -27,5 +28,6 @@ public class GameFlowController : MonoBehaviour
     public void RopeWasTugged()
     {
         Debug.Log("Rope was tugged, change store look.");
+        DialogueControllerRef.ProgressStage();
     }
 }
