@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 public class GameFlowController : MonoBehaviour
 {
+    public TabletController tabletControllerRef;
     public InventoryScript inventoryScriptRef;
     public MoneyController moneyControllerRef;
     public ClientController clientControllerRef;
@@ -54,6 +55,11 @@ public class GameFlowController : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         RopeRef.gameObject.GetComponent<Animator>().enabled = false;
+    }
+
+    public void ShowTablet()
+    {
+        tabletControllerRef.PullOutTablet();
     }
 
     public void EndDay()
