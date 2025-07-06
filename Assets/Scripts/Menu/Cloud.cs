@@ -23,15 +23,12 @@ public class Cloud : MonoBehaviour
         StartCoroutine(FadeCourtine(lifeTime));
         cloud.alpha = 0;
 
-
     }
     private IEnumerator FadeCourtine(float time)
     {
-        Debug.Log("Yeeees");
         cloud.DOFade(1, time);
         yield return new WaitForSeconds(time);
         StartCoroutine(FadeCourtineDEAD(lifeTime));
-
     }
 
     private IEnumerator FadeCourtineDEAD(float time)
