@@ -551,6 +551,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+--- !u!114 &81631346844457914 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2367389759952124705, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+  m_PrefabInstance: {fileID: 2447894648340127899}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f57d58a83605c4ab4a7e685b844718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5653131139828273741 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8037623407389274838, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
@@ -811,6 +822,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ==SYSTEM==
       objectReference: {fileID: 0}
+    - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
+      propertyPath: RopeRef
+      value: 
+      objectReference: {fileID: 81631346844457914}
     - target: {fileID: 3572493483141366180, guid: c3653939845ef8d4c96cc29fb5c2e309, type: 3}
       propertyPath: clientControllerRef
       value: 
