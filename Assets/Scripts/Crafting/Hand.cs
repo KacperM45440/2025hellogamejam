@@ -124,7 +124,7 @@ public class Hand : MonoBehaviour
                     _gripValue = 1f;
                     animator.SetFloat("Grip", 1f);
                     handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
-                    handRb.transform.DOMove(_rope.handeTarget.position + Vector3.down * 0.25f, 0.25f).OnComplete(() =>
+                    handRb.transform.DOMove(_rope.handeTarget.position + new Vector3(0.15f, 0.25f, 0f), 0.25f).OnComplete(() =>
                     {
                         handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
                         {
@@ -235,6 +235,11 @@ public class Hand : MonoBehaviour
                 {
                     hoveredItem.SetHover(false);
                     hoveredItem = null;
+                }
+
+                if (_rope)
+                {
+                    _rope.SetOutline(false);
                 }
             }
         }

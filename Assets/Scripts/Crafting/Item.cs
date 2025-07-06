@@ -57,7 +57,7 @@ public class Item : MonoBehaviour
             itemAnchors[i].anchor.itemType = itemAnchors[i].avaliableType;
         }
         itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
-
+        outline.sortingOrder = -1;
 
         ClearCircles();
     }
@@ -78,12 +78,16 @@ public class Item : MonoBehaviour
 
     public void StartGrab()
     {
-        itemSprite.sortingOrder += 10;
+        itemSprite.sortingOrder = 10;
+        outline.sortingOrder = 9;
+
         for (int i = 0; i < itemAnchors.Length; i++)
         {
             if (itemAnchors[i].anchor.addedItem)
             {
-                itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder += 10;
+                itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder = 10;
+                itemAnchors[i].anchor.addedItem.outline.sortingOrder = 9;
+
             }
         }
         ClearCircles();
@@ -149,12 +153,15 @@ public class Item : MonoBehaviour
         
         
         itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
+        outline.sortingOrder = -1;
 
         for (int i = 0; i < itemAnchors.Length; i++)
         {
             if (itemAnchors[i].anchor.addedItem)
             {
                 itemAnchors[i].anchor.addedItem.itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
+                itemAnchors[i].anchor.addedItem.outline.sortingOrder = -1;
+
             }
         }
 
