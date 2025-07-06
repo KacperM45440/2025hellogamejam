@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameStage = StageManager.GameStage;
 
-public class DialogueController : MonoBehaviour
+public class DialogueController : Singleton<DialogueController>
 {
     public GameFlowController FlowControllerRef;
     public StageManager StageManagerRef;
@@ -23,10 +23,10 @@ public class DialogueController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            ProgressDialogue();
-        }
+        // if (Input.GetMouseButtonDown(0))
+        // {
+        //     ProgressDialogue();
+        // }
     }
 
     public void Start()
