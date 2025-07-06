@@ -18,6 +18,7 @@ public class CameraMgr : Singleton<CameraMgr>
     public List<Transform> cameraPosPoints;
     public int currentPosIndex = 1;
     public bool isMoving = false;
+    public Rope rope;
 
     public override void Awake()
     {
@@ -79,6 +80,7 @@ public class CameraMgr : Singleton<CameraMgr>
     public void ChangePos(int value)
     {
         if(isMoving) return;
+        if(!rope.finished) return;  
         int oldIndex = currentPosIndex;
         currentPosIndex -= value;
         currentPosIndex = Mathf.Clamp(currentPosIndex, 0, cameraPosPoints.Count - 1);

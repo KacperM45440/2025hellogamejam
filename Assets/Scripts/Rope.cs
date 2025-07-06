@@ -10,6 +10,7 @@ public class Rope : MonoBehaviour
     public Transform handeTarget;
     public SpriteRenderer outline;
     private bool isOutline = false;
+    public bool finished = false;
 
 
     private void Awake()
@@ -30,6 +31,7 @@ public class Rope : MonoBehaviour
 
     public void SetOutline(bool value)
     {
+        if(finished) return;
         if (isOutline == value)
         {
             return;

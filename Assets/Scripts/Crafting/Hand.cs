@@ -116,36 +116,42 @@ public class Hand : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out _rope))
                 {
-                    _blockFollow = true;
-                    handRb.isKinematic = true;
-                    _moveSpeed = 0f;
-                    handRb.transform.DOKill();        
-                    //DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
-                    _gripValue = 1f;
-                    animator.SetFloat("Grip", 1f);
-                    handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
-                    handRb.transform.DOMove(_rope.handeTarget.position + new Vector3(0.15f, 0.25f, 0f), 0.25f).OnComplete(() =>
+                    if (!_rope.finished)
                     {
-                        handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
-                        {
-                            moveTarget.position = handRb.position;
-                            moveTarget.rotation = handRb.rotation;
+                        _blockFollow = true;
+                        handRb.isKinematic = true;
+                        _moveSpeed = 0f;
+                        handRb.transform.DOKill();
+                        //DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
+                        _gripValue = 1f;
+                        animator.SetFloat("Grip", 1f);
+                        handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
+                        handRb.transform.DOMove(_rope.handeTarget.position + new Vector3(0.15f, 0.25f, 0f), 0.25f)
+                            .OnComplete(() =>
+                            {
+                                handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
+                                {
+                                    moveTarget.position = handRb.position;
+                                    moveTarget.rotation = handRb.rotation;
 
-                            _blockFollow = false;
-                            handRb.isKinematic = false;
-                            _blockFollow = false;
-                            DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+                                    _blockFollow = false;
+                                    handRb.isKinematic = false;
+                                    _blockFollow = false;
+                                    DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
 
-                        });
-                        _rope.handeTarget.DOKill();
-                        _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>
-                        {
-                            _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 5f, 1f);
-                            gameFlowController.RopeWasTugged();
-                        });
-                        
-                    });
-                   
+                                });
+                                _rope.handeTarget.DOKill();
+                                _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(
+                                    () =>
+                                    {
+                                        _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 5f, 1f);
+                                        gameFlowController.RopeWasTugged();
+                                        _rope.finished = true;
+                                    });
+
+                            });
+                    }
+
 
                 }
             }
