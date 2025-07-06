@@ -75,7 +75,6 @@ public class ClientController : MonoBehaviour
 
         CurrentClient = GetNextClient(CurrentClientInt);
         BubbleRef.ClearText();
-        dialogueControllerRef.currentSubdialogue = 0;
         dialogueControllerRef.ChangeMainDialogue(CurrentClientInt);
         StageManagerRef.SetCurrentGameStage(StageManager.GameStage.EnterStore);
         
