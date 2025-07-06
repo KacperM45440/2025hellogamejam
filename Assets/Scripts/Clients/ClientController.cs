@@ -14,6 +14,7 @@ public class ClientController : MonoBehaviour
     public int DefaultClientPayment = 100;
 
     [HideInInspector] public List<int> ClientIds;
+    [HideInInspector] public List<string> ClientNames;
     [HideInInspector] public List<Sprite> ClientBodies;
     [HideInInspector] public List<GameObject> ClientHeads;
     [HideInInspector] public List<Vector3> ClientOffsets;
@@ -38,6 +39,7 @@ public class ClientController : MonoBehaviour
     public void InitializeClients()
     {
         ClientIds = ClientDataRef.CreateClientIDs();
+        ClientNames = ClientDataRef.CreateClientNames();
         ClientBodies = ClientDataRef.CreateClientBodies();
         ClientHeads = ClientDataRef.CreateClientHeads();
         ClientOffsets = ClientDataRef.CreateClientOffsets();
@@ -52,6 +54,7 @@ public class ClientController : MonoBehaviour
         Client nextClient = new Client();
         
         nextClient.ClientId = ClientIds[index];
+        nextClient.ClientName = ClientNames[index];
         nextClient.ClientBody = ClientBodies[index];
         nextClient.ClientHead = ClientHeads[index];
         nextClient.ClientHeadOffset = ClientOffsets[index];
@@ -68,14 +71,15 @@ public class ClientController : MonoBehaviour
             Destroy(ClientRef.transform.GetChild(2).gameObject);
         }
 
-        Client currentClient = GetNextClient(CurrentClientInt);
+        CurrentClient = GetNextClient(CurrentClientInt);
 
-        GameObject newHead = Instantiate(currentClient.ClientHead, ClientRef.transform);
+        GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
         newHead.transform.Rotate(new Vector3(0, 0, 90));
-        newHead.transform.position = new Vector3(newHead.transform.position.x, newHead.transform.position.y + currentClient.ClientHeadOffset.y, newHead.transform.position.z);
+        newHead.transform.position = new Vector3(newHead.transform.position.x, newHead.transform.position.y + CurrentClient.ClientHeadOffset.y, newHead.transform.position.z);
 
         ClientRef.ClientHead = newHead;
-        ClientRef.ClientBody.sprite = currentClient.ClientBody;
+
+        ClientRef.ClientBody.sprite = CurrentClient.ClientBody;
 
         CurrentClientInt++;
 
@@ -145,6 +149,7 @@ public class ClientController : MonoBehaviour
     public class Client
     {
         public int ClientId;
+        public string ClientName;
         public Sprite ClientBody;
         public GameObject ClientHead;
         public Vector3 ClientHeadOffset;

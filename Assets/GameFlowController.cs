@@ -7,6 +7,8 @@ public class GameFlowController : MonoBehaviour
     public MoneyController moneyControllerRef;
     public ClientController clientControllerRef;
     public DialogueController DialogueControllerRef;
+    public bool RopeTugged;
+    
     private void Start()
     {
         //Inicjalizacja rêki
@@ -16,18 +18,21 @@ public class GameFlowController : MonoBehaviour
 
     private IEnumerator SpawnClient()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(0.5f);
         clientControllerRef.CreateNextClient();
     }
 
     public void SpawnRope()
     {
         Debug.Log("Spawn Rope");
+        RopeWasTugged();
     }
 
     public void RopeWasTugged()
     {
+        RopeTugged = true;
         Debug.Log("Rope was tugged, change store look.");
         DialogueControllerRef.ProgressStage();
+        DialogueControllerRef.ProgressDialogue();
     }
 }

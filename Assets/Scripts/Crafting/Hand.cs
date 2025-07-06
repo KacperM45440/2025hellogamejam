@@ -37,6 +37,7 @@ public class Hand : MonoBehaviour
     private Vector3 _previousHandPosition;
 
     private Sequence _grabSequence;
+    private Rope _rope;
 
     void Awake()
     {
@@ -101,6 +102,39 @@ public class Hand : MonoBehaviour
             else
             {
                 DropItem();
+            }
+        }
+        if (Input.GetMouseButtonUp(0) && !currentItem)
+        {
+
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
+            {
+                if (hit.collider.TryGetComponent(out _rope))
+                {
+                    _blockFollow = true;
+                    handRb.isKinematic = true;
+                    _moveSpeed = 0f;
+                    handRb.DOKill();
+                    handRb.DOMove(_rope.handeTarget.position + Vector3.down * 0.25f, 0.25f).OnComplete(() =>
+                    {
+                        handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
+                        {
+                            moveTarget.position = handRb.position;
+                            _blockFollow = false;
+                            handRb.isKinematic = false;
+                            _blockFollow = false;
+                        });
+                        _rope.handeTarget.DOKill();
+                        _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>
+                        {
+                            _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 5f, 1f);
+                            //RopeWasTugged
+                        });
+                        
+                    });
+                   
+
+                }
             }
         }
     }
@@ -170,6 +204,16 @@ public class Hand : MonoBehaviour
                     hoveredItem = _newHoverItem;
                     hoveredItem.SetHover(true);
                     _newHoverItem = null;
+                }
+
+                if (hit.collider.TryGetComponent(out _rope))
+                {
+                    _rope.SetOutline(true);
+   
+                }
+                else if(_rope)
+                {
+                    _rope.SetOutline(false);
                 }
             }
             else

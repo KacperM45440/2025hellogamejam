@@ -48,7 +48,7 @@ public class CameraMgr : Singleton<CameraMgr>
 
 
         float distanseToChange = maxCamerMoveRadius * 2f;
-        float minZ = currentPosIndex == 0 ? -2.5f : -1.9f;
+        float minZ = currentPosIndex == 0 ? -2.9f : -1.9f;
         if (!isMoving && hand.moveTarget.position.z <= minZ)
         {
             if (pos.x >= distanseToChange)
