@@ -25,10 +25,10 @@ public class StoreItem : MonoBehaviour
 
     public void InitializeItem(int weaponID, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
     {
-        imageField.sprite = Resources.Load<Sprite>(imageResourcesRef);
+        imageField.sprite = Resources.Load<Sprite>("WeaponIcons/"+imageResourcesRef);
         nameField.text = nameText;
         descriptionField.text = descriptionText;
-        initialPriceField.text = initialPrice.ToString() + "$B";
+        initialPriceField.text = initialPrice.ToString() + " $B";
         tabletControllerRef = controllerRef;
         currentPrice = initialPrice;
         thisWeaponID = weaponID;
@@ -74,7 +74,7 @@ public class StoreItem : MonoBehaviour
         frame.GetComponent<Image>().sprite = Sprite;
         float discountModifier = Random.Range(discountModifierMin, discountModifierMax + 1);
         int discountedPrice = Mathf.RoundToInt(currentPrice * (discountModifier / 100f));
-        discountPriceField.text = discountedPrice.ToString() + "$B";
+        discountPriceField.text = discountedPrice.ToString() + " $B";
         currentPrice = discountedPrice;
     }
 }
