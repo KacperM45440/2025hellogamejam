@@ -48,6 +48,7 @@ public class Item : MonoBehaviour
     private SpriteRenderer[] _circles;
     public Item parentItem;
     public Collider itemCollider;
+    public TextMesh textMesh;
 
 
     private void Awake()
@@ -79,6 +80,17 @@ public class Item : MonoBehaviour
             }
         }
         isHovered = hover;
+
+        if (isHovered)
+        {
+            textMesh.gameObject.SetActive(true);
+        }
+        else
+        {
+            textMesh.gameObject.SetActive(false);
+        }
+         
+        textMesh.text = description;
         outline.color = Color.white;
         outline.DOFade(isHovered ? 1f : 0f, 0.5f);
     }
@@ -90,6 +102,7 @@ public class Item : MonoBehaviour
 
     public void StartGrab()
     {
+        textMesh.gameObject.SetActive(false);
         itemSprite.sortingOrder = 10;
         outline.sortingOrder = 9;
 
