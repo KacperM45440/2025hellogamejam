@@ -6,8 +6,8 @@ public class ClientData : MonoBehaviour
     public int Client1ID = 1;
     public string Client1Name;
     public Sprite Client1Body;
-    public Sprite Client1Face;
-    public Mesh Client1Head;
+    public GameObject Client1Head;
+    public Vector3 Client1HeadOffset;
     public string Client1Speech;
     public List<ItemCharacteristics> Client1PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client1HatedItemCharacteristics;
@@ -17,8 +17,8 @@ public class ClientData : MonoBehaviour
     public int Client2ID = 2;
     public string Client2Name;
     public Sprite Client2Body;
-    public Sprite Client2Face;
-    public Mesh Client2Head;
+    public GameObject Client2Head;
+    public Vector3 Client2HeadOffset;
     public string Client2Speech;
     public List<ItemCharacteristics> Client2PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client2HatedItemCharacteristics;
@@ -28,8 +28,8 @@ public class ClientData : MonoBehaviour
     public int Client3ID = 3;
     public string Client3Name;
     public Sprite Client3Body;
-    public Sprite Client3Face;
-    public Mesh Client3Head;
+    public GameObject Client3Head;
+    public Vector3 Client3HeadOffset;
     public string Client3Speech;
     public List<ItemCharacteristics> Client3PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client3HatedItemCharacteristics;
@@ -39,8 +39,8 @@ public class ClientData : MonoBehaviour
     public int Client4ID = 4;
     public string Client4Name;
     public Sprite Client4Body;
-    public Sprite Client4Face;
-    public Mesh Client4Head;
+    public GameObject Client4Head;
+    public Vector3 Client4HeadOffset;
     public string Client4Speech;
     public List<ItemCharacteristics> Client4PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client4HatedItemCharacteristics;
@@ -50,8 +50,8 @@ public class ClientData : MonoBehaviour
     public int Client5ID = 5;
     public string Client5Name;
     public Sprite Client5Body;
-    public Sprite Client5Face;
-    public Mesh Client5Head;
+    public GameObject Client5Head;
+    public Vector3 Client5HeadOffset;
     public string Client5Speech;
     public List<ItemCharacteristics> Client5PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client5HatedItemCharacteristics;
@@ -61,8 +61,8 @@ public class ClientData : MonoBehaviour
     public int Client6ID = 6;
     public string Client6Name;
     public Sprite Client6Body;
-    public Sprite Client6Face;
-    public Mesh Client6Head;
+    public GameObject Client6Head;
+    public Vector3 Client6HeadOffset;
     public string Client6Speech;
     public List<ItemCharacteristics> Client6PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client6HatedItemCharacteristics;
@@ -72,8 +72,8 @@ public class ClientData : MonoBehaviour
     public int Client7ID = 7;
     public string Client7Name;
     public Sprite Client7Body;
-    public Sprite Client7Face;
-    public Mesh Client7Head;
+    public GameObject Client7Head;
+    public Vector3 Client7HeadOffset;
     public string Client7Speech;
     public List<ItemCharacteristics> Client7PrefferedItemCharacteristics;
     public List<ItemCharacteristics> Client7HatedItemCharacteristics;
@@ -126,25 +126,9 @@ public class ClientData : MonoBehaviour
         return clientBodies;
     }
 
-    public List<Sprite> CreateClientFaces()
+    public List<GameObject> CreateClientHeads()
     {
-        List<Sprite> clientFaces = new List<Sprite>
-        {
-            Client1Face,
-            Client2Face,
-            Client3Face,
-            Client4Face,
-            Client5Face,
-            Client6Face,
-            Client7Face
-        };
-
-        return clientFaces;
-    }
-
-    public List<Mesh> CreateClientHeads()
-    {
-        List<Mesh> clientHeads = new List<Mesh>
+        List<GameObject> clientHeads = new List<GameObject>
         {
             Client1Head,
             Client2Head,
@@ -156,6 +140,22 @@ public class ClientData : MonoBehaviour
         };
 
         return clientHeads;
+    }
+
+    public List<Vector3> CreateClientOffsets()
+    {
+        List<Vector3> clientOffsets = new List<Vector3>
+        {
+            Client1HeadOffset,
+            Client2HeadOffset,
+            Client3HeadOffset,
+            Client4HeadOffset,
+            Client5HeadOffset,
+            Client6HeadOffset,
+            Client7HeadOffset
+        };
+
+        return clientOffsets;
     }
 
     public List<string> CreateClientSpeeches()
