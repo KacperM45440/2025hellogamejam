@@ -57,22 +57,6 @@ public class DialogueData : MonoBehaviour
     public List<string> Client7ResponseAverage;
     public List<string> Client7ResponseBad;
 
-    [Space]
-
-    public List<string> Client8Greeting;
-    public List<string> Client8Request;
-    public List<string> Client8ResponseGood;
-    public List<string> Client8ResponseAverage;
-    public List<string> Client8ResponseBad;
-
-    [Space]
-
-    public List<string> Client9Greeting;
-    public List<string> Client9Request;
-    public List<string> Client9ResponseGood;
-    public List<string> Client9ResponseAverage;
-    public List<string> Client9ResponseBad;
-
     public List<List<string>> CreateDialogueGreeting()
     {
         List<List<string>> clientGreets = new List<List<string>>
@@ -83,9 +67,7 @@ public class DialogueData : MonoBehaviour
             Client4Greeting,
             Client5Greeting,
             Client6Greeting,
-            Client7Greeting,
-            Client8Greeting,
-            Client9Greeting,
+            Client7Greeting
         };
 
         return clientGreets;
@@ -101,9 +83,7 @@ public class DialogueData : MonoBehaviour
             Client4Request,
             Client5Request,
             Client6Request,
-            Client7Request,
-            Client8Request,
-            Client9Request,
+            Client7Request
         };
 
         return clientRequests;
@@ -119,9 +99,7 @@ public class DialogueData : MonoBehaviour
             Client4ResponseGood,
             Client5ResponseGood,
             Client6ResponseGood,
-            Client7ResponseGood,
-            Client8ResponseGood,
-            Client9ResponseGood,
+            Client7ResponseGood
         };
 
         return clientResponsesGood;
@@ -137,9 +115,7 @@ public class DialogueData : MonoBehaviour
             Client4ResponseAverage,
             Client5ResponseAverage,
             Client6ResponseAverage,
-            Client7ResponseAverage,
-            Client8ResponseAverage,
-            Client9ResponseAverage,
+            Client7ResponseAverage
         };
 
         return clientResponsesAverage;
@@ -155,9 +131,7 @@ public class DialogueData : MonoBehaviour
             Client4ResponseBad,
             Client5ResponseBad,
             Client6ResponseBad,
-            Client7ResponseBad,
-            Client8ResponseBad,
-            Client9ResponseBad,
+            Client7ResponseBad
         };
 
         return clientResponsesBad;

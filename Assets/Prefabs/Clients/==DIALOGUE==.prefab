@@ -134,9 +134,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: faeff67ed5b139d4abe55994252499d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlowControllerRef: {fileID: 0}
+  inventoryRef: {fileID: 0}
   StageManagerRef: {fileID: 0}
   DialogueDataRef: {fileID: 8125334100915355250}
-  BubbleRef: {fileID: 0}
+  ClientRef: {fileID: 0}
+  BubbleRef: {fileID: 1240151533211367315}
   currentDialogue: []
   currentSubdialogue: 0
 --- !u!114 &8125334100915355250
@@ -259,19 +262,12 @@ MonoBehaviour:
   - '*muffled* ...mutants...'
   - '*muffled* ...kaboom...'
   - '*muffled*'
-  Client7ResponseGood: []
-  Client7ResponseAverage: []
-  Client7ResponseBad: []
-  Client8Greeting: []
-  Client8Request: []
-  Client8ResponseGood: []
-  Client8ResponseAverage: []
-  Client8ResponseBad: []
-  Client9Greeting: []
-  Client9Request: []
-  Client9ResponseGood: []
-  Client9ResponseAverage: []
-  Client9ResponseBad: []
+  Client7ResponseGood:
+  - '*muffled* indeed...'
+  Client7ResponseAverage:
+  - '*muffled* enough...'
+  Client7ResponseBad:
+  - '*muffled* NO... MUTANTS...'
 --- !u!1 &8697409525533974473
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,8 +296,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9104070463184894338}
   - {fileID: 5413078674386890706}
+  - {fileID: 9104070463184894338}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
