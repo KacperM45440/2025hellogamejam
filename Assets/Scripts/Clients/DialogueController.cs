@@ -4,8 +4,10 @@ using GameStage = StageManager.GameStage;
 
 public class DialogueController : MonoBehaviour
 {
+    public GameFlowController FlowControllerRef;
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
+    public ClientController ClientRef;
     public BubbleController BubbleRef;
 
     [HideInInspector] public Dialogue mainDialogue;
@@ -57,13 +59,20 @@ public class DialogueController : MonoBehaviour
     {
         if (currentSubdialogue <= currentDialogue.Count - 1)
         {
-            BubbleRef.NextText(currentSubdialogue, currentDialogue[currentSubdialogue]);
+            BubbleRef.NextText(currentSubdialogue, ClientRef.CurrentClient.ClientName, currentDialogue[currentSubdialogue]);
             currentSubdialogue++;
         }
         else
         {
             currentSubdialogue = 0;
             BubbleRef.ClearText();
+
+            if (ClientRef.CurrentClientInt == 1 && !FlowControllerRef.RopeTugged)
+            {
+                FlowControllerRef.SpawnRope();
+                return;
+            }
+
             ProgressStage();
         }
     }
@@ -101,6 +110,8 @@ public class DialogueController : MonoBehaviour
                 StageManagerRef.SetCurrentGameStage(GameStage.Request);
                 currentDialogue = mainDialogue.Request;
                 break;
+            case GameStage.Request:
+                // enable flashing arrows here
             case GameStage.Response:
                 StageManagerRef.SetCurrentGameStage(GameStage.LeaveStore);
                 break;

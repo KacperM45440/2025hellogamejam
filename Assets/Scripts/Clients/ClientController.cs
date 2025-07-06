@@ -14,9 +14,10 @@ public class ClientController : MonoBehaviour
     public int DefaultClientPayment = 100;
 
     [HideInInspector] public List<int> ClientIds;
+    [HideInInspector] public List<string> ClientNames;
     [HideInInspector] public List<Sprite> ClientBodies;
-    [HideInInspector] public List<Sprite> ClientFaces;
-    [HideInInspector] public List<Mesh> ClientHeads;
+    [HideInInspector] public List<GameObject> ClientHeads;
+    [HideInInspector] public List<Vector3> ClientOffsets;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientPrefs;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
@@ -38,9 +39,10 @@ public class ClientController : MonoBehaviour
     public void InitializeClients()
     {
         ClientIds = ClientDataRef.CreateClientIDs();
+        ClientNames = ClientDataRef.CreateClientNames();
         ClientBodies = ClientDataRef.CreateClientBodies();
-        ClientFaces = ClientDataRef.CreateClientFaces();
         ClientHeads = ClientDataRef.CreateClientHeads();
+        ClientOffsets = ClientDataRef.CreateClientOffsets();
         ClientPrefs = ClientDataRef.CreatePrefferedCharacteristics();
         ClientHates = ClientDataRef.CreateHatedCharacteristics();
     }
@@ -52,9 +54,10 @@ public class ClientController : MonoBehaviour
         Client nextClient = new Client();
         
         nextClient.ClientId = ClientIds[index];
+        nextClient.ClientName = ClientNames[index];
         nextClient.ClientBody = ClientBodies[index];
-        nextClient.ClientFace = ClientFaces[index];
         nextClient.ClientHead = ClientHeads[index];
+        nextClient.ClientHeadOffset = ClientOffsets[index];
         nextClient.PrefferedItemCharacteristics = ClientPrefs[index];
         nextClient.HatedItemCharacteristics = ClientHates[index];
 
@@ -63,11 +66,20 @@ public class ClientController : MonoBehaviour
 
     public void CreateNextClient()
     {
+        if (ClientRef.transform.childCount > 2)
+        {
+            Destroy(ClientRef.transform.GetChild(2).gameObject);
+        }
+
         CurrentClient = GetNextClient(CurrentClientInt);
 
-        ClientRef.ClientHead.mesh = CurrentClient.ClientHead;
+        GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
+        newHead.transform.Rotate(new Vector3(0, 0, 90));
+        newHead.transform.position = new Vector3(newHead.transform.position.x, newHead.transform.position.y + CurrentClient.ClientHeadOffset.y, newHead.transform.position.z);
+
+        ClientRef.ClientHead = newHead;
+
         ClientRef.ClientBody.sprite = CurrentClient.ClientBody;
-        ClientRef.ClientFace.sprite = CurrentClient.ClientFace;
 
         CurrentClientInt++;
 
@@ -137,9 +149,10 @@ public class ClientController : MonoBehaviour
     public class Client
     {
         public int ClientId;
+        public string ClientName;
         public Sprite ClientBody;
-        public Sprite ClientFace;
-        public Mesh ClientHead;
+        public GameObject ClientHead;
+        public Vector3 ClientHeadOffset;
         public List<ItemCharacteristics> PrefferedItemCharacteristics;
         public List<ItemCharacteristics> HatedItemCharacteristics;
     }
