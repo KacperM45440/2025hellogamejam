@@ -138,6 +138,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1637381277514452918, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2553870987423027662, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_Name
       value: ==GAME==
@@ -596,6 +600,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6089713590219216510, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592382324415927380, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6609754449534281901, guid: a116824b34479b74d94bc4cb099990ff, type: 3}

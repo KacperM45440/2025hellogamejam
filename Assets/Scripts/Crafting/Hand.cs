@@ -10,6 +10,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private LayerMask grabLayerMask;
     [SerializeField] private LayerMask itemAnchorMask;
 
+    public GameFlowController gameFlowController;
     public Transform moveTarget;
     public Transform rotationTarget;
     public Vector3[] rotationTargets;
@@ -128,7 +129,7 @@ public class Hand : MonoBehaviour
                         _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>
                         {
                             _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 5f, 1f);
-                            //RopeWasTugged
+                            gameFlowController.RopeWasTugged();
                         });
                         
                     });

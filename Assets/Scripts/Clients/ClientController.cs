@@ -75,7 +75,7 @@ public class ClientController : MonoBehaviour
 
         GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
         newHead.transform.Rotate(new Vector3(0, 0, 90));
-        newHead.transform.position = new Vector3(newHead.transform.position.x, newHead.transform.position.y + CurrentClient.ClientHeadOffset.y, newHead.transform.position.z);
+        newHead.transform.localPosition = new Vector3(newHead.transform.localPosition.x, newHead.transform.localPosition.y + CurrentClient.ClientHeadOffset.y, newHead.transform.localPosition.z);
 
         ClientRef.ClientHead = newHead;
 

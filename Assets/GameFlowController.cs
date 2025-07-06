@@ -25,7 +25,6 @@ public class GameFlowController : MonoBehaviour
     public void SpawnRope()
     {
         Debug.Log("Spawn Rope");
-        RopeWasTugged();
     }
 
     public void RopeWasTugged()
