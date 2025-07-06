@@ -34,12 +34,17 @@ public class GameFlowController : MonoBehaviour
     public void RopeWasTugged()
     {
         RopeTugged = true;
-        Debug.Log("Rope was tugged, change store look.");
+        StartCoroutine(StoreChangeAnim());
+    }
+    
+    private IEnumerator StoreChangeAnim()
+    {
+        yield return new WaitForSeconds(3f);
         DialogueControllerRef.currentSubdialogue = 0;
         DialogueControllerRef.ProgressStage();
         DialogueControllerRef.ProgressDialogue();
     }
-    
+
     private IEnumerator DisableAnim()
     {
         yield return new WaitForSeconds(1f);
