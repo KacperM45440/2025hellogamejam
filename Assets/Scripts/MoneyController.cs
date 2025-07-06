@@ -6,6 +6,9 @@ public class MoneyController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moneyCounter;
     [SerializeField] private int currentMoney = 0;
 
+    [SerializeField] private int currentMoneyInJar = 0;
+    [SerializeField] private int moneyRequiredToWin = 2000;
+
     public void Start()
     {
         if(moneyCounter == null)
@@ -19,6 +22,7 @@ public class MoneyController : MonoBehaviour
     public void gainMoney(int amount)
     {
         currentMoney += amount;
+        currentMoneyInJar += amount;
         UpdateUI();
     }
 
@@ -45,5 +49,14 @@ public class MoneyController : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public bool HasEnoughMoneyInJar()
+    {
+        if (currentMoneyInJar >= moneyRequiredToWin)
+        {
+            return true;
+        }
+        return false;
     }
 }
