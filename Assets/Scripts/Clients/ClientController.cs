@@ -6,7 +6,9 @@ public class ClientController : MonoBehaviour
 {
     public MoneyController moneyControllerRef;
     public DialogueController dialogueControllerRef;
+    public StageManager StageManagerRef;
     public ClientData ClientDataRef;
+    public BubbleController BubbleRef;
     public ClientScript ClientRef;
     public Client CurrentClient;
     public int ClientAmount;
@@ -28,7 +30,7 @@ public class ClientController : MonoBehaviour
         InitializeClients();
     }
 
-    public void FixedUpdate()
+    public void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -72,6 +74,11 @@ public class ClientController : MonoBehaviour
         }
 
         CurrentClient = GetNextClient(CurrentClientInt);
+        BubbleRef.ClearText();
+        dialogueControllerRef.currentSubdialogue = 0;
+        dialogueControllerRef.ChangeMainDialogue(CurrentClientInt);
+        StageManagerRef.SetCurrentGameStage(StageManager.GameStage.EnterStore);
+        
 
         GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
         newHead.transform.Rotate(new Vector3(0, 0, 90));
@@ -82,6 +89,7 @@ public class ClientController : MonoBehaviour
         ClientRef.ClientBody.sprite = CurrentClient.ClientBody;
 
         CurrentClientInt++;
+
 
         //W³¹cz animacjê klienta podchodz¹cego do lady
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
