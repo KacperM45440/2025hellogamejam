@@ -704,11 +704,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e5f9702bb139a34096ecde9d15ec9ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sO_WinLose: {fileID: 11400000, guid: 70c1ff9763361984e941da0709200b41, type: 2}
+  win: 0
   winImage: {fileID: 21300000, guid: 3dfec23b898a02244ba37b1d8b8e0c6f, type: 3}
   loseImage: {fileID: 21300000, guid: 136d3ca4fc707544f84e16f3041d50f7, type: 3}
-  winText: Congratulations! You saved the Queen!
-  loseText: Oh... poor Queen.
+  winText: And lived happily ever after!
+  loseText: Oh no... poor Queen.
   Image: {fileID: 2052523207}
   text: {fileID: 756833329}
   duration: 7

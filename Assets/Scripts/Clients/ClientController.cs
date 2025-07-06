@@ -23,6 +23,8 @@ public class ClientController : MonoBehaviour
     [HideInInspector] public List<List<ItemCharacteristics>> ClientPrefs;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
+    public List<int> todaysClients = new List<int>();
+
     private int currentClientSatisfaction = 0;
 
     public void Start()
@@ -109,7 +111,7 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator WaitForGunInspection()
     {
-        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
+        yield return new WaitForSeconds(3f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
         //ClientReviewGun();
     }
 
