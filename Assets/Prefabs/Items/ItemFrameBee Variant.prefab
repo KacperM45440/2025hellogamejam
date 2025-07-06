@@ -737,6 +737,10 @@ PrefabInstance:
       value: IMG_0798
       objectReference: {fileID: 0}
     - target: {fileID: 4779006098069043148, guid: f36fcf104f61f4245845c7e7f184b70c, type: 3}
+      propertyPath: description
+      value: Bee careful of the sharp stinger. Bzzz.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4779006098069043148, guid: f36fcf104f61f4245845c7e7f184b70c, type: 3}
       propertyPath: itemAnchors.Array.size
       value: 6
       objectReference: {fileID: 0}
