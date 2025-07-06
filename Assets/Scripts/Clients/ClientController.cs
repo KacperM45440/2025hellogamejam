@@ -23,6 +23,8 @@ public class ClientController : MonoBehaviour
     [HideInInspector] public List<List<ItemCharacteristics>> ClientPrefs;
     [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
+    public List<int> todaysClients = new List<int>();
+
     private int currentClientSatisfaction = 0;
 
     public void Start()
@@ -117,7 +119,7 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator WaitForGunInspection()
     {
-        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
+        yield return new WaitForSeconds(3f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
         //ClientReviewGun();
     }
 
@@ -151,6 +153,16 @@ public class ClientController : MonoBehaviour
 
         Debug.Log("Final payment is: " + payment);
         moneyControllerRef.gainMoney(payment);
+        ClientRef.GetComponent<Animator>().speed = -1f;
+        ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
+        StartCoroutine(WaitAfterGivingItem());
+    }
+
+    private IEnumerator WaitAfterGivingItem()
+    {
+        yield return new WaitForSeconds(3f);
+        //SPRAWDZ CZY JEST JESZCZE DZISIAJ KLIENT, JAK NIE, POKAZ TABLETA
+        CreateNextClient();
     }
 
     public class Client
