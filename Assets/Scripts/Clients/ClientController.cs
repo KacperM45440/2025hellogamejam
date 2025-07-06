@@ -151,6 +151,16 @@ public class ClientController : MonoBehaviour
 
         Debug.Log("Final payment is: " + payment);
         moneyControllerRef.gainMoney(payment);
+        ClientRef.GetComponent<Animator>().speed = -1f;
+        ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
+        StartCoroutine(WaitAfterGivingItem());
+    }
+
+    private IEnumerator WaitAfterGivingItem()
+    {
+        yield return new WaitForSeconds(3f);
+        //SPRAWDZ CZY JEST JESZCZE DZISIAJ KLIENT, JAK NIE, POKAZ TABLETA
+        CreateNextClient();
     }
 
     public class Client
