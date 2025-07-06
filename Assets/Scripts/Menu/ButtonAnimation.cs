@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 using DG.Tweening;
 public class ButtonAnimation : MonoBehaviour
 {
+    [SerializeField] private AudioSource AudioSource;
     private RectTransform m_RectTransform;
     private Vector3 m_OryginalScale;
     [SerializeField] private RectTransform honey;
@@ -31,6 +32,7 @@ public class ButtonAnimation : MonoBehaviour
         m_RectTransform.DOScale(m_OryginalScale * m_HoverScale, m_ScaleDuration).SetEase(Ease.OutBack);
         if(honey != null)
         honey.DOAnchorPos(honeyEnableButtonPos, m_ScaleDuration*2);
+        AudioSource.Play();
     }
 
     public void OnPointerExit()
@@ -38,5 +40,8 @@ public class ButtonAnimation : MonoBehaviour
         m_RectTransform.DOScale(m_OryginalScale, m_ScaleDuration).SetEase(Ease.OutBack);
         if (honey != null)
             honey.DOAnchorPos(honeyStartPos, m_ScaleDuration *2);
+
+        AudioSource.Play();
+
     }
 }
