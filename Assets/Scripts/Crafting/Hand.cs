@@ -123,18 +123,6 @@ public class Hand : MonoBehaviour
 
     private void RotateHand()
     {
-        // float xDiscance = moveTarget.position.x - rotationTarget.position.x;
-        // float zDiscance = moveTarget.position.z - rotationTarget.position.z;
-        // float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
-        // float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
-        //
-        // float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-        // float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-        //
-        // Quaternion targetRotation =
-        //     Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
-        // moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
-
         if (!hitFrontWall)
         {
             float xDiscance = moveTarget.position.x - rotationTarget.position.x;
