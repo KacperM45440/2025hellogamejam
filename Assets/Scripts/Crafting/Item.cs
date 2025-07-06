@@ -93,6 +93,21 @@ public class Item : MonoBehaviour
             itemPlaceholder.DOKill();
             itemPlaceholder.DOFade(1f, 0.25f).SetLoops(-1, LoopType.Yoyo);
         }
+
+        if (parentItem)
+        {
+            for (int i = 0; i < parentItem.itemAnchors.Length; i++)
+            {
+                if (parentItem.itemAnchors[i].anchor.addedItem == this)
+                {
+                    parentItem.itemAnchors[i].anchor.addedItem = null;
+                    break;
+                }
+            }
+
+            parentItem.RefreshCircles();
+            parentItem = null;
+        }
     }
 
     public void PlaceToCrafting()
@@ -192,6 +207,7 @@ public class Item : MonoBehaviour
         item.PlaceToCrafting();
         item.itemCollider.isTrigger = true;
         item.transform.parent = anchor.transform;
+        item.parentItem = this;
         anchor.addedItem = item;
         item.transform.DOKill();
         item.transform.DOLocalRotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.25f);
