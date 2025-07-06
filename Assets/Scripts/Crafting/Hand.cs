@@ -94,7 +94,21 @@ public class Hand : MonoBehaviour
             {
                 if (hit.collider.TryGetComponent(out _clientScript))
                 {
-                   
+                    _clientScript.ClientController.ClientReceiveGun(currentItem);
+                    GameObject gun = currentItem.gameObject;
+                    currentItem.itemPlaceholder.DOKill();
+                    Destroy(currentItem.itemPlaceholder.gameObject);
+                    CraftingMgr.Instance.currentItem = null;
+                    CraftingMgr.Instance.RefreshCollider();
+                    _gripValue = 0f;
+                    currentItem = null;
+                    gun.transform.DOMove(_clientScript.transform.position, 0.25f);
+                    gun.transform.DOScale(0f, 0.25f).OnComplete(() =>
+                    {
+                        Destroy(gun);
+                    });
+
+
                 }
             }
         }

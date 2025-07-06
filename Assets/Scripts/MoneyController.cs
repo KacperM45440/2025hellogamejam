@@ -21,13 +21,6 @@ public class MoneyController : MonoBehaviour
         UpdateUI();
     }
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            gainMoney(100);
-        }
-    }
     public void gainMoney(int amount)
     {
         Debug.Log("Gaining money: " + amount.ToString() + "$B");

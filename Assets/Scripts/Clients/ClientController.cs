@@ -103,16 +103,23 @@ public class ClientController : MonoBehaviour
         dialogueControllerRef.ProgressDialogue();
     }
 
-    public void ClientReceiveGun()
+    public void ClientReceiveGun(Item gun)
     {
         ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
-        StartCoroutine(WaitForGunInspection());
+        StartCoroutine(WaitForGunInspection(gun));
     }
 
-    private IEnumerator WaitForGunInspection()
+    private IEnumerator WaitForGunInspection(Item gun)
     {
         yield return new WaitForSeconds(3f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
-        //ClientReviewGun();
+        List<ItemCharacteristics> itemCharacteristicsList = new List<ItemCharacteristics>();
+        itemCharacteristicsList.AddRange(gun.characteristics);
+        for (int i = 0; i < gun.itemAnchors.Length; i++)
+        {
+            itemCharacteristicsList.AddRange(gun.itemAnchors[i].anchor.addedItem.characteristics);
+        }
+
+        ClientReviewGun(itemCharacteristicsList);
     }
 
     public void ClientReviewGun(List<ItemCharacteristics> itemCharacteristics)
