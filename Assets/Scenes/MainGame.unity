@@ -7718,6 +7718,14 @@ PrefabInstance:
       propertyPath: FlowControllerRef
       value: 
       objectReference: {fileID: 1424596842}
+    - target: {fileID: 3582890995105623690, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3582890995105623690, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 3628384060788933247, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10

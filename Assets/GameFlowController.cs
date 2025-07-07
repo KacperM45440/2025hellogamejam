@@ -29,8 +29,7 @@ public class GameFlowController : MonoBehaviour
 
     private void Start()
     {
-        //stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
-        stageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
+        stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
         SendOutRequestsToControllers();
     }
 

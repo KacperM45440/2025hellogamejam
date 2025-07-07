@@ -223,7 +223,7 @@ public class ClientController : MonoBehaviour
 
     public void ClientPaysThenLeaves()
     {
-        //ClientRef.GetComponent<Animator>().SetTrigger("Pay");
+        ClientRef.GetComponent<Animator>().SetTrigger("Pay");
         StartCoroutine(WaitAfterPaying());
     }
 
