@@ -90,7 +90,7 @@ public class CameraController : Singleton<CameraController>
     public void UnlockWorkshop()
     {
         canMoveToWorkshop = true;
-        FlowControllerRef.FinishRequirement(controllerName);
+        //FlowControllerRef.FinishRequirement(controllerName);
     }
 
     public void ChangePos(int value)

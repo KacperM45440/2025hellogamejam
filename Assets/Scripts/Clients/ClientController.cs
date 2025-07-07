@@ -48,7 +48,7 @@ public class ClientController : MonoBehaviour
     public void Start()
     {
         InitializeClients();
-        todaysClients.Add(1);
+        todaysClients.Add(0);
     }
 
     public void InitializeClients()
@@ -90,12 +90,11 @@ public class ClientController : MonoBehaviour
         {
             Destroy(ClientRef.transform.GetChild(3).gameObject);
         }
-
         CurrentClientInt = todaysClients[0];
         CurrentClient = GetNextClient(CurrentClientInt);
         BubbleRef.ClearText();
         dialogueControllerRef.ChangeMainDialogue(CurrentClientInt);
-        StageManagerRef.SetCurrentGameStage(StageManager.GameStage.ClientEnterStore);
+        //StageManagerRef.SetCurrentGameStage(StageManager.GameStage.ClientEnterStore);
 
         GameObject newHead = Instantiate(CurrentClient.ClientHead, ClientRef.transform);
         newHead.transform.Rotate(new Vector3(0, 0, 90));
@@ -234,7 +233,7 @@ public class ClientController : MonoBehaviour
         int payment = CalculatePayment();
         moneyControllerRef.gainMoney(payment);
         yield return new WaitForSeconds(2f);
-        ClientRef.GetComponent<Animator>().SetTrigger("LeaveShop");
+        ClientRef.GetComponent<Animator>().SetTrigger("ExitShop");
         StartCoroutine(WaitAfterLeavingShop());
     }
 
@@ -267,7 +266,8 @@ public class ClientController : MonoBehaviour
         }
         else
         {
-            StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
+            //wyciagnij tableta
+            //StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
         }
     }
 

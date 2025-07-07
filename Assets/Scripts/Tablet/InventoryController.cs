@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InventoryController : MonoBehaviour
 {
+    public GameFlowController FlowControllerRef;
+
     public List<GameObject> startingInventory = new();
     public List<GameObject> currentInventory = new();
     public List<GameObject> spawnedItems = new();
@@ -21,8 +23,6 @@ public class InventoryController : MonoBehaviour
         {
             currentInventory.Add(item);
         }
-        //SpawnItems(true);
-
     }
 
     public void AddToInventory(GameObject newItem)
@@ -30,17 +30,20 @@ public class InventoryController : MonoBehaviour
         currentInventory.Add(newItem);
     }
 
-    public void SpawnItems(bool visible)
+    public void SpawnAllItemsFromStorage()
     {
+        StartCoroutine(SpawnItemsAsync());
+    }
+
+    private IEnumerator SpawnItemsAsync()
+    {
+        yield return null;
         foreach (GameObject item in currentInventory)
         {
             GameObject newItem = Instantiate(item);
             spawnedItems.Add(newItem);
-            if (!visible)
-            {
-                newItem.SetActive(false);
-            }
         }
+        FlowControllerRef.FinishRequirement(controllerName);
     }
 
     public void MakeItemsVisible()

@@ -19,19 +19,19 @@ public class GameFlowController : MonoBehaviour
     public GameObject blackScreen;
     public TextMeshProUGUI dayCount;
     public Rope RopeRef;
+    public GameObject tutorialArrowRef;
     public bool RopeSpawned;
     public bool RopeTugged;
-    public int currentDay = 0;
+    public int currentDay = 1;
 
     private string controllerName = "GameFlowController";
     private List<string> controllerRequirements = new List<string>();
 
     private void Start()
     {
-        stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
+        //stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
+        stageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
         SendOutRequestsToControllers();
-        //inventoryScriptRef.SpawnItems(false);
-        //StartCoroutine(SpawnClient());
     }
 
     private void SendOutRequestsToControllers()
@@ -41,14 +41,13 @@ public class GameFlowController : MonoBehaviour
         switch (currentStage)
         {
             case StageManager.GameStage.StartDay:
-                currentDay++;
-                //should also spawn items in the workshop
+                controllerRequirements.Add(inventoryControllerRef.ControllerName);
+                inventoryControllerRef.SpawnAllItemsFromStorage();
+
                 controllerRequirements.Add(controllerName);
                 WaitForNextStage(3f);
                 break;
             case StageManager.GameStage.ClientEnterStore:
-                controllerRequirements.Add(controllerName);
-                WaitForNextStage(2f);
                 controllerRequirements.Add(clientControllerRef.ControllerName);
                 clientControllerRef.CreateNextClient();
                 break;
@@ -67,9 +66,9 @@ public class GameFlowController : MonoBehaviour
             case StageManager.GameStage.ClientWaitForGun:
                 if(currentDay == 1)
                 {
-                    controllerRequirements.Add(cameraControllerRef.ControllerName);
+                    //controllerRequirements.Add(cameraControllerRef.ControllerName);//dodawanie tego do requirements jest zbêdne
                     cameraControllerRef.UnlockWorkshop();
-                    //show arrow to workshop
+                    tutorialArrowRef.SetActive(true);
                 }
                 controllerRequirements.Add(clientControllerRef.ControllerName);
                 clientControllerRef.SetClientCanReceiveGun(true);
@@ -99,6 +98,11 @@ public class GameFlowController : MonoBehaviour
     //ta funkcja mog³aby te¿ przyjmowaæ GameStage jako parametr, aby siê upewniæ, ¿e nie s¹ przywo³ywane jakieœ stare funkcje
     public void FinishRequirement(string controller)
     {
+        StartCoroutine(FinishRequirementAsync(controller));
+    }
+    private IEnumerator FinishRequirementAsync(string controller)
+    {
+        yield return null;
         if (controllerRequirements.Contains(controller))
         {
             controllerRequirements.Remove(controller);
@@ -110,8 +114,7 @@ public class GameFlowController : MonoBehaviour
 
         if (controllerRequirements.Count <= 0)
         {
-            Debug.Log($"{controllerName}: All requirements met. Proceeding to next stage.");
-            this.FinishStage();
+            FinishStage();
         }
     }
 
@@ -164,8 +167,10 @@ public class GameFlowController : MonoBehaviour
                 break;
             case GameStage.FinishDay:
                 currentStage = GameStage.StartDay;
+                currentDay++;
                 break;
         }
+        stageManagerRef.SetCurrentGameStage(currentStage);
         SendOutRequestsToControllers();
     }
 
@@ -176,9 +181,6 @@ public class GameFlowController : MonoBehaviour
         SendOutRequestsToControllers();
     }
 
-    //                stageManagerRef.SetCurrentGameStage(StageManager.GameStage.EnterStore);
-    //clientControllerRef.CreateNextClient();
-
     public void WaitForNextStage(float time)
     {
         StartCoroutine(WaitForSeconds(time));
@@ -186,16 +188,8 @@ public class GameFlowController : MonoBehaviour
 
     private IEnumerator WaitForSeconds(float seconds)
     {
-        Debug.Log($"{controllerName}: Waiting for {seconds} seconds.");
         yield return new WaitForSeconds(seconds);
-        Debug.Log($"{controllerName}: Wait completed. Proceeding to next stage.");
         this.FinishRequirement(controllerName);
-    }
-
-    private IEnumerator SpawnClient()
-    {
-        yield return new WaitForSeconds(0.5f);
-        clientControllerRef.CreateNextClient();
     }
 
     public void SpawnRope()
@@ -226,11 +220,7 @@ public class GameFlowController : MonoBehaviour
         RopeRef.gameObject.GetComponent<Animator>().enabled = false;
     }
 
-    public void ShowTablet()
-    {
-        tabletControllerRef.PullOutTablet();
-    }
-
+    /*
     public void EndDay()
     {
         StartCoroutine(EndDayAnim());
@@ -252,7 +242,7 @@ public class GameFlowController : MonoBehaviour
     public void StartNextDay()
     {
 
-    }
+    }*/
 
     public void EndGame()
     {

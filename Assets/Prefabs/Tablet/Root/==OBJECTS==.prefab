@@ -5668,6 +5668,10 @@ PrefabInstance:
       value: CameraSystem
       objectReference: {fileID: 0}
     - target: {fileID: 7877799430064755560, guid: 1a545309b4060354c97991e6859869c1, type: 3}
+      propertyPath: rope
+      value: 
+      objectReference: {fileID: 2367389759952124705}
+    - target: {fileID: 7877799430064755560, guid: 1a545309b4060354c97991e6859869c1, type: 3}
       propertyPath: 'cameraPosPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 7335361821559019016}
@@ -5758,6 +5762,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6954729211133366231, guid: 50836436929f36e42a3f4cf76012e6ce, type: 3}
   m_PrefabInstance: {fileID: 8297352883402452275}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2367389759952124705 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6051912170014496274, guid: 50836436929f36e42a3f4cf76012e6ce, type: 3}
+  m_PrefabInstance: {fileID: 8297352883402452275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25f57d58a83605c4ab4a7e685b844718, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8593628524694657455
 PrefabInstance:
   m_ObjectHideFlags: 0

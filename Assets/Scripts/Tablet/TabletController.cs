@@ -81,21 +81,25 @@ public class TabletController : MonoBehaviour
             Debug.LogWarning("PODEPNIJ INVENTORY");
         }
 
+        InitializeEvents();
+    }
+
+    private void InitializeEvents()
+    {
         LoadEvents();
+        if (possibleEvents.Count > 0)
+        {
+            return;
+        }
         foreach (Event e in AllEvents)
         {
             possibleEvents.Add(e);
         }
     }
 
-    private void Start()//DO USUNI�CIA
-    {
-       // PullOutTablet();
-    }
-
     public void PullOutTablet()
     {
-        currentDay++;
+        InitializeEvents();
         for (int i = 0; i < dailyClients; i++)
         {
             queuedEvents.Add(GetRandomEvent());
@@ -242,6 +246,10 @@ public class TabletController : MonoBehaviour
 
     private void LoadEvents()
     {
+        if(AllEvents.Count > 0)
+        {
+            return;
+        }
         AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 2));
         AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 3));
         AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 4));

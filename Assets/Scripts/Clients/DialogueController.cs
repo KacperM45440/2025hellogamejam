@@ -69,7 +69,7 @@ public class DialogueController : Singleton<DialogueController>
             return;
         }
 
-        Debug.Log("sub: " + currentSubdialogue + "count: " + currentDialogue.Count);
+        //Debug.Log("sub: " + currentSubdialogue + "count: " + currentDialogue.Count);
 
         if (currentSubdialogue <= currentDialogue.Count - 1)
         {
@@ -78,7 +78,7 @@ public class DialogueController : Singleton<DialogueController>
         }
         else
         {
-            BubbleRef.ClearText();
+            ClearDialogueQueue();
             FlowControllerRef.FinishRequirement(controllerName);
             //ProgressStage();
         }
@@ -96,11 +96,8 @@ public class DialogueController : Singleton<DialogueController>
         ClearDialogueQueue();
         switch (stage)
         {
-            case GameStage.ClientEnterStore:
-                currentDialogue = mainDialogue.Greeting;
-                break;
             case GameStage.ClientGreeting:
-                currentDialogue = mainDialogue.Request;
+                currentDialogue = mainDialogue.Greeting;
                 break;
             case GameStage.ClientRequest:
                 currentDialogue = mainDialogue.Request;
@@ -125,7 +122,7 @@ public class DialogueController : Singleton<DialogueController>
         }
         ProgressDialogue();
     }
-
+    /*
     public void ProgressStage()
     {
         GameStage stage = StageManagerRef.GetCurrentGameStage();
@@ -158,7 +155,7 @@ public class DialogueController : Singleton<DialogueController>
                 break;
         }
     }
-
+    */
     public class Dialogue
     {
         public List<string> Greeting;
