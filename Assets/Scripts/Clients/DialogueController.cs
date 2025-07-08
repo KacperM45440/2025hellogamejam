@@ -28,14 +28,6 @@ public class DialogueController : Singleton<DialogueController>
         set { controllerName = value; }
     }
 
-    public void Update()
-    {
-        // if (Input.GetMouseButtonDown(0))
-        // {
-        //     ProgressDialogue();
-        // }
-    }
-
     public void Start()
     {
         InitializeDialogue();
@@ -122,40 +114,7 @@ public class DialogueController : Singleton<DialogueController>
         }
         ProgressDialogue();
     }
-    /*
-    public void ProgressStage()
-    {
-        GameStage stage = StageManagerRef.GetCurrentGameStage();
-        List<string> nextDialogue = new();
 
-        switch (stage) 
-        {
-            case GameStage.ClientEnterStore:
-                currentSubdialogue = 0;
-                StageManagerRef.SetCurrentGameStage(GameStage.ClientGreeting);
-                currentDialogue = mainDialogue.Greeting;
-                break;
-            case GameStage.ClientGreeting:
-                StageManagerRef.SetCurrentGameStage(GameStage.ClientRequest);
-                currentSubdialogue = 0;
-                currentDialogue = mainDialogue.Request;
-                break;
-            case GameStage.ClientRequest:
-                currentSubdialogue = 0;
-                inventoryRef.MakeItemsVisible();
-                break;
-            // enable flashing arrows here
-            case GameStage.ClientGunReview:
-                currentSubdialogue = 0;
-                StageManagerRef.SetCurrentGameStage(GameStage.ClientLeaveStore);
-                ClientRef.ClientGaveItem();
-                break;
-            case GameStage.Tablet:
-                FlowControllerRef.ShowTablet();
-                break;
-        }
-    }
-    */
     public class Dialogue
     {
         public List<string> Greeting;

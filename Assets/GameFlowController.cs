@@ -23,6 +23,7 @@ public class GameFlowController : MonoBehaviour
     public bool RopeSpawned;
     public bool RopeTugged;
     public int currentDay = 1;
+    public int lastDay = 3;
 
     private string controllerName = "GameFlowController";
     private List<string> controllerRequirements = new List<string>();
@@ -30,6 +31,7 @@ public class GameFlowController : MonoBehaviour
     private void Start()
     {
         stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
+        //stageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
         SendOutRequestsToControllers();
     }
 
@@ -85,7 +87,8 @@ public class GameFlowController : MonoBehaviour
                 tabletControllerRef.PullOutTablet();
                 break;
             case StageManager.GameStage.FinishDay:
-                //Tutaj powinien byæ warunek sprawdzaj¹cy czy jest to ostatni dzieñ gry, czy nie
+                controllerRequirements.Add(inventoryControllerRef.ControllerName);
+                inventoryControllerRef.DestroyItems();
                 controllerRequirements.Add(UIControllerRef.ControllerName);
                 UIControllerRef.FinishDay();
                 break;
@@ -99,6 +102,7 @@ public class GameFlowController : MonoBehaviour
     {
         StartCoroutine(FinishRequirementAsync(controller));
     }
+
     private IEnumerator FinishRequirementAsync(string controller)
     {
         yield return null;
@@ -158,6 +162,14 @@ public class GameFlowController : MonoBehaviour
                 }
                 else
                 {
+                    if(currentDay == lastDay)
+                    {
+                        EndGame();
+                    }
+                    else
+                    {
+                        currentStage = GameStage.Tablet;
+                    }
                     currentStage = GameStage.Tablet;
                 }
                 break;
@@ -208,9 +220,6 @@ public class GameFlowController : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         FinishRequirement("GameFlowController");
-        //DialogueControllerRef.currentSubdialogue = 0;
-        //DialogueControllerRef.ProgressStage();
-        //DialogueControllerRef.ProgressDialogue();
     }
 
     private IEnumerator DisableAnim()
@@ -218,30 +227,6 @@ public class GameFlowController : MonoBehaviour
         yield return new WaitForSeconds(1f);
         RopeRef.gameObject.GetComponent<Animator>().enabled = false;
     }
-
-    /*
-    public void EndDay()
-    {
-        StartCoroutine(EndDayAnim());
-    }
-
-    private IEnumerator EndDayAnim()
-    {
-        blackScreen.SetActive(true);
-        currentDay++;
-        dayCount.text = "Day: "+ currentDay.ToString();
-        yield return new WaitForSeconds(1);
-        dayCount.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3);
-        blackScreen.SetActive(false);
-        dayCount.gameObject.SetActive(false);
-        StartNextDay();
-    }
-
-    public void StartNextDay()
-    {
-
-    }*/
 
     public void EndGame()
     {

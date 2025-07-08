@@ -445,6 +445,7 @@ MonoBehaviour:
   blackScreen: {fileID: 0}
   dayCount: {fileID: 0}
   RopeRef: {fileID: 0}
+  tutorialArrowRef: {fileID: 0}
   RopeSpawned: 0
   RopeTugged: 0
   currentDay: 1
@@ -460,6 +461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d56dca745ce441b488e991329ae32192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FlowControllerRef: {fileID: 3572493483141366180}
   startingInventory:
   - {fileID: 7827084679977438791, guid: a000164367b0be144a81361ce8ac57b4, type: 3}
   - {fileID: 276946363496784391, guid: 2cae6848137b4d847ab1ab407c91657a, type: 3}
@@ -472,6 +474,8 @@ MonoBehaviour:
   - {fileID: 184604782453004467, guid: af2b77b5a8a30224ea873a99446120c7, type: 3}
   currentInventory: []
   spawnedItems: []
+  backupFrameSpawnPoint: {fileID: 0}
+  defaultGunFrame: {fileID: 7827084679977438791, guid: a000164367b0be144a81361ce8ac57b4, type: 3}
 --- !u!82 &3815289879106682846
 AudioSource:
   m_ObjectHideFlags: 0

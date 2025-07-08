@@ -21,7 +21,6 @@ public class NewsletterClass : MonoBehaviour
         titleField.text = titleText;
         contentField.text = contentText;
         imageField.sprite = Resources.Load<Sprite>("ArticleImages/"+imageResourcesRef);
-        Debug.Log("Loading image: " + imageResourcesRef);
     }
 
     private void SetDate(int dayNum)

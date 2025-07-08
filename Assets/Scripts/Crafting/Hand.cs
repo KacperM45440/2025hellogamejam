@@ -109,6 +109,7 @@ public class Hand : MonoBehaviour
                         gun.transform.DOScale(0f, 0.25f).OnComplete(() =>
                         {
                             Destroy(gun);
+                            //W inventoryControllerze gun i jego czêœci powinny zostaæ usuniête z magazynu
                         });
                     }
                     else

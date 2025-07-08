@@ -18,6 +18,7 @@ public class TabletController : MonoBehaviour
     [SerializeField] private AllItemsInGame allItemsRef;
     [SerializeField] private MoneyController moneyControllerRef;
     [SerializeField] private GameFlowController FlowControllerRef;
+    [SerializeField] private ClientController ClientControllerRef;
     [SerializeField] private NewsletterClass newsletterRef;
     [SerializeField] private GameObject storeContainer;
     [SerializeField] private GameObject storeItemPrefab;
@@ -26,6 +27,8 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameObject warningText;
     [SerializeField] private GameObject shopScreen;
     [SerializeField] private GameObject loadingScreen;
+    [SerializeField] private GameObject unlockScreen;
+    [SerializeField] private GameObject confirmationScreen;
     [SerializeField] private Button nextArticleButton;
     [SerializeField] private Button previousArticleButton;
     [SerializeField] private Transform EndPoint;
@@ -100,6 +103,7 @@ public class TabletController : MonoBehaviour
     public void PullOutTablet()
     {
         InitializeEvents();
+        queuedEvents.Clear();
         for (int i = 0; i < dailyClients; i++)
         {
             queuedEvents.Add(GetRandomEvent());
@@ -108,6 +112,11 @@ public class TabletController : MonoBehaviour
         currentViewedArticle = 0;
         newsletterRef.LoadArticle(currentDay, defaultArticle.title, defaultArticle.contents, defaultArticle.imageNameRef);
         GenerateStoreItems();
+        unlockScreen.SetActive(true);
+        loadingScreen.SetActive(false);
+        confirmationScreen.SetActive(false);
+        nextArticleButton.interactable = true;
+        previousArticleButton.interactable = false;
         CameraController.Instance.ShowTablet();
     }
 
@@ -139,6 +148,15 @@ public class TabletController : MonoBehaviour
         }
         Event currentEvent = queuedEvents[currentViewedArticle];
         newsletterRef.LoadArticle(currentDay, currentEvent.title, currentEvent.contents, currentEvent.imageNameRef);
+    }
+
+    public void UnlockScreen()
+    {
+        unlockScreen.SetActive(false);
+        //storeContainer.SetActive(false);
+        //storeContainer.SetActive(true);
+        shopScreen.GetComponent<ScrollRect>().verticalNormalizedPosition = 1f;
+        shopScreen.SetActive(true);
     }
 
     public void PlaceOrder()
@@ -197,7 +215,6 @@ public class TabletController : MonoBehaviour
 
     public void UpdateTotalPrice(int priceChange)
     {
-        Debug.Log("Updating total price " + currentTotalPrice + " by " + priceChange.ToString() + " $B");
         currentTotalPrice += priceChange;
         totalPriceFooter.text = currentTotalPrice.ToString() + " $B";
         bool enoughMoney = moneyControllerRef.CheckIfPlayerHasEnough(currentTotalPrice);
@@ -213,7 +230,7 @@ public class TabletController : MonoBehaviour
         }
     }
 
-    public List<int> GetQueuedClientIDs()//PRZY MERGOWANIU U�YJ TEJ METODY TO ODCZYTANIA JAKICH KLIENT�W ZESPAWNOWA� NAST�PNEGO DNIA
+    public List<int> GetQueuedClientIDs()
     {
         List<int> clientIDs = new List<int>();
         foreach (Event ev in queuedEvents)
@@ -228,12 +245,8 @@ public class TabletController : MonoBehaviour
         int chosenEventIndex = UnityEngine.Random.Range(0, possibleEvents.Count);
         Event currentEvent = possibleEvents[chosenEventIndex];
         possibleEvents.RemoveAt(chosenEventIndex);
+        ClientControllerRef.AddNextDaysClient(currentEvent.clientID);
         return currentEvent;
-    }
-
-    private void ClearQueuedEvents()
-    {
-        queuedEvents.Clear();
     }
 
     private void ResetPossibleEvents()
@@ -250,12 +263,12 @@ public class TabletController : MonoBehaviour
         {
             return;
         }
-        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 2));
-        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 3));
-        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 4));
-        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 5));
-        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser?�Don't worry! We have a solution just for you!�The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 6));//Notatka, mo�e jednak zwi�kszony wska�nik samob�jstw?
-        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 7));
+        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 1));
+        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 2));
+        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 3));
+        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 4));
+        AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 5));//Notatka, mo�e jednak zwi�kszony wska�nik samob�jstw?
+        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 6));
     }
 
 
@@ -263,8 +276,10 @@ public class TabletController : MonoBehaviour
 
     public void MoveIn()
     {
-        Tablet.DOMove(EndPoint.position, 1);
-
+        Tablet.DOMove(EndPoint.position, 1).OnComplete(() =>
+        {
+            Canvas.ForceUpdateCanvases();
+        });
     }
     public void MoveOut()
     {

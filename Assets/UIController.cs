@@ -10,25 +10,11 @@ public class UIController : MonoBehaviour
     public TextMeshProUGUI dayCount;
     public GameObject continuePrompt;
 
-    private bool clickToContinue = false;
-
     private string controllerName = "UIController";
     public string ControllerName
     {
         get { return controllerName; }
         set { controllerName = value; }
-    }
-
-    private void Update()
-    {
-        if(clickToContinue && Input.GetMouseButtonDown(0))
-        {
-            clickToContinue = false;
-            blackScreen.SetActive(false);
-            dayCount.gameObject.SetActive(false);
-            continuePrompt.SetActive(false);
-            FlowControllerRef.FinishRequirement(ControllerName);
-        }
     }
 
     public void FinishDay()
@@ -47,6 +33,13 @@ public class UIController : MonoBehaviour
         dayCount.text = "Day " + (FlowControllerRef.currentDay + 1).ToString();
         yield return new WaitForSeconds(2f);
         continuePrompt.SetActive(true);
-        clickToContinue = true;
+    }
+
+    public void ContinueButton()
+    {
+        blackScreen.SetActive(false);
+        dayCount.gameObject.SetActive(false);
+        continuePrompt.SetActive(false);
+        FlowControllerRef.FinishRequirement(ControllerName);
     }
 }

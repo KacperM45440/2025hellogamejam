@@ -236,8 +236,8 @@ MonoBehaviour:
   discountPriceField: {fileID: 3418769515380115894}
   orderCountField: {fileID: 850269440503529581}
   discountChance: 30
-  discountModifierMin: 20
-  discountModifierMax: 80
+  discountModifierMin: 40
+  discountModifierMax: 60
   frame: {fileID: 8324127147530501925}
   Sprite: {fileID: 21300000, guid: 27d65c875cd8e2b45ad6e3800eed636c, type: 3}
 --- !u!114 &7819005100015755225

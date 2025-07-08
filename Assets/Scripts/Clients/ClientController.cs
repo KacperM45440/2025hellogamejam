@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.LowLevel;
+using static UnityEditor.Progress;
 
 public class ClientController : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ClientController : MonoBehaviour
 
     public GameFlowController GameFlowControllerRef;
     public MoneyController moneyControllerRef;
+    public InventoryController inventoryControllerRef;
     public DialogueController dialogueControllerRef;
     public StageManager StageManagerRef;
     public ClientData ClientDataRef;
@@ -79,6 +81,15 @@ public class ClientController : MonoBehaviour
         return nextClient;
     }
 
+    public void AddNextDaysClient(int clientId)
+    {
+        if (!todaysClients.Contains(clientId))
+        {
+            todaysClients.Add(clientId);
+            Debug.Log("Added client with ID: " + clientId + " to today's clients.");
+        }
+    }
+
     public int GetTodaysClientsCount()
     {
         return todaysClients.Count;
@@ -116,15 +127,6 @@ public class ClientController : MonoBehaviour
         //ClientArrived();
     }
 
-    public void ClientArrived()
-    {
-        //TO zrobi Game Flow Controller
-        /*
-        dialogueControllerRef.ProgressStage();
-        dialogueControllerRef.ProgressDialogue();
-        */
-    }
-
     public void SetClientCanReceiveGun(bool canReceive)
     {
         canReveiveGun = canReceive;
@@ -145,13 +147,18 @@ public class ClientController : MonoBehaviour
 
         List<ItemCharacteristics> itemCharacteristicsList = new List<ItemCharacteristics>();
         itemCharacteristicsList.AddRange(gun.characteristics);
+        inventoryControllerRef.RemoveFromInventoryByName(gun.name);
         for (int i = 0; i < gun.itemAnchors.Length; i++)
         {
-            if (gun.itemAnchors[i].anchor.addedItem != null)
+            Item item = gun.itemAnchors[i].anchor.addedItem;
+            if (item == null)
             {
-                itemCharacteristicsList.AddRange(gun.itemAnchors[i].anchor.addedItem.characteristics);
+                continue;
             }
+            itemCharacteristicsList.AddRange(item.characteristics);
+            inventoryControllerRef.RemoveFromInventoryByName(item.name);
         }
+        inventoryControllerRef.CheckFrameExistenceAndSpawnIfNeeded();
         ClientCalculateSatisfaction(itemCharacteristicsList);
     }
 
@@ -246,29 +253,6 @@ public class ClientController : MonoBehaviour
 
         todaysClients.RemoveAt(0);
         GameFlowControllerRef.FinishRequirement(controllerName);
-    }
-
-    public void ClientGaveItem()
-    {
-        ClientRef.transform.position = new Vector3(ClientRef.transform.position.x, ClientRef.transform.position.y - 1f, ClientRef.transform.position.z);
-        StartCoroutine(WaitAfterGivingItem());
-    }
-
-    private IEnumerator WaitAfterGivingItem()
-    {
-        yield return new WaitForSeconds(3f);
-        //SPRAWDZ CZY JEST JESZCZE DZISIAJ KLIENT, JAK NIE, POKAZ TABLETA
-
-        todaysClients.Remove(CurrentClient.ClientId);
-        if(todaysClients.Count > 0)
-        {
-            CreateNextClient();
-        }
-        else
-        {
-            //wyciagnij tableta
-            //StageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
-        }
     }
 
     public class Client

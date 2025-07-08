@@ -593,8 +593,13 @@ PrefabInstance:
       propertyPath: dialogueControllerRef
       value: 
       objectReference: {fileID: 180965864069063054}
+    - target: {fileID: 8864735837335159971, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: inventoryControllerRef
+      value: 
+      objectReference: {fileID: 3332419181436489261}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 8317587191217138550, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}

@@ -705,8 +705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   win: 0
-  winImage: {fileID: 21300000, guid: 3dfec23b898a02244ba37b1d8b8e0c6f, type: 3}
-  loseImage: {fileID: 21300000, guid: 136d3ca4fc707544f84e16f3041d50f7, type: 3}
+  winImage: {fileID: 21300000, guid: 5f2702de172b20c409bd65eaab4e7c70, type: 3}
+  loseImage: {fileID: 21300000, guid: db9d3af3353f7de4099b5c501df0e8cd, type: 3}
   winText: And lived happily ever after!
   loseText: Oh no... poor Queen.
   Image: {fileID: 2052523207}
