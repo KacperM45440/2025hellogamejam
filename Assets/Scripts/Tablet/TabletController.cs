@@ -321,12 +321,12 @@ public class TabletController : MonoBehaviour
         {
             return;
         }
-        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 1));
-        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish all luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 2));
-        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 3));
-        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Misterious killer'. Dude is so cool and quiet. He never misses and he always kill with a style!", "HitmanArticleImage", 4));
+        AllEvents.Add(new Event("Forests No More", "Another day, another factory! We want to gladly inform you that another forest in our region will be cut down! How cool is that? The construction of the new factory will begin short after, but don't worry, this time there will be no child labor! We ain't savages!", "FactoryArticleImage", 1));
+        AllEvents.Add(new Event("Hunting Competitions", "Great hunting competition begins! 'Beware all animals!' says one of the contestants. 'I am going to win this trophy!' says another. 'Why isn't meat cooking itself?!' says third, weirdly cricle shaped contestant. We wish best of luck and stay tuned for a winner annoucement.", "HuntingArticleImage", 2));
+        AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black Widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 3));
+        AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Mysterious killer'. Dude is so cool and quiet. He never misses and he always kills with a style!", "HitmanArticleImage", 4));
         AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 5));//Notatka, mo�e jednak zwi�kszony wska�nik samob�jstw?
-        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any informations about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 6));
+        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any information about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 6));
     }
 
 
