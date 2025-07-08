@@ -40,6 +40,7 @@ public class TabletController : MonoBehaviour
     public List<Event> queuedEvents = new List<Event>();
 
     public List<GameObject> storeContents = new List<GameObject>();
+    public List<StoreItem> storeItems = new List<StoreItem>();
 
     private StoreSpacer lastSpacer;
 
@@ -177,11 +178,11 @@ public class TabletController : MonoBehaviour
         shopScreen.SetActive(false);
         moneyControllerRef.spendMoney(currentTotalPrice);
 
-        foreach (GameObject item in storeContents)
+        foreach (StoreItem item in storeItems)
         {
             GameObject itemGO;
             int itemCount;
-            item.GetComponent<StoreItem>().GetOrderCount(out itemGO, out itemCount);
+            item.GetOrderCount(out itemGO, out itemCount);
             if (itemCount <= 0)
             {
                 continue;
@@ -191,6 +192,14 @@ public class TabletController : MonoBehaviour
                 inventoryRef.AddToInventory(itemGO);
             }
             Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemGO.name.ToString());
+        }
+    }
+
+    public void ClearOrder()
+    {
+        foreach (StoreItem item in storeItems)
+        {
+            item.ResetOrderCount();
         }
     }
 
@@ -236,6 +245,7 @@ public class TabletController : MonoBehaviour
             StoreItem newStoreItem = newItem.GetComponent<StoreItem>();
             newStoreItem.InitializeItem(item.gameObject, item.iconName, item.name, item.description, item.price, this);
             storeContents.Add(newItem);
+            storeItems.Add(newStoreItem);
 
             lastSpacer.AddChildItem(newItem);
 
@@ -250,6 +260,7 @@ public class TabletController : MonoBehaviour
             Destroy(item);
         }
         storeContents.Clear();
+        storeItems.Clear();
         currentTotalPrice = 0;
         totalPriceFooter.text = "0 $B";
         warningText.SetActive(false);
@@ -272,6 +283,7 @@ public class TabletController : MonoBehaviour
             orderButton.interactable = false;
         }
     }
+
 
     public List<int> GetQueuedClientIDs()
     {

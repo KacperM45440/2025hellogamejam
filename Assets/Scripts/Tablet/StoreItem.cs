@@ -64,6 +64,14 @@ public class StoreItem : MonoBehaviour
         returnCount = currentOrderCount;
     }
 
+    public void ResetOrderCount()
+    {
+        int orderPrice = currentPrice * currentOrderCount;
+        currentOrderCount = 0;
+        orderCountField.text = currentOrderCount.ToString();
+        tabletControllerRef.UpdateTotalPrice(-orderPrice);
+    }
+
     private void RandomizeDiscount()
     {
         int randomDiscount = Random.Range(1, 101);

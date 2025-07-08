@@ -68,12 +68,10 @@ public class InventoryController : MonoBehaviour
 
     public void RemoveFromInventoryByName(string removedItemName)
     {
-        Debug.Log("Trying to remove item: " + removedItemName);
         for (var i = 0; i < currentInventory.Count; i++)
         {
             if (currentInventory[i].GetComponent<Item>().name == removedItemName)
             {
-                Debug.Log("Found item to remove: " + removedItemName);
                 currentInventory.RemoveAt(i);
                 break;
             }
