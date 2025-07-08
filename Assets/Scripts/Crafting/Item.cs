@@ -26,7 +26,7 @@ public struct ItemAnchor
 
 public class Item : MonoBehaviour
 {
-    public String name;
+    public string name;
     public int price;
     public string iconName;
     public ItemType itemType;

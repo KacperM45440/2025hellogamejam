@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,6 +7,12 @@ using UnityEngine.SceneManagement;
 using static StageManager;
 public class GameFlowController : MonoBehaviour
 {
+    [Header("Set Starting Day and Stage:")]
+    [Range(1, 3)]
+    public int currentDay = 1;
+    public GameStage startStage = GameStage.StartDay;
+
+    [Space(20)]
     public StageManager stageManagerRef;
     public TabletController tabletControllerRef;
     public InventoryController inventoryControllerRef;
@@ -22,7 +27,7 @@ public class GameFlowController : MonoBehaviour
     public GameObject tutorialArrowRef;
     public bool RopeSpawned;
     public bool RopeTugged;
-    public int currentDay = 1;
+
     public int lastDay = 3;
 
     private string controllerName = "GameFlowController";
@@ -30,8 +35,7 @@ public class GameFlowController : MonoBehaviour
 
     private void Start()
     {
-        stageManagerRef.SetCurrentGameStage(StageManager.GameStage.StartDay);
-        //stageManagerRef.SetCurrentGameStage(StageManager.GameStage.Tablet);
+        stageManagerRef.SetCurrentGameStage(startStage);
         SendOutRequestsToControllers();
     }
 

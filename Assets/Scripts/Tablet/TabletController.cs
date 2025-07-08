@@ -22,6 +22,7 @@ public class TabletController : MonoBehaviour
     [SerializeField] private NewsletterClass newsletterRef;
     [SerializeField] private GameObject storeContainer;
     [SerializeField] private GameObject storeItemPrefab;
+    [SerializeField] private GameObject storeSpacerPrefab;
     [SerializeField] private TextMeshProUGUI totalPriceFooter;
     [SerializeField] private Button orderButton;
     [SerializeField] private GameObject warningText;
@@ -38,7 +39,9 @@ public class TabletController : MonoBehaviour
     public List<Event> possibleEvents = new List<Event>();
     public List<Event> queuedEvents = new List<Event>();
 
-    public List<StoreItem> storeItems = new List<StoreItem>();
+    public List<GameObject> storeContents = new List<GameObject>();
+
+    private StoreSpacer lastSpacer;
 
     private int currentDay = 0;
     private int currentTotalPrice = 0;
@@ -111,7 +114,7 @@ public class TabletController : MonoBehaviour
         Event defaultArticle = queuedEvents[0];
         currentViewedArticle = 0;
         newsletterRef.LoadArticle(currentDay, defaultArticle.title, defaultArticle.contents, defaultArticle.imageNameRef);
-        GenerateStoreItems();
+        GenerateStoreContents();
         unlockScreen.SetActive(true);
         loadingScreen.SetActive(false);
         confirmationScreen.SetActive(false);
@@ -153,8 +156,6 @@ public class TabletController : MonoBehaviour
     public void UnlockScreen()
     {
         unlockScreen.SetActive(false);
-        //storeContainer.SetActive(false);
-        //storeContainer.SetActive(true);
         shopScreen.GetComponent<ScrollRect>().verticalNormalizedPosition = 1f;
         shopScreen.SetActive(true);
     }
@@ -163,27 +164,33 @@ public class TabletController : MonoBehaviour
     {
         if (currentTotalPrice != 0)
         {
-            Debug.Log("Placed order");
-            loadingScreen.SetActive(true);
-            loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
-            shopScreen.SetActive(false);
-            moneyControllerRef.spendMoney(currentTotalPrice);
+            StartCoroutine(PlaceOrderAsync());
+        }
+    }
 
-            foreach (StoreItem item in storeItems)
+    private IEnumerator PlaceOrderAsync()
+    {
+        yield return null;
+        Debug.Log("Placed order");
+        loadingScreen.SetActive(true);
+        loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
+        shopScreen.SetActive(false);
+        moneyControllerRef.spendMoney(currentTotalPrice);
+
+        foreach (GameObject item in storeContents)
+        {
+            GameObject itemGO;
+            int itemCount;
+            item.GetComponent<StoreItem>().GetOrderCount(out itemGO, out itemCount);
+            if (itemCount <= 0)
             {
-                GameObject itemGO;
-                int itemCount;
-                item.GetOrderCount(out itemGO, out itemCount);
-                if (itemCount <= 0)
-                {
-                    continue;
-                }
-                for (int i = 0; i < itemCount; i++)
-                {
-                    inventoryRef.AddToInventory(itemGO);
-                }
-                Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemGO.name.ToString());
+                continue;
             }
+            for (int i = 0; i < itemCount; i++)
+            {
+                inventoryRef.AddToInventory(itemGO);
+            }
+            Debug.Log("Zamowiles " + itemCount.ToString() + " razy item o ID " + itemGO.name.ToString());
         }
     }
 
@@ -200,27 +207,49 @@ public class TabletController : MonoBehaviour
         FlowControllerRef.FinishRequirement(controllerName);
     }
 
-    private void GenerateStoreItems()
+    private void GenerateStoreContents()
     {
-        ResetStoreItems();
+        ResetStoreContent();
+        StartCoroutine(GenerateContentsAsync());
+    }
+
+    private IEnumerator GenerateContentsAsync()
+    {
+        yield return null;
         int i = 0;
+        ItemType currentType = ItemType.FRAME;
+
         foreach (Item item in allItemsRef.allItems)
         {
+            if(i == 0 || currentType != item.itemType)
+            {
+                currentType = item.itemType;
+                GameObject spacer = Instantiate(storeSpacerPrefab, storeContainer.transform);
+                lastSpacer = spacer.GetComponent<StoreSpacer>();
+                string spacerName = "Gun " + currentType.ToString().Substring(0, 1) + currentType.ToString().Substring(1).ToLower() + "s";
+                lastSpacer.InitializeSpacer(spacerName);
+                storeContents.Add(spacer);
+            }
+            currentType = item.itemType;
+
             GameObject newItem = Instantiate(storeItemPrefab, storeContainer.transform);
             StoreItem newStoreItem = newItem.GetComponent<StoreItem>();
             newStoreItem.InitializeItem(item.gameObject, item.iconName, item.name, item.description, item.price, this);
-            storeItems.Add(newStoreItem);
+            storeContents.Add(newItem);
+
+            lastSpacer.AddChildItem(newItem);
+
             i++;
         }
     }
 
-    private void ResetStoreItems()
+    private void ResetStoreContent()
     {
-        foreach (StoreItem item in storeItems)
+        foreach (GameObject item in storeContents)
         {
-            Destroy(item.gameObject);
+            Destroy(item);
         }
-        storeItems.Clear();
+        storeContents.Clear();
         currentTotalPrice = 0;
         totalPriceFooter.text = "0 $B";
         warningText.SetActive(false);

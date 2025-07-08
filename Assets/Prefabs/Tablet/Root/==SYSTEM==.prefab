@@ -434,9 +434,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c450ce9a17019ff4b9b686e08a510b49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDay: 1
+  startStage: 0
   stageManagerRef: {fileID: 5238029434060443212}
   tabletControllerRef: {fileID: 0}
-  inventoryControllerRef: {fileID: 0}
+  inventoryControllerRef: {fileID: 8877996245894395276}
   moneyControllerRef: {fileID: 1889272767572215593}
   clientControllerRef: {fileID: 0}
   DialogueControllerRef: {fileID: 0}
@@ -448,7 +450,7 @@ MonoBehaviour:
   tutorialArrowRef: {fileID: 0}
   RopeSpawned: 0
   RopeTugged: 0
-  currentDay: 1
+  lastDay: 3
 --- !u!114 &8877996245894395276
 MonoBehaviour:
   m_ObjectHideFlags: 0

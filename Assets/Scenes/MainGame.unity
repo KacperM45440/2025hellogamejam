@@ -9071,10 +9071,6 @@ PrefabInstance:
       propertyPath: tabletControllerRef
       value: 
       objectReference: {fileID: 2034100447}
-    - target: {fileID: 7250743721291627013, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
-      propertyPath: inventoryControllerRef
-      value: 
-      objectReference: {fileID: 1904977087}
     - target: {fileID: 7323014725415438364, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_Type
       value: 1
