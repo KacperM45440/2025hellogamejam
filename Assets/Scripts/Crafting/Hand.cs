@@ -68,7 +68,11 @@ public class Hand : MonoBehaviour
             _moveSpeed += Time.deltaTime * 20f;
         }
         animator.SetFloat("Grip", _gripValue);
-        
+    }
+
+    public void SetBlockFollow(bool toggle)
+    {
+        _blockFollow = toggle;
     }
 
     private void Controller()

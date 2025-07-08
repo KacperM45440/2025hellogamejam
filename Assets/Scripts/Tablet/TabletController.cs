@@ -20,6 +20,7 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameFlowController FlowControllerRef;
     [SerializeField] private ClientController ClientControllerRef;
     [SerializeField] private NewsletterClass newsletterRef;
+    [SerializeField] private Hand handRef;
     [SerializeField] private GameObject storeContainer;
     [SerializeField] private GameObject storeItemPrefab;
     [SerializeField] private GameObject storeSpacerPrefab;
@@ -122,6 +123,7 @@ public class TabletController : MonoBehaviour
         nextArticleButton.interactable = true;
         previousArticleButton.interactable = false;
         CameraController.Instance.ShowTablet();
+        handRef.SetBlockFollow(true);
     }
 
     public void NextArticle()
@@ -213,6 +215,7 @@ public class TabletController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         CameraController.Instance.HideTablet();
         Debug.Log("Tablet Turns Off");
+        handRef.SetBlockFollow(false);
         FlowControllerRef.FinishRequirement(controllerName);
     }
 
