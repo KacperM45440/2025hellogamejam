@@ -202,6 +202,7 @@ public class TabletController : MonoBehaviour
 
     private void GenerateStoreItems()
     {
+        ResetStoreItems();
         int i = 0;
         foreach (Item item in allItemsRef.allItems)
         {
@@ -211,6 +212,19 @@ public class TabletController : MonoBehaviour
             storeItems.Add(newStoreItem);
             i++;
         }
+    }
+
+    private void ResetStoreItems()
+    {
+        foreach (StoreItem item in storeItems)
+        {
+            Destroy(item.gameObject);
+        }
+        storeItems.Clear();
+        currentTotalPrice = 0;
+        totalPriceFooter.text = "0 $B";
+        warningText.SetActive(false);
+        orderButton.interactable = false;
     }
 
     public void UpdateTotalPrice(int priceChange)

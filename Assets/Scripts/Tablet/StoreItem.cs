@@ -23,7 +23,7 @@ public class StoreItem : MonoBehaviour
     private int currentOrderCount = 0;
     private int currentPrice = 0;
 
-    public void InitializeItem(GameObject weaponGO, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
+    public StoreItem InitializeItem(GameObject weaponGO, string imageResourcesRef, string nameText, string descriptionText, int initialPrice, TabletController controllerRef)
     {
         imageField.sprite = Resources.Load<Sprite>("WeaponIcons/"+imageResourcesRef);
         nameField.text = nameText;
@@ -33,6 +33,7 @@ public class StoreItem : MonoBehaviour
         currentPrice = initialPrice;
         thisWeaponGO = weaponGO;
         RandomizeDiscount();
+        return this;
     }
 
     public void OrderMore()
