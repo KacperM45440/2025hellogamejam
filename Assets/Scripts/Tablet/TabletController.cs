@@ -33,6 +33,8 @@ public class TabletController : MonoBehaviour
     [SerializeField] private GameObject confirmationScreen;
     [SerializeField] private Button nextArticleButton;
     [SerializeField] private Button previousArticleButton;
+    [SerializeField] private Button pocketZoneButton;
+    [SerializeField] private Button unpocketZoneButton;
     [SerializeField] private Transform EndPoint;
     [SerializeField] private Transform StartPoint;
 
@@ -122,6 +124,7 @@ public class TabletController : MonoBehaviour
         confirmationScreen.SetActive(false);
         nextArticleButton.interactable = true;
         previousArticleButton.interactable = false;
+        pocketZoneButton.gameObject.SetActive(true);
         CameraController.Instance.ShowTablet();
         handRef.SetBlockFollow(true);
     }
@@ -216,6 +219,8 @@ public class TabletController : MonoBehaviour
         CameraController.Instance.HideTablet();
         Debug.Log("Tablet Turns Off");
         handRef.SetBlockFollow(false);
+        pocketZoneButton.gameObject.SetActive(false);
+        unpocketZoneButton.gameObject.SetActive(false);
         FlowControllerRef.FinishRequirement(controllerName);
     }
 
@@ -315,6 +320,18 @@ public class TabletController : MonoBehaviour
         }
     }
 
+    public void PocketTablet()
+    {
+        handRef.SetBlockFollow(false);
+        CameraController.Instance.PocketTablet();
+    }
+
+    public void UnpocketTablet()
+    {
+        handRef.SetBlockFollow(true);
+        CameraController.Instance.ShowTablet();
+    }
+
     private void LoadEvents()
     {
         if(AllEvents.Count > 0)
@@ -326,22 +343,6 @@ public class TabletController : MonoBehaviour
         AllEvents.Add(new Event("Deadly But Sexy", "New victims to a famous 'Black Widow' Another one bites the dust, they say, and this week almost three guys have met their destined death! 'Black Widow' is still on the loose and no one seems to know who she really is.", "WidowArticleImage", 3));
         AllEvents.Add(new Event("Serial Killer On The Loose", "Is that a bird? Is that a plane? NO! It's another victim of 'Mysterious killer'. Dude is so cool and quiet. He never misses and he always kills with a style!", "HitmanArticleImage", 4));
         AllEvents.Add(new Event("This Article Will Change Your Life", "Are you a sad loser? Don't worry! We have a solution just for you! The solution is... JUST KILL YOURSELF", "SuicideArticleImage", 5));//Notatka, mo�e jednak zwi�kszony wska�nik samob�jstw?
-        AllEvents.Add(new Event("Stalker", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any information about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 6));
-    }
-
-
-    //Animations
-
-    public void MoveIn()
-    {
-        Tablet.DOMove(EndPoint.position, 1).OnComplete(() =>
-        {
-            Canvas.ForceUpdateCanvases();
-        });
-    }
-    public void MoveOut()
-    {
-        Tablet.DOMove(StartPoint.position, 1);
-
+        AllEvents.Add(new Event("Biggest Nuclear Explosion This Year", "Nuclear factory explosion!!! What an interesting day to be alive! For now we don't have any information about possible survivors, but we hope they're going to have some cool mutations!", "StalkerArticleImage", 6));
     }
 }

@@ -120,11 +120,17 @@ public class CameraController : Singleton<CameraController>
     
     public void HideTablet()
     {
-        if(!isTablet) return;
+        //if(!isTablet) return;
         isTablet = false;
         tabletTransform.DOKill();
         tabletTransform.DOLocalMove(new Vector3(0f, -5f, 2.082f), 0.25f);
     }
 
-
+    public void PocketTablet()
+    {
+        if (!isTablet) return;
+        isTablet = false;
+        tabletTransform.DOKill();
+        tabletTransform.DOLocalMove(new Vector3(0f, -1.5f, 2.082f), 0.25f);
+    }
 }
