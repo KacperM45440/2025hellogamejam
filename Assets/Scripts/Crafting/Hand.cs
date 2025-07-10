@@ -110,21 +110,23 @@ public class Hand : MonoBehaviour
             }
         }
 
-        bool wasPreviewing = _isPreviewing;
+        bool previousPreviewing = _isPreviewing;
         _isPreviewing = Input.GetMouseButton(1) && currentItem;
-        if (currentItem)
+
+        if (_isPreviewing != previousPreviewing && currentItem)
         {
-            if (!wasPreviewing && _isPreviewing)
+            if (_isPreviewing)
             {
                 currentItem.SetOutlineColor(currentItem.itemType == ItemType.FRAME ? Color.yellow : Color.white);
                 currentItem.EnableInfoText();
             }
-            else if (wasPreviewing && !_isPreviewing)
+            else
             {
                 currentItem.DisableInfoText();
-
+                _moveSpeed = 0f;
             }
         }
+
 
     }
 

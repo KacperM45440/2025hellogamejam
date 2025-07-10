@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using DG.Tweening;
 using NUnit.Framework;
+using TMPro;
 using UnityEngine;
 
 
@@ -48,7 +49,7 @@ public class Item : MonoBehaviour
     private SpriteRenderer[] _circles;
     public Item parentItem;
     public Collider itemCollider;
-    public TextMesh textMesh;
+    public TextMeshPro textMesh;
 
 
     private void Awake()
@@ -275,21 +276,13 @@ public class Item : MonoBehaviour
     
     public void EnableInfoText()
     {
-        textMesh.transform.localScale = new Vector3(-1f, 1f, 1f); // TYMCZASOWO BO NIE CHCE MI SIE OBRACAC W PREFABACH TEXT
+        //textMesh.transform.localScale = new Vector3(-1f, 1f, 1f); // TYMCZASOWO BO NIE CHCE MI SIE OBRACAC W PREFABACH TEXT
         DOVirtual.DelayedCall(0.25f, () =>
         {
             textMesh.gameObject.SetActive(true);
-            Color color = textMesh.color;
-            color.a = 0f;
-            textMesh.color = color;
-
+            textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, 0f);
             textMesh.DOKill();
-            DOTween.To(() => textMesh.color.a, a =>
-            {
-                Color c = textMesh.color;
-                c.a = a;
-                textMesh.color = c;
-            }, 1f, 0.5f);
+            textMesh.DOFade(1f, 0.5f);
             
         }, false);
       
@@ -297,6 +290,7 @@ public class Item : MonoBehaviour
     
     public void DisableInfoText()
     {
+        textMesh.DOKill();
         textMesh.gameObject.SetActive(false);
 
         // Color color = textMesh.color;
