@@ -471,6 +471,10 @@ public class Hand : MonoBehaviour
             currentItem.DOKill();
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
+            if (CraftingMgr.Instance.currentItem)
+            {
+                CraftingMgr.Instance.currentItem.RefreshCircles(currentItem);
+            }
         }));
 
         DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
@@ -491,6 +495,7 @@ public class Hand : MonoBehaviour
     public void DropItem(bool toCrafting = false)
     {
         if (!currentItem) return;
+        
         currentItem.Drop(_handVelocity, toCrafting);
 
         currentItem = null;
@@ -501,6 +506,11 @@ public class Hand : MonoBehaviour
         }
 
         CraftingMgr.Instance.RefreshCollider();
+        if (CraftingMgr.Instance.currentItem)
+        {
+            CraftingMgr.Instance.currentItem.RefreshCircles();
+        }
+
         DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
     }
 

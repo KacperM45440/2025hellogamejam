@@ -91,7 +91,7 @@ public class Item : MonoBehaviour
         }
          
         textMesh.text = description;
-        outline.color = Color.white;
+        outline.color = itemType == ItemType.FRAME ? Color.yellow : Color.white;
         outline.DOFade(isHovered ? 1f : 0f, 0.5f);
     }
 
@@ -145,7 +145,7 @@ public class Item : MonoBehaviour
                 }
             }
 
-            parentItem.RefreshCircles();
+            parentItem.RefreshCircles(this);
             parentItem = null;
         }
     }
@@ -214,12 +214,11 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void RefreshCircles()
+    public void RefreshCircles(Item handCurrentItem = null)
     {
         for (int i = 0; i < _circles.Length; i++)
         {
             Transform circle = _circles[i].transform;
-
             if (itemAnchors[i].anchor.addedItem)
             {
                 if (circle.localScale.x != 0)
@@ -228,15 +227,17 @@ public class Item : MonoBehaviour
                     circle.DOScale(0f, 0.25f).SetEase(Ease.InOutBack);
                     itemAnchors[i].anchor.collider.enabled = false;
                 }
-                itemAnchors[i].anchor.addedItem.RefreshCircles();
+                itemAnchors[i].anchor.addedItem.RefreshCircles(handCurrentItem);
             }
             else
             {
                 if (circle.localScale.x < 1f)
                 {
+                    bool isAvailable = handCurrentItem == null || handCurrentItem.itemType == itemAnchors[i].avaliableType;
+                    
                     circle.DOKill();
-                    circle.DOScale(0.5f, 0.25f).SetEase(Ease.InOutBack);
-                    itemAnchors[i].anchor.collider.enabled = true;
+                    circle.DOScale(isAvailable ? 0.5f : 0f, 0.25f).SetEase(Ease.InOutBack);
+                    itemAnchors[i].anchor.collider.enabled = isAvailable;
                 }
             }
         }
