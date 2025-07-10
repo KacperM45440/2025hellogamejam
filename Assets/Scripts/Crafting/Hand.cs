@@ -199,8 +199,9 @@ public class Hand : MonoBehaviour
 
         if (hitTransform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
         {
-            CraftingMgr.Instance.SetCurrentItem(currentItem);
-            DropItem(true);
+            //CraftingMgr.Instance.SetCurrentItem(currentItem);
+            PutItemToCrafting(CraftingMgr.Instance.craftingAnchor);
+            //DropItem(true);
             return;
         }
 
@@ -208,8 +209,9 @@ public class Hand : MonoBehaviour
         {
             if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
             {
-                _anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
-                DropItem(true);
+                PutItemToCrafting(_anchorTarget.transform);
+                //_anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
+                //DropItem(true);
                 return;
             }
         }
@@ -473,12 +475,6 @@ public class Hand : MonoBehaviour
 
         DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
 
-        // _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
-        //     {
-        //         backMovePosition =  moveTarget.position;
-        //     })
-        //     .SetEase(Ease.InCubic));
-
         _grabSequence.OnComplete(() =>
         {
             _blockFollow = false;
@@ -508,9 +504,56 @@ public class Hand : MonoBehaviour
         DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
     }
 
-    public void PutItemToCrafting()
+    public void PutItemToCrafting(Transform target)
     {
-        //todo
+        if (!currentItem) return;
+
+        handRb.isKinematic = true;
+        _blockFollow = true;
+        if (_grabSequence != null) _grabSequence.Kill();
+        _moveSpeed = 0;
+
+        _grabSequence = DOTween.Sequence();
+        Vector3 targetHandMove = target.transform.position + Vector3.up * 0.2f;
+
+        float d = 0.25f;
+        _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
+        _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d).SetEase(Ease.InCubic).OnComplete(() =>
+        {
+            moveTarget.position = handRb.position;
+            moveTarget.rotation = handRb.rotation;
+            currentItem.transform.parent = socket;
+            currentItem.StartGrab();
+            currentItem.DOKill();
+            currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
+            currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
+        }));
+
+        DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
+
+        _grabSequence.OnComplete(() =>
+        {
+
+            if (_anchorTarget)
+            {
+                _anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
+                _anchorTarget = null;
+            }
+            else
+            {
+                CraftingMgr.Instance.SetCurrentItem(currentItem);
+            }
+            DropItem(true);
+
+            _blockFollow = false;
+            handRb.isKinematic = false;
+        });
+        if (CraftingMgr.Instance.currentItem == currentItem)
+        {
+            CraftingMgr.Instance.currentItem = null;
+        }
+
+        CraftingMgr.Instance.RefreshCollider();
     }
 
     public void UpdateRotationTarget(int posIndex)
