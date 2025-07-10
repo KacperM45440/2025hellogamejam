@@ -22,10 +22,12 @@ public class Hand : MonoBehaviour
     [SerializeField] private float handOffset;
     [SerializeField] private Rigidbody handRb;
     [SerializeField] private float rotationTargetRadius = 3f;
+    [SerializeField] private Transform itemPreviewTarget;
 
     private bool _blockFollow = false;
     public bool hitFrontWall = false;
     private float _moveSpeed;
+    private bool _isPreviewing = false;
 
     public Item currentItem;
     public Item hoveredItem;
@@ -79,31 +81,51 @@ public class Hand : MonoBehaviour
 
     private void Controller()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (!_isPreviewing)
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, clientMask | grabLayerMask))
+            if (Input.GetMouseButtonDown(0))
             {
-                HandleMouseDown(hit);
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, clientMask | grabLayerMask))
+                {
+                    HandleMouseDown(hit);
+                }
+                else
+                {
+                    HandleMouseDown(null);
+                }
             }
-            else
+
+            if (Input.GetMouseButtonUp(0))
             {
-                HandleMouseDown(null);
+                Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, grabLayerMask | itemAnchorMask))
+                {
+                    HandleMouseUp(hit);
+                }
+                else
+                {
+                    HandleMouseUp(null);
+                }
             }
         }
 
-        if (Input.GetMouseButtonUp(0))
+        bool wasPreviewing = _isPreviewing;
+        _isPreviewing = Input.GetMouseButton(1) && currentItem;
+        if (currentItem)
         {
-            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit, 100f, grabLayerMask | itemAnchorMask))
+            if (!wasPreviewing && _isPreviewing)
             {
-                HandleMouseUp(hit);
+                currentItem.SetOutlineColor(currentItem.itemType == ItemType.FRAME ? Color.yellow : Color.white);
+                currentItem.EnableInfoText();
             }
-            else
+            else if (wasPreviewing && !_isPreviewing)
             {
-                HandleMouseUp(null);
+                currentItem.DisableInfoText();
+
             }
         }
+
     }
 
 
@@ -268,42 +290,58 @@ public class Hand : MonoBehaviour
 
     private void TrackHandPosition()
     {
-        if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, inputLayerMask))
+        if (!_isPreviewing)
         {
-            hitFrontWall = hit.transform.CompareTag("FrontWall");
-            Vector3 dir = (_camera.transform.position - hit.point).normalized * handOffset;
-            if (handSpeed < 0)
+            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f,
+                    inputLayerMask))
             {
-                moveTarget.position = hit.point + dir;
+                hitFrontWall = hit.transform.CompareTag("FrontWall");
+                Vector3 dir = (_camera.transform.position - hit.point).normalized * handOffset;
+                if (handSpeed < 0)
+                {
+                    moveTarget.position = hit.point + dir;
+                }
+                else
+                {
+                    moveTarget.position =
+                        Vector3.Lerp(moveTarget.position, hit.point + dir, _moveSpeed * Time.deltaTime);
+                }
             }
-            else
-            {
-                moveTarget.position = Vector3.Lerp(moveTarget.position, hit.point + dir, _moveSpeed * Time.deltaTime);
-            }
+        }
+        else
+        {
+            moveTarget.position = Vector3.Lerp(moveTarget.position, itemPreviewTarget.position, _moveSpeed * Time.deltaTime);
         }
     }
 
     private void RotateHand()
     {
-        if (!hitFrontWall)
+        if (!_isPreviewing)
         {
-            float xDiscance = moveTarget.position.x - rotationTarget.position.x;
-            float zDiscance = moveTarget.position.z - rotationTarget.position.z;
-            float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
-            float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
+            if (!hitFrontWall)
+            {
+                float xDiscance = moveTarget.position.x - rotationTarget.position.x;
+                float zDiscance = moveTarget.position.z - rotationTarget.position.z;
+                float xScale = (moveTarget.position.x > rotationTarget.position.x ? -1f : 1f) * lookAtWeight;
+                float zScale = (moveTarget.position.z > rotationTarget.position.z ? 1f : -1f) * lookAtWeight;
 
-            float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
-            float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+                float angleZ = Mathf.Clamp((Mathf.Abs(xDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
+                float angleX = Mathf.Clamp((Mathf.Abs(zDiscance) / rotationTargetRadius), -1, 1) * maxWristPitch;
 
-            Quaternion targetRotation =
-                Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
-            moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+                Quaternion targetRotation =
+                    Quaternion.Euler(FixMinusAngle(angleX) * zScale, 0f, FixMinusAngle(angleZ) * xScale);
+                moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+            }
+            else
+            {
+                Quaternion targetRotation =
+                    Quaternion.Euler(-65f, 0f, 0f);
+                moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+            }
         }
         else
         {
-            Quaternion targetRotation =
-                Quaternion.Euler(-65f, 0f, 0f);
-            moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, targetRotation, _moveSpeed);
+            moveTarget.rotation = Quaternion.Slerp(moveTarget.rotation, itemPreviewTarget.rotation, _moveSpeed * Time.deltaTime);
         }
     }
 
@@ -317,6 +355,7 @@ public class Hand : MonoBehaviour
 
     private void LookingForItem()
     {
+        if(_isPreviewing) return;
         if (!currentItem)
         {
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
@@ -417,6 +456,7 @@ public class Hand : MonoBehaviour
 
     private void MoveHand()
     {
+        
         handRb.linearVelocity = (moveTarget.position - handRb.position) / Time.fixedDeltaTime;
 
         Quaternion rotDiff = moveTarget.rotation * Quaternion.Inverse(handRb.rotation);
@@ -571,6 +611,5 @@ public class Hand : MonoBehaviour
         rotationTarget.DOKill();
         rotationTarget.DOLocalMove(rotationTargets[posIndex], 0.5f);
     }
-
-   
+    
 }

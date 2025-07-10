@@ -81,14 +81,14 @@ public class Item : MonoBehaviour
         }
         isHovered = hover;
 
-        if (isHovered)
-        {
-            textMesh.gameObject.SetActive(true);
-        }
-        else
-        {
-            textMesh.gameObject.SetActive(false);
-        }
+        // if (isHovered)
+        // {
+        //     textMesh.gameObject.SetActive(true);
+        // }
+        // else
+        // {
+        //     textMesh.gameObject.SetActive(false);
+        // }
          
         textMesh.text = description;
         outline.color = itemType == ItemType.FRAME ? Color.yellow : Color.white;
@@ -271,6 +271,48 @@ public class Item : MonoBehaviour
         {
             CraftingMgr.Instance.currentItem.RefreshCircles();
         });
+    }
+    
+    public void EnableInfoText()
+    {
+        textMesh.transform.localScale = new Vector3(-1f, 1f, 1f); // TYMCZASOWO BO NIE CHCE MI SIE OBRACAC W PREFABACH TEXT
+        DOVirtual.DelayedCall(0.25f, () =>
+        {
+            textMesh.gameObject.SetActive(true);
+            Color color = textMesh.color;
+            color.a = 0f;
+            textMesh.color = color;
+
+            textMesh.DOKill();
+            DOTween.To(() => textMesh.color.a, a =>
+            {
+                Color c = textMesh.color;
+                c.a = a;
+                textMesh.color = c;
+            }, 1f, 0.5f);
+            
+        }, false);
+      
+    }
+    
+    public void DisableInfoText()
+    {
+        textMesh.gameObject.SetActive(false);
+
+        // Color color = textMesh.color;
+        // color.a = 1f;
+        // textMesh.color = color;
+        //
+        // textMesh.DOKill();
+        // DOTween.To(() => textMesh.color.a, a =>
+        // {
+        //     Color c = textMesh.color;
+        //     c.a = a;
+        //     textMesh.color = c;
+        // }, 0f, 0.15f).OnComplete(() =>
+        // {
+        //     textMesh.gameObject.SetActive(false);
+        // });
     }
 
 }
