@@ -46,6 +46,7 @@ public class Hand : MonoBehaviour
 
     [SerializeField] private Animator animator;
     private float _gripValue = 0;
+
     void Awake()
     {
         _camera = Camera.main;
@@ -67,6 +68,7 @@ public class Hand : MonoBehaviour
         {
             _moveSpeed += Time.deltaTime * 20f;
         }
+
         animator.SetFloat("Grip", _gripValue);
     }
 
@@ -77,137 +79,190 @@ public class Hand : MonoBehaviour
 
     private void Controller()
     {
-        if (Input.GetMouseButtonDown(0) && hoveredItem && !currentItem)
+        if (Input.GetMouseButtonDown(0))
         {
-            GrabItem();
-        }
-        
-        if (Input.GetMouseButtonDown(0) && !hoveredItem && !currentItem)
-        {
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, clientMask))
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, clientMask | grabLayerMask))
             {
-                if (hit.collider.TryGetComponent(out _clientScript))
-                {
-                    DialogueController.Instance.ProgressDialogue();
-                }
-            }
-        }
-
-        if (Input.GetMouseButtonDown(0) && currentItem)
-        {
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, clientMask))
-            {
-                if (hit.collider.TryGetComponent(out _clientScript))
-                {
-                    if (_clientScript.ClientController.GetClientCanReceiveGun())
-                    {
-                        _clientScript.ClientController.ClientReceiveGun(currentItem);
-                        GameObject gun = currentItem.gameObject;
-                        currentItem.itemPlaceholder.DOKill();
-                        Destroy(currentItem.itemPlaceholder.gameObject);
-                        CraftingMgr.Instance.currentItem = null;
-                        CraftingMgr.Instance.RefreshCollider();
-                        _gripValue = 0f;
-                        currentItem = null;
-                        gun.transform.DOMove(_clientScript.transform.position, 0.25f);
-                        gun.transform.DOScale(0f, 0.25f).OnComplete(() =>
-                        {
-                            Destroy(gun);
-                            //W inventoryControllerze gun i jego czêœci powinny zostaæ usuniête z magazynu
-                        });
-                    }
-                    else
-                    {
-                        //Tutaj klient móglby powiedzieæ coœ w stylu "nie przyjmê tego, albo daj mi dokoñczyæ.
-                    }
-                }
-            }
-        }
-
-        if (Input.GetMouseButtonUp(0) && currentItem)
-        {
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
-            {
-                if (hit.transform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
-                {
-                    CraftingMgr.Instance.SetCurrentItem(currentItem);
-                    DropItem(true);
-                }
-            }
-            else if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit anchorHit, 100f,
-                         itemAnchorMask))
-            {
-                if (anchorHit.collider.TryGetComponent(out _anchorTarget))
-                {
-                    if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
-                    {
-                        _anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
-                        DropItem(true);
-                    }
-                    else
-                    {
-                        DropItem();
-                    }
-                }
-                else
-                {
-                    DropItem();
-                }
+                HandleMouseDown(hit);
             }
             else
             {
-                DropItem();
+                HandleMouseDown(null);
             }
         }
-        if (Input.GetMouseButtonUp(0) && !currentItem)
+
+        if (Input.GetMouseButtonUp(0))
         {
-
-            if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100f, grabLayerMask))
+            Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f, grabLayerMask | itemAnchorMask))
             {
-                if (hit.collider.TryGetComponent(out _rope))
+                HandleMouseUp(hit);
+            }
+            else
+            {
+                HandleMouseUp(null);
+            }
+        }
+    }
+
+
+    private void HandleMouseDown(RaycastHit? hitInfo)
+    {
+        if (hoveredItem && !currentItem)
+        {
+            GrabItem();
+            return;
+        }
+
+        if (!hoveredItem && !currentItem)
+        {
+            TryProgressDialogue(hitInfo);
+            return;
+        }
+
+        if (currentItem)
+        {
+            TryGiveItemToClient(hitInfo);
+        }
+    }
+
+
+    private void HandleMouseUp(RaycastHit? hitInfo)
+    {
+        if (currentItem)
+        {
+            TryDropCurrentItem(hitInfo);
+        }
+        else
+        {
+            TryInteractWithRope(hitInfo);
+        }
+    }
+
+
+    private void TryProgressDialogue(RaycastHit? hitInfo)
+    {
+        if (hitInfo.HasValue && ((1 << hitInfo.Value.collider.gameObject.layer) & clientMask) != 0)
+        {
+            if (hitInfo.Value.collider.TryGetComponent(out _clientScript))
+            {
+                DialogueController.Instance.ProgressDialogue();
+            }
+        }
+    }
+
+
+    private void TryGiveItemToClient(RaycastHit? hitInfo)
+    {
+        if (hitInfo.HasValue && ((1 << hitInfo.Value.collider.gameObject.layer) & clientMask) != 0)
+        {
+            if (hitInfo.Value.collider.TryGetComponent(out _clientScript))
+            {
+                if (_clientScript.ClientController.GetClientCanReceiveGun())
                 {
-                    if (!_rope.finished)
-                    {
-                        _blockFollow = true;
-                        handRb.isKinematic = true;
-                        _moveSpeed = 0f;
-                        handRb.transform.DOKill();
-                        //DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
-                        _gripValue = 1f;
-                        animator.SetFloat("Grip", 1f);
-                        handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
-                        handRb.transform.DOMove(_rope.handeTarget.position + new Vector3(0.15f, 0.25f, 0f), 0.25f)
-                            .OnComplete(() =>
-                            {
-                                handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
-                                {
-                                    moveTarget.position = handRb.position;
-                                    moveTarget.rotation = handRb.rotation;
-
-                                    _blockFollow = false;
-                                    handRb.isKinematic = false;
-                                    _blockFollow = false;
-                                    DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
-
-                                });
-                                _rope.handeTarget.DOKill();
-                                _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(
-                                    () =>
-                                    {
-                                        _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 10f, 2f);
-                                        gameFlowController.RopeWasTugged();
-                                        _rope.finished = true;
-                                        _rope.ChangeVolume();
-                                    });
-
-                            });
-                    }
-
-
+                    GiveGunToClient();
+                }
+                else
+                {
+                    // ODRZUCENIE ITEMU
                 }
             }
         }
     }
+
+
+    private void GiveGunToClient()
+    {
+        _clientScript.ClientController.ClientReceiveGun(currentItem);
+        GameObject gun = currentItem.gameObject;
+        currentItem.itemPlaceholder.DOKill();
+        Destroy(currentItem.itemPlaceholder.gameObject);
+        CraftingMgr.Instance.currentItem = null;
+        CraftingMgr.Instance.RefreshCollider();
+        _gripValue = 0f;
+        currentItem = null;
+
+        gun.transform.DOMove(_clientScript.transform.position, 0.25f);
+        gun.transform.DOScale(0f, 0.25f).OnComplete(() => { Destroy(gun); });
+    }
+
+    private void TryDropCurrentItem(RaycastHit? hitInfo)
+    {
+        if (!hitInfo.HasValue)
+        {
+            DropItem();
+            return;
+        }
+
+        Transform hitTransform = hitInfo.Value.transform;
+
+        if (hitTransform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
+        {
+            CraftingMgr.Instance.SetCurrentItem(currentItem);
+            DropItem(true);
+            return;
+        }
+
+        if (((1 << hitInfo.Value.collider.gameObject.layer) & itemAnchorMask) != 0 && hitInfo.Value.collider.TryGetComponent(out _anchorTarget))
+        {
+            if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
+            {
+                _anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
+                DropItem(true);
+                return;
+            }
+        }
+
+        DropItem();
+    }
+
+
+    private void TryInteractWithRope(RaycastHit? hitInfo)
+    {
+        if (hitInfo.HasValue &&
+            ((1 << hitInfo.Value.collider.gameObject.layer) & grabLayerMask) != 0 &&
+            hitInfo.Value.collider.TryGetComponent(out _rope) && !_rope.finished)
+        {
+            InteractWithRope();
+        }
+    }
+
+
+    private void InteractWithRope()
+    {
+        _blockFollow = true;
+        handRb.isKinematic = true;
+        _moveSpeed = 0f;
+        handRb.transform.DOKill();
+        _gripValue = 1f;
+        animator.SetFloat("Grip", 1f);
+
+        handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
+        handRb.transform.DOMove(_rope.handeTarget.position + new Vector3(0.15f, 0.25f, 0f), 0.25f)
+            .OnComplete(() =>
+            {
+                handRb.DOMove(handRb.position + Vector3.down, 0.25f).OnComplete(() =>
+                {
+                    moveTarget.position = handRb.position;
+                    moveTarget.rotation = handRb.rotation;
+
+                    _blockFollow = false;
+                    handRb.isKinematic = false;
+                    DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+                });
+
+                _rope.handeTarget.DOKill();
+                _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>
+                {
+                    _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 10f, 2f);
+                    gameFlowController.RopeWasTugged();
+                    _rope.finished = true;
+                    _rope.ChangeVolume();
+                });
+            });
+    }
+
 
     private void TrackHandPosition()
     {
@@ -279,9 +334,8 @@ public class Hand : MonoBehaviour
                 if (hit.collider.TryGetComponent(out _rope))
                 {
                     _rope.SetOutline(true);
-   
                 }
-                else if(_rope)
+                else if (_rope)
                 {
                     _rope.SetOutline(false);
                 }
@@ -299,7 +353,7 @@ public class Hand : MonoBehaviour
                     _rope.SetOutline(false);
                 }
             }
-            
+
             if (Physics.Raycast(_camera.ScreenPointToRay(Input.mousePosition), out RaycastHit clientHit, 100f,
                     clientMask))
             {
@@ -338,7 +392,8 @@ public class Hand : MonoBehaviour
             {
                 if (anchorHit.collider.TryGetComponent(out _anchorTarget))
                 {
-                    currentItem.SetOutlineColor(_anchorTarget.addedItem ? Color.white : _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.red);
+                    currentItem.SetOutlineColor(_anchorTarget.addedItem ? Color.white :
+                        _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.red);
                     //currentItem.SetOutlineColor(Color.green);
                     _anchorTarget = null;
                 }
@@ -346,7 +401,6 @@ public class Hand : MonoBehaviour
                 {
                     currentItem.SetOutlineColor(Color.white);
                 }
-
             }
             else
             {
@@ -390,7 +444,7 @@ public class Hand : MonoBehaviour
         if (!hoveredItem) return;
         if (hoveredItem.parentItem)
         {
-            if(!hoveredItem.parentItem.inCrafting) return;
+            if (!hoveredItem.parentItem.inCrafting) return;
         }
 
         currentItem = hoveredItem;
@@ -403,7 +457,6 @@ public class Hand : MonoBehaviour
         _grabSequence = DOTween.Sequence();
         Vector3 targetHandMove = currentItem.transform.position +
                                  (socket.localPosition - currentItem.handGrabPosOffset) + Vector3.up * 0.2f;
-        Vector3 backMovePosition = moveTarget.position;
 
         float d = 0.25f;
         _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
@@ -417,7 +470,7 @@ public class Hand : MonoBehaviour
             currentItem.transform.DOLocalMove(currentItem.handGrabPosOffset, 0.05f);
             currentItem.transform.DOLocalRotate(currentItem.handGrabRotOffset, 0.05f);
         }));
-        
+
         DOTween.To(() => _gripValue, x => _gripValue = x, 1f, 0.25f);
 
         // _grabSequence.Insert(d/2f + 0.05f, handRb.transform.DOMove(backMovePosition, d/2f).OnUpdate(() =>
@@ -453,7 +506,11 @@ public class Hand : MonoBehaviour
 
         CraftingMgr.Instance.RefreshCollider();
         DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+    }
 
+    public void PutItemToCrafting()
+    {
+        //todo
     }
 
     public void UpdateRotationTarget(int posIndex)
@@ -462,40 +519,5 @@ public class Hand : MonoBehaviour
         rotationTarget.DOLocalMove(rotationTargets[posIndex], 0.5f);
     }
 
-    // public bool CheckCanConnectItem(Item parent, Item item, bool connect)
-    // {
-    //     bool finded = false;
-    //     float minDist = Mathf.Infinity;
-    //     ItemAnchor closestAnchor = new ItemAnchor();
-    //     int index = 0;
-    //     for (int i = 0; i < parent.itemAnchors.Length; i++)
-    //     {
-    //         if (parent.addedItems[i]) continue;
-    //         if (parent.itemAnchors[i].avaliableType == item.itemType)
-    //         {
-    //             finded = true;
-    //             float dist = Vector3.Distance(parent.itemAnchors[i].anchor.position.With(y: 0),
-    //                 item.transform.position.With(y: 0));
-    //             if (dist < minDist)
-    //             {
-    //                 minDist = dist;
-    //                 closestAnchor = parent.itemAnchors[i];
-    //                 index = i;
-    //             }
-    //         }
-    //     }
-    //
-    //     if (finded)
-    //     {
-    //         if (connect)
-    //         {
-    //             parent.SetItemToAnchor(closestAnchor.anchor, item, index);
-    //             DropItem(true);
-    //         }
-    //
-    //         return true;
-    //     }
-    //
-    //     return false;
-    // }
+   
 }
