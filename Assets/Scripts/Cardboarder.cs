@@ -37,6 +37,12 @@ public class Cardboarder : MonoBehaviour {
 				spriteRenderer.flipY = originalSpriteRenderer.flipY;
 			}
 		}
+		
+		var existingCollider = originalSpriteRenderer.GetComponent<PolygonCollider2D>();
+		if (existingCollider)
+		{
+			DestroyImmediate(existingCollider);
+		}
 	}
 	
 	private void UpdatePolygonCollider(SpriteRenderer spriteRenderer)
