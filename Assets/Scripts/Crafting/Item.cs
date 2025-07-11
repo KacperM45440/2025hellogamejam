@@ -244,7 +244,12 @@ public class Item : MonoBehaviour
             {
                 if (circle.localScale.x < 1f)
                 {
-                    bool isAvailable = handCurrentItem == null || handCurrentItem.itemType == itemAnchors[i].avaliableType;
+                    bool select = false;
+                    if (handCurrentItem != null)
+                    {
+                        select = handCurrentItem.itemType == itemAnchors[i].avaliableType;
+                    }
+                    bool isAvailable = handCurrentItem == null || select;
                     
                     circle.DOKill();
                     circle.DOScale(isAvailable ? 0.5f : 0f, 0.25f).SetEase(Ease.InOutBack);
