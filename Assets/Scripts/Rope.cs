@@ -15,13 +15,15 @@ public class Rope : MonoBehaviour
     private bool isOutline = false;
     public bool finished = false;
     public Volume volume;
-    public Light light;
+    public Light shoplight;
+    public Light workshoplight;
 
 
     private void Awake()
     {
         _camera = Camera.main;
         volume.weight = 1f;
+        workshoplight.gameObject.SetActive(false);
     }
 
     void Start()
@@ -51,7 +53,11 @@ public class Rope : MonoBehaviour
     public void ChangeVolume()
     {
         DOTween.To(() => volume.weight, x => volume.weight = x, 0f, 1f);
-        DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
+        //DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
+        Color orange = new Color(1f, 0.5f, 0f);
+        DOTween.To(() => shoplight.intensity, x => shoplight.intensity = x, 5f, 1f);
+        shoplight.DOColor(orange, 1f);
+        workshoplight.gameObject.SetActive(true);
 
     }
 
