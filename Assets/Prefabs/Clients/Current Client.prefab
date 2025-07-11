@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4101391497666406882}
   - component: {fileID: 7574084267824669422}
+  - component: {fileID: 4341869272804772959}
+  - component: {fileID: 4924125764672672303}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -87,6 +89,44 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &4341869272804772959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3756569251525497963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d56a50cc7ec844aadc8ca07857316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureTileScale: 0.5
+  CardboardTickness: 1
+  DoubleSided: 1
+  DuplicateSpriteOnBackFace: 1
+  CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}
+  CardboardFaceMaterial: {fileID: 2100000, guid: c57bb41733db21a44a18aae52174fa9e, type: 2}
+  FaceFillColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &4924125764672672303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3756569251525497963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d56a50cc7ec844aadc8ca07857316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureTileScale: 0.5
+  CardboardTickness: 1
+  DoubleSided: 1
+  DuplicateSpriteOnBackFace: 1
+  CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}
+  CardboardFaceMaterial: {fileID: 2100000, guid: c57bb41733db21a44a18aae52174fa9e, type: 2}
+  FaceFillColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &5522441253690848800
 GameObject:
   m_ObjectHideFlags: 0
@@ -135,9 +175,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClientHead: {fileID: 0}
-  ClientFace: {fileID: 80072419550375361}
   ClientBody: {fileID: 7574084267824669422}
+  Outline: {fileID: 0}
   animatorRef: {fileID: 55235910565872663}
+  ClientController: {fileID: 0}
+  isOutline: 0
 --- !u!95 &55235910565872663
 Animator:
   serializedVersion: 7
