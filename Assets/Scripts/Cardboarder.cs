@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-[RequireComponent(typeof(PolygonCollider2D))]
 public class Cardboarder : MonoBehaviour {
 
 	public float TextureTileScale = 1f;
@@ -12,8 +11,9 @@ public class Cardboarder : MonoBehaviour {
 	public Material CardboardFaceMaterial;
 	public Color FaceFillColor;
 
-	void Start()
+	public void Initialize(SpriteRenderer originalSpriteRenderer)
 	{
+		UpdatePolygonCollider(originalSpriteRenderer);
 		CreateCardboardSideLineMesh();
 		CreateCardboardFace(0.01f);
 
@@ -22,7 +22,6 @@ public class Cardboarder : MonoBehaviour {
 
 		if (DuplicateSpriteOnBackFace)
 		{
-			SpriteRenderer originalSpriteRenderer = GetComponent<SpriteRenderer>();
 			if(originalSpriteRenderer != null)
 			{
 				GameObject obj = new GameObject("BackFaceSprite");
@@ -39,6 +38,19 @@ public class Cardboarder : MonoBehaviour {
 			}
 		}
 	}
+	
+	private void UpdatePolygonCollider(SpriteRenderer spriteRenderer)
+	{
+		if (!spriteRenderer) return;
+
+		var existingCollider = spriteRenderer.GetComponent<PolygonCollider2D>();
+		if (existingCollider)
+		{
+			DestroyImmediate(existingCollider);
+		}
+		spriteRenderer.gameObject.AddComponent<PolygonCollider2D>();
+	}
+
 
 	private void CreateCardboardSideLineMesh()
 	{

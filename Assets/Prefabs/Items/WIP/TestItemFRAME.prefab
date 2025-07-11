@@ -660,6 +660,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5052842568225523008}
   - component: {fileID: 2014666159043588951}
+  - component: {fileID: 2595117060182479296}
   m_Layer: 0
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -737,6 +738,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2595117060182479296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6253136764286223256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d56a50cc7ec844aadc8ca07857316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureTileScale: 4
+  CardboardTickness: 0.25
+  DoubleSided: 1
+  DuplicateSpriteOnBackFace: 1
+  CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}
+  CardboardFaceMaterial: {fileID: 2100000, guid: c57bb41733db21a44a18aae52174fa9e, type: 2}
+  FaceFillColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &6604179681634309799
 GameObject:
   m_ObjectHideFlags: 0
