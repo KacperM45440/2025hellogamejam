@@ -37,6 +37,7 @@ public class ClientController : MonoBehaviour
     private int currentClientSatisfaction = 0;
     private ClientMood currentClientMood;
     private bool canReveiveGun = false;
+    [SerializeField] private Cardboarder cardboarder;
 
     private string controllerName = "ClientController";
     public string ControllerName
@@ -116,6 +117,9 @@ public class ClientController : MonoBehaviour
 
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
         StartCoroutine(WaitForClientArrival());
+        
+        cardboarder.Initialize(ClientRef.ClientBody);
+
     }
 
     private IEnumerator WaitForClientArrival()

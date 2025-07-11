@@ -21,4 +21,5 @@ public class ClientScript : MonoBehaviour
         Outline.DOKill();
         Outline.DOFade(value ? 1f : 0f, 0.25f);
     }
+    
 }

@@ -602,6 +602,7 @@ MonoBehaviour:
   parentItem: {fileID: 0}
   itemCollider: {fileID: 4706554517477961556}
   textMesh: {fileID: 4884737823207467886}
+  cardboarder: {fileID: 2595117060182479296}
 --- !u!54 &1486633355609335662
 Rigidbody:
   m_ObjectHideFlags: 0

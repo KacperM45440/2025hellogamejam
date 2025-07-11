@@ -50,7 +50,7 @@ public class Item : MonoBehaviour
     public Item parentItem;
     public Collider itemCollider;
     public TextMeshPro textMesh;
-    private Cardboarder _cardboarder;
+    [SerializeField] private Cardboarder cardboarder;
 
 
     private void Awake()
@@ -64,18 +64,11 @@ public class Item : MonoBehaviour
         }
         itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
         outline.sortingOrder = -1;
-      
+        cardboarder.Initialize(itemSprite);
+
         ClearCircles();
     }
-
-    private void Start()
-    {
-        if (itemSprite.TryGetComponent(out _cardboarder))
-        {
-            
-            _cardboarder.Initialize(itemSprite);
-        }
-    }
+    
 
 
     public void SetHover(bool hover)

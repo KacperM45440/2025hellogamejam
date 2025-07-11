@@ -47,6 +47,12 @@ public class Cardboarder : MonoBehaviour {
 	
 	private void UpdatePolygonCollider(SpriteRenderer spriteRenderer)
 	{
+
+		for (int i = 0; i < spriteRenderer.transform.childCount; i++)
+		{
+			Destroy(spriteRenderer.transform.GetChild(i).gameObject);
+		}
+		
 		if (!spriteRenderer) return;
 
 		var existingCollider = spriteRenderer.GetComponent<PolygonCollider2D>();

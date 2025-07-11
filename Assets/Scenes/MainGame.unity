@@ -5544,6 +5544,30 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: eb4fa29294b8c42409a9ee933fc4fbee, type: 3}
   m_PrefabInstance: {fileID: 1548023557}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1594115523 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1340173716348743939, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+  m_PrefabInstance: {fileID: 875912511976362079}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1594115526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1594115523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a4d56a50cc7ec844aadc8ca07857316, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextureTileScale: 0.5
+  CardboardTickness: 2
+  DoubleSided: 1
+  DuplicateSpriteOnBackFace: 1
+  CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}
+  CardboardFaceMaterial: {fileID: 2100000, guid: c57bb41733db21a44a18aae52174fa9e, type: 2}
+  FaceFillColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1001 &1625381044
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8091,6 +8115,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2184336969086766218, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2230667944781005255, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -9107,6 +9135,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -337.32
       objectReference: {fileID: 0}
+    - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: cardboarder
+      value: 
+      objectReference: {fileID: 1594115526}
     - target: {fileID: 6592382324415927380, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -9651,6 +9683,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7645111329315459912, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 328726707}
+    - targetCorrespondingSourceObject: {fileID: 1340173716348743939, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1594115526}
     - targetCorrespondingSourceObject: {fileID: 447977804518835940, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2002098524}
