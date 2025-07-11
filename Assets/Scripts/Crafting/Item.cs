@@ -252,7 +252,7 @@ public class Item : MonoBehaviour
                     bool isAvailable = handCurrentItem == null || select;
                     
                     circle.DOKill();
-                    circle.DOScale(isAvailable ? 0.5f : 0f, 0.25f).SetEase(Ease.InOutBack);
+                    circle.DOScale(isAvailable ? (select ? 0.75f : 0.5f) : 0f, 0.25f).SetEase(Ease.InOutBack);
                     itemAnchors[i].anchor.collider.enabled = isAvailable;
                 }
             }
