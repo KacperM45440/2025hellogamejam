@@ -35,6 +35,7 @@ public class ClientController : MonoBehaviour
     public List<int> todaysClients = new List<int>();
 
     private int currentClientSatisfaction = 0;
+    private int currentGunValue = 0;
     private ClientMood currentClientMood;
     private bool canReveiveGun = false;
     [SerializeField] private Cardboarder cardboarder;
@@ -150,6 +151,9 @@ public class ClientController : MonoBehaviour
         List<ItemCharacteristics> itemCharacteristicsList = new List<ItemCharacteristics>();
         itemCharacteristicsList.AddRange(gun.characteristics);
         inventoryControllerRef.RemoveFromInventoryByName(gun.name);
+
+        currentGunValue = 0;
+        int items = 0;
         for (int i = 0; i < gun.itemAnchors.Length; i++)
         {
             Item item = gun.itemAnchors[i].anchor.addedItem;
@@ -157,43 +161,53 @@ public class ClientController : MonoBehaviour
             {
                 continue;
             }
+            items++;
+            currentGunValue += item.price;
             itemCharacteristicsList.AddRange(item.characteristics);
             inventoryControllerRef.RemoveFromInventoryByName(item.name);
         }
         inventoryControllerRef.CheckFrameExistenceAndSpawnIfNeeded();
-        ClientCalculateSatisfaction(itemCharacteristicsList);
+        ClientCalculateSatisfaction(itemCharacteristicsList, items);
     }
 
-    public void ClientCalculateSatisfaction(List<ItemCharacteristics> itemCharacteristics)
+    public void ClientCalculateSatisfaction(List<ItemCharacteristics> itemCharacteristics, int itemCount)
     {
-        foreach (ItemCharacteristics characteristic in itemCharacteristics)
+        if(itemCount <= 2)
         {
-            if (CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))
+            currentClientSatisfaction -= 1;
+        }
+        else
+        {
+            foreach (ItemCharacteristics characteristic in itemCharacteristics)
             {
-                currentClientSatisfaction += 3;
-            }
-            else if (CurrentClient.HatedItemCharacteristics.Contains(characteristic))
-            {
-                currentClientSatisfaction -= 2;
-            }
-            else
-            {
-                currentClientSatisfaction++;
+                if (CurrentClient.PrefferedItemCharacteristics.Contains(characteristic))
+                {
+                    currentClientSatisfaction += 3;
+                }
+                else if (CurrentClient.HatedItemCharacteristics.Contains(characteristic))
+                {
+                    currentClientSatisfaction -= 3;
+                }
+                else
+                {
+                    currentClientSatisfaction++;
+                }
             }
         }
 
         switch (currentClientSatisfaction)
         {
-            case <= 0:
+            case <= 2:
                 currentClientMood = ClientMood.Bad;
                 break;
-            case <= 5:
+            case <= 6:
                 currentClientMood = ClientMood.Neutral;
                 break;
             default:
                 currentClientMood = ClientMood.Good;
                 break;
         }
+        Debug.Log("Current client mood: " + currentClientMood + " with satisfaction: " + currentClientSatisfaction);
 
         ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
         StartCoroutine(WaitForGunInspection());
@@ -219,13 +233,17 @@ public class ClientController : MonoBehaviour
     private int CalculatePayment()
     {
         int payment = DefaultClientPayment;
-        if (currentClientSatisfaction <= 0)
+        switch (currentClientMood)
         {
-            payment = 50;
-        }
-        else
-        {
-            payment += (50 * currentClientSatisfaction);
+            case ClientMood.Bad:
+                payment = Random.Range(30, 70);
+                break;
+            case ClientMood.Neutral:
+                payment = (int)(currentGunValue * 1.3f);
+                break;
+            case ClientMood.Good:
+                payment = (int)(currentGunValue * 1.3f) + currentClientSatisfaction * 10;
+                break;
         }
         return payment;
     }
