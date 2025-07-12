@@ -379,7 +379,7 @@ Transform:
   m_GameObject: {fileID: 3640109237346071301}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.04, y: 0, z: 0.13}
+  m_LocalPosition: {x: -0.04, y: -0.098, z: 0.13}
   m_LocalScale: {x: 1.0603949, y: 1.08108, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -466,7 +466,7 @@ Transform:
   m_GameObject: {fileID: 4202898214882117546}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.04, y: 0, z: 0.13}
+  m_LocalPosition: {x: -0.04, y: -0.09799999, z: 0.13}
   m_LocalScale: {x: 1.0603949, y: 1.08108, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 1486633355609335662}
   - component: {fileID: 4706554517477961556}
   m_Layer: 9
-  m_Name: TestItem
+  m_Name: Gun Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -643,7 +643,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.81519425, y: 0.04258165, z: 0.57062095}
+  m_Size: {x: 0.81519425, y: 0.06, z: 0.57062095}
   m_Center: {x: -0.0011339784, y: -0.0187894, z: 0.0009600222}
 --- !u!1 &6253136764286223256
 GameObject:
@@ -855,7 +855,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TextureTileScale: 4
-  CardboardTickness: 0.25
+  CardboardTickness: 0.5
   DoubleSided: 1
   DuplicateSpriteOnBackFace: 1
   CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}

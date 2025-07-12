@@ -540,7 +540,7 @@ GameObject:
   - component: {fileID: 1486633355609335662}
   - component: {fileID: 4706554517477961556}
   m_Layer: 9
-  m_Name: TestItemFRAME
+  m_Name: TestItemFRAME Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
