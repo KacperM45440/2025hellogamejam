@@ -25,6 +25,7 @@ public class Hand : MonoBehaviour
     [SerializeField] private Transform itemPreviewTarget;
 
     private bool _blockFollow = false;
+    private bool _blockFollowUI = false;
     public bool hitFrontWall = false;
     private float _moveSpeed;
     private bool _isPreviewing = false;
@@ -44,6 +45,8 @@ public class Hand : MonoBehaviour
 
     private DG.Tweening.Sequence _grabSequence;
     private Rope _rope;
+    private InteractableObject _interactable;
+    private InteractableObject hoveredInteractable;
     private ClientScript _clientScript;
 
     [SerializeField] private Animator animator;
@@ -58,7 +61,7 @@ public class Hand : MonoBehaviour
     void Update()
     {
         if (!active) return;
-        if (_blockFollow) return;
+        if (_blockFollow || _blockFollowUI) return;
 
         Controller();
         TrackHandPosition();
@@ -74,9 +77,9 @@ public class Hand : MonoBehaviour
         animator.SetFloat("Grip", _gripValue);
     }
 
-    public void SetBlockFollow(bool toggle)
+    public void SetUIHandBlock(bool toggle)
     {
-        _blockFollow = toggle;
+        _blockFollowUI = toggle;
     }
 
     private void Controller()
@@ -138,12 +141,17 @@ public class Hand : MonoBehaviour
             GrabItem();
             return;
         }
+        else if(hoveredInteractable && !currentItem)
+        {
+            TryInteractWithInteractable(hitInfo);
+        }
 
-        if (!hoveredItem && !currentItem)
+        if (!hoveredItem && !currentItem&& !hoveredInteractable)
         {
             TryProgressDialogue(hitInfo);
             return;
         }
+
 
         if (currentItem)
         {
@@ -289,6 +297,41 @@ public class Hand : MonoBehaviour
             });
     }
 
+    private void TryInteractWithInteractable(RaycastHit? hitInfo)
+    {
+        if (hitInfo.HasValue &&
+            ((1 << hitInfo.Value.collider.gameObject.layer) & grabLayerMask) != 0 &&
+            hitInfo.Value.collider.TryGetComponent(out _interactable) && _interactable.interactable)
+        {
+            InteractWithInteractable();
+        }
+    }
+
+
+    private void InteractWithInteractable()
+    {
+        _blockFollow = true;
+        handRb.isKinematic = true;
+        _moveSpeed = 0f;
+        handRb.transform.DOKill();
+        _gripValue = 1f;
+        animator.SetFloat("Grip", 1f);
+
+        //handRb.transform.DOLocalRotate(new Vector3(0f, 35, -90f), 0.15f);
+        handRb.transform.DOMove(_interactable.handTarget.position, 0.25f)
+            .OnComplete(() =>
+            {
+                _interactable.Interact();
+
+                moveTarget.position = handRb.position;
+                moveTarget.rotation = handRb.rotation;
+
+                _blockFollow = false;
+                handRb.isKinematic = false;
+                DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+            });
+    }
+
 
     private void TrackHandPosition()
     {
@@ -350,7 +393,7 @@ public class Hand : MonoBehaviour
     private void FixedUpdate()
     {
         if (!active) return;
-        if (_blockFollow) return;
+        if (_blockFollow || _blockFollowUI) return;
         MoveHand();
         LookingForItem();
     }
@@ -372,6 +415,12 @@ public class Hand : MonoBehaviour
                     hoveredItem = _newHoverItem;
                     hoveredItem.SetHover(true);
                     _newHoverItem = null;
+
+                    if (hoveredInteractable)
+                    {
+                        hoveredInteractable.SetOutline(false);
+                        hoveredInteractable = null;
+                    }
                 }
 
                 if (hit.collider.TryGetComponent(out _rope))
@@ -381,6 +430,22 @@ public class Hand : MonoBehaviour
                 else if (_rope)
                 {
                     _rope.SetOutline(false);
+                }
+
+                if (hit.collider.TryGetComponent(out _interactable))
+                {
+                    if (_interactable != hoveredInteractable && hoveredInteractable)
+                    {
+                        hoveredInteractable.SetOutline(false);
+                    }
+
+                    hoveredInteractable = _interactable;
+                    hoveredInteractable.SetOutline(true);
+                    _interactable = null;
+                }
+                else if (_interactable)
+                {
+                    _interactable.SetOutline(false);
                 }
             }
             else
@@ -394,6 +459,12 @@ public class Hand : MonoBehaviour
                 if (_rope)
                 {
                     _rope.SetOutline(false);
+                }
+
+                if (hoveredInteractable)
+                {
+                    hoveredInteractable.SetOutline(false);
+                    hoveredInteractable = null;
                 }
             }
 

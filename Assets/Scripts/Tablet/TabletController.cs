@@ -126,7 +126,7 @@ public class TabletController : MonoBehaviour
         previousArticleButton.interactable = false;
         pocketZoneButton.gameObject.SetActive(true);
         CameraController.Instance.ShowTablet();
-        handRef.SetBlockFollow(true);
+        handRef.SetUIHandBlock(true);
     }
 
     public void NextArticle()
@@ -218,7 +218,7 @@ public class TabletController : MonoBehaviour
         yield return new WaitForSeconds(3f);
         CameraController.Instance.HideTablet();
         Debug.Log("Tablet Turns Off");
-        handRef.SetBlockFollow(false);
+        handRef.SetUIHandBlock(false);
         pocketZoneButton.gameObject.SetActive(false);
         unpocketZoneButton.gameObject.SetActive(false);
         FlowControllerRef.FinishRequirement(controllerName);
@@ -322,13 +322,13 @@ public class TabletController : MonoBehaviour
 
     public void PocketTablet()
     {
-        handRef.SetBlockFollow(false);
+        handRef.SetUIHandBlock(false);
         CameraController.Instance.PocketTablet();
     }
 
     public void UnpocketTablet()
     {
-        handRef.SetBlockFollow(true);
+        handRef.SetUIHandBlock(true);
         CameraController.Instance.ShowTablet();
     }
 

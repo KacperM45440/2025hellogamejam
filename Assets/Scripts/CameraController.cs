@@ -20,7 +20,9 @@ public class CameraController : Singleton<CameraController>
     public bool isMoving = false;
     public Rope rope;
     public Transform tabletTransform;
+    public Transform blueprintTransform;
     public bool isTablet;
+    public bool isBlueprint;
     
     private bool canMoveToWorkshop = false;
 
@@ -113,6 +115,10 @@ public class CameraController : Singleton<CameraController>
     public void ShowTablet()
     {
         if(isTablet) return;
+        if (isBlueprint)
+        {
+            HideBlueprint();
+        }
         isTablet = true;
         tabletTransform.DOKill();
         tabletTransform.DOLocalMove(new Vector3(0f, 0.311f, 2.082f), 0.25f);
@@ -132,5 +138,21 @@ public class CameraController : Singleton<CameraController>
         isTablet = false;
         tabletTransform.DOKill();
         tabletTransform.DOLocalMove(new Vector3(0f, -1.5f, 2.082f), 0.25f);
+    }
+
+    public void ShowBlueprint()
+    {
+        if (isBlueprint || isTablet) return;
+        isBlueprint = true;
+        blueprintTransform.DOKill();
+        blueprintTransform.DOLocalMove(new Vector3(0f, -0.05f, 2.082f), 0.25f);
+    }
+
+    public void HideBlueprint()
+    {
+        if(!isBlueprint) return;
+        isBlueprint = false;
+        blueprintTransform.DOKill();
+        blueprintTransform.DOLocalMove(new Vector3(0f, -5f, 2.082f), 0.25f);
     }
 }

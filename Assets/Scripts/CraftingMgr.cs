@@ -10,6 +10,7 @@ public class CraftingMgr : Singleton<CraftingMgr>
     [SerializeField] private Vector2 clampZItemSpawn;
     [SerializeField] private float itemSpawnRadius;
     public Transform craftingAnchor;
+    public BlueprintScript blueprintRef;
     public Item currentItem;
     public Hand hand;
 
@@ -48,11 +49,17 @@ public class CraftingMgr : Singleton<CraftingMgr>
         }
         _craftingCollider.enabled = false;
 
+        if (!currentItem)
+        {
+            blueprintRef.ToggleCollider(true);
+        }
     }
 
     public void SetCurrentItem(Item item)
     {
         if(currentItem) return;
+        blueprintRef.ToggleCollider(false);
+
         currentItem = item;
         currentItem.PlaceToCrafting();
         currentItem.transform.parent = craftingAnchor;
