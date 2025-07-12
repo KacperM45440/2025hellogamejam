@@ -168,7 +168,7 @@ public class GameFlowController : MonoBehaviour
                 {
                     if(currentDay == lastDay)
                     {
-                        EndGame();
+                        UIControllerRef.EndGameBlackScreenAnimation();
                     }
                     else
                     {
