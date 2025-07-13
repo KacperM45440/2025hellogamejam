@@ -100,7 +100,7 @@ public class ClientController : MonoBehaviour
     {
         if (ClientRef.transform.childCount > 4)
         {
-            Destroy(ClientRef.transform.GetChild(3).gameObject);
+            Destroy(ClientRef.transform.GetChild(4).gameObject);
         }
         CurrentClientInt = todaysClients[0];
         CurrentClient = GetNextClient(CurrentClientInt);
@@ -121,6 +121,11 @@ public class ClientController : MonoBehaviour
         StartCoroutine(WaitForClientArrival());
         
         cardboarder.Initialize(ClientRef.ClientBody);
+
+        if (ClientRef.gunSocket.GetChild(0))
+        {
+            Destroy(ClientRef.gunSocket.GetChild(0));
+        }
 
     }
 
