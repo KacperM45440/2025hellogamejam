@@ -284,15 +284,20 @@ public class Item : MonoBehaviour
     
     public void EnableInfoText()
     {
-        //textMesh.transform.localScale = new Vector3(-1f, 1f, 1f); // TYMCZASOWO BO NIE CHCE MI SIE OBRACAC W PREFABACH TEXT
-        DOVirtual.DelayedCall(0.25f, () =>
+        bool canShow = true;
+        for (int i = 0; i < itemAnchors.Length; i++)
         {
-            textMesh.gameObject.SetActive(true);
-            textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, 0f);
-            textMesh.DOKill();
-            textMesh.DOFade(1f, 0.5f);
-            
-        }, false);
+            if(itemAnchors[i].anchor.addedItem != null)
+            {
+                canShow = false;
+                break;
+            }
+        }
+        if(!canShow)return;
+        textMesh.gameObject.SetActive(true);
+        textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, 0f);
+        textMesh.DOKill();
+        textMesh.DOFade(1f, 0.5f).SetDelay(0.25f);
       
     }
     
