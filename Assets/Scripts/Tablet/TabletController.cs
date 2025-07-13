@@ -125,6 +125,13 @@ public class TabletController : MonoBehaviour
         nextArticleButton.interactable = true;
         previousArticleButton.interactable = false;
         pocketZoneButton.gameObject.SetActive(true);
+
+        StartCoroutine(PullOutTabletAnim());
+    }
+
+    private IEnumerator PullOutTabletAnim()
+    {
+        yield return new WaitForSeconds(2f);
         CameraController.Instance.ShowTablet();
         handRef.SetUIHandBlock(true);
     }
