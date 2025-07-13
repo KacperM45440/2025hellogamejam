@@ -266,6 +266,8 @@ public class TabletController : MonoBehaviour
 
             i++;
         }
+
+        Canvas.ForceUpdateCanvases();
     }
 
     private void ResetStoreContent()
