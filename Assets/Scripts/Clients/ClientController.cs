@@ -118,6 +118,7 @@ public class ClientController : MonoBehaviour
         ClientRef.Outline.sprite = CurrentClient.ClientBody;
 
         ClientRef.GetComponent<Animator>().SetTrigger("EnterShop");
+        ClientRef.audioSource.Play();
         StartCoroutine(WaitForClientArrival());
         
         cardboarder.Initialize(ClientRef.ClientBody);
@@ -278,6 +279,7 @@ public class ClientController : MonoBehaviour
         Door.Instance.OpenDoor();
         yield return new WaitForSeconds(2f);
         ClientRef.GetComponent<Animator>().SetTrigger("ExitShop");
+        ClientRef.audioSource.Play();
         StartCoroutine(WaitAfterLeavingShop());
     }
 

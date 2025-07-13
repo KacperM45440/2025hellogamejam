@@ -11,6 +11,7 @@ public class ClientScript : MonoBehaviour
     public ClientController ClientController;
     public bool isOutline;
     public Transform gunSocket;
+    public AudioSource audioSource;
     
     public void SetOutline(bool value)
     {

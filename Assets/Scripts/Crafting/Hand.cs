@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Hand : MonoBehaviour
@@ -53,6 +54,12 @@ public class Hand : MonoBehaviour
     private float _gripValue = 0;
     
     private Vector3 _socketPosition;
+    
+    
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip grabSound;
+    [SerializeField] private AudioClip putSound;
+    [SerializeField] private AudioClip[] mountSounds;
 
     void Awake()
     {
@@ -238,6 +245,8 @@ public class Hand : MonoBehaviour
         if (hitTransform.CompareTag("Crafting") && !CraftingMgr.Instance.currentItem)
         {
             //CraftingMgr.Instance.SetCurrentItem(currentItem);
+            audioSource.clip = putSound;
+            audioSource.Play();
             PutItemToCrafting(CraftingMgr.Instance.craftingAnchor);
             //DropItem(true);
             return;
@@ -247,6 +256,8 @@ public class Hand : MonoBehaviour
         {
             if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
             {
+                audioSource.clip = mountSounds[UnityEngine.Random.Range(0, mountSounds.Length)];
+                audioSource.Play();
                 PutItemToCrafting(_anchorTarget.transform);
                 //_anchorTarget.parentItem.SetItemToAnchor(_anchorTarget, currentItem);
                 //DropItem(true);
@@ -568,6 +579,9 @@ public class Hand : MonoBehaviour
             if (!hoveredItem.parentItem.inCrafting) return;
         }
 
+        audioSource.clip = grabSound;
+        audioSource.Play();
+        
         currentItem = hoveredItem;
         hoveredItem = null;
         handRb.isKinematic = true;
@@ -616,7 +630,7 @@ public class Hand : MonoBehaviour
         if (!currentItem) return;
         
         currentItem.Drop(_handVelocity, toCrafting);
-
+    
         currentItem = null;
         if (_grabSequence != null)
         {
@@ -636,12 +650,12 @@ public class Hand : MonoBehaviour
     public void PutItemToCrafting(Transform target)
     {
         if (!currentItem) return;
-
+     
         handRb.isKinematic = true;
         _blockFollow = true;
         if (_grabSequence != null) _grabSequence.Kill();
         _moveSpeed = 0;
-
+        
         _grabSequence = DOTween.Sequence();
         Vector3 targetHandMove = target.transform.position + Vector3.up * 0.2f;
         currentItem.itemCollider.isTrigger = true;

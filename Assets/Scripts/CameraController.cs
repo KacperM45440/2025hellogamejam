@@ -33,6 +33,7 @@ public class CameraController : Singleton<CameraController>
         set { controllerName = value; }
     }
 
+
     public override void Awake()
     {
         base.Awake();
