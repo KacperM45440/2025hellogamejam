@@ -98,7 +98,7 @@ public class ClientController : MonoBehaviour
 
     public void CreateNextClient()
     {
-        if (ClientRef.transform.childCount > 3)
+        if (ClientRef.transform.childCount > 4)
         {
             Destroy(ClientRef.transform.GetChild(3).gameObject);
         }
