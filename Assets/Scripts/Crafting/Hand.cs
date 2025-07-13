@@ -51,11 +51,14 @@ public class Hand : MonoBehaviour
 
     [SerializeField] private Animator animator;
     private float _gripValue = 0;
+    
+    private Vector3 _socketPosition;
 
     void Awake()
     {
         _camera = Camera.main;
         _moveSpeed = handSpeed;
+        _socketPosition = socket.localPosition;
     }
 
     void Update()
@@ -122,11 +125,13 @@ public class Hand : MonoBehaviour
             {
                 currentItem.SetOutlineColor(currentItem.itemType == ItemType.FRAME ? Color.yellow : Color.white);
                 currentItem.EnableInfoText();
+                socket.localPosition = _socketPosition - socket.up * 0.25f;
             }
             else
             {
                 currentItem.DisableInfoText();
                 _moveSpeed = 0f;
+                socket.localPosition = _socketPosition;
             }
         }
 

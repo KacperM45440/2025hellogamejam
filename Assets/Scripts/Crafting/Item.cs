@@ -298,7 +298,7 @@ public class Item : MonoBehaviour
     
     public void DisableInfoText()
     {
-        textMesh.DOKill();
+        textMesh.DOKill(true);
         textMesh.gameObject.SetActive(false);
 
         // Color color = textMesh.color;
