@@ -298,7 +298,7 @@ public class Hand : MonoBehaviour
                     _rope.transform.DOMove(_rope.handeTarget.position - Vector3.down * 10f, 2f);
                     gameFlowController.RopeWasTugged();
                     _rope.finished = true;
-                    _rope.ChangeVolume();
+                    _rope.TransformStore();
                 });
             });
     }

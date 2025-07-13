@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using Unity.Mathematics;
 using UnityEngine;
@@ -50,16 +51,22 @@ public class Rope : MonoBehaviour
         outline.DOFade(value ? 1f : 0f, 0.25f);
     }
 
-    public void ChangeVolume()
+    public void TransformStore()
     {
-        neonLogoAnimator.SetTrigger("ChangeNeon");
+        StartCoroutine(TransformStoreAnimation());
+    }
+
+    private IEnumerator TransformStoreAnimation()
+    {
+        yield return new WaitForSeconds(1f);
         DOTween.To(() => volume.weight, x => volume.weight = x, 0f, 1f);
         //DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
         Color orange = new Color(1f, 0.5f, 0f);
         DOTween.To(() => shoplight.intensity, x => shoplight.intensity = x, 5f, 1f);
         shoplight.DOColor(orange, 1f);
         workshoplight.gameObject.SetActive(true);
-
+        yield return new WaitForSeconds(1f);
+        neonLogoAnimator.SetTrigger("ChangeNeon");
     }
 
 }
