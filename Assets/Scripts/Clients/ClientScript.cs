@@ -10,6 +10,8 @@ public class ClientScript : MonoBehaviour
     public Animator animatorRef;
     public ClientController ClientController;
     public bool isOutline;
+    public Transform gunSocket;
+    
     public void SetOutline(bool value)
     {
         if (isOutline == value)

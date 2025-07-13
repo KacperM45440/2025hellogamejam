@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class ClientController : MonoBehaviour
@@ -152,6 +153,11 @@ public class ClientController : MonoBehaviour
             return;
         }
         canReveiveGun = false;
+        
+        gun.transform.DOKill();
+        gun.transform.parent = ClientRef.gunSocket;
+        gun.transform.DOLocalMove(Vector3.zero, 0.25f).SetEase(Ease.InOutBack);
+        gun.transform.DOLocalRotateQuaternion(Quaternion.Euler(0f, 0f, 0f), 0.25f).SetEase(Ease.InOutBack);
 
         List<ItemCharacteristics> itemCharacteristicsList = new List<ItemCharacteristics>();
         itemCharacteristicsList.AddRange(gun.characteristics);

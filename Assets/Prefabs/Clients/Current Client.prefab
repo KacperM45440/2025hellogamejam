@@ -127,6 +127,37 @@ MonoBehaviour:
   CardboardLineMaterial: {fileID: 2100000, guid: 56597838b32438f4982c680623ba2441, type: 2}
   CardboardFaceMaterial: {fileID: 2100000, guid: c57bb41733db21a44a18aae52174fa9e, type: 2}
   FaceFillColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!1 &5475139750163513876
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1257318781955152636}
+  m_Layer: 0
+  m_Name: GunSocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1257318781955152636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5475139750163513876}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.703857, y: 0.06771562, z: -0.06771568, w: 0.703857}
+  m_LocalPosition: {x: 0, y: -3.4800003, z: 0.72999954}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1658379441193765858}
+  m_LocalEulerAnglesHint: {x: -100.991, y: -90, z: 90}
 --- !u!1 &5522441253690848800
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,6 +190,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4355382040400001806}
+  - {fileID: 1257318781955152636}
   - {fileID: 4101391497666406882}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -180,6 +212,7 @@ MonoBehaviour:
   animatorRef: {fileID: 55235910565872663}
   ClientController: {fileID: 0}
   isOutline: 0
+  gunSocket: {fileID: 1257318781955152636}
 --- !u!95 &55235910565872663
 Animator:
   serializedVersion: 7
