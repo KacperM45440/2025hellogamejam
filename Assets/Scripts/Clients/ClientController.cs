@@ -122,7 +122,7 @@ public class ClientController : MonoBehaviour
         
         cardboarder.Initialize(ClientRef.ClientBody);
 
-        if (ClientRef.gunSocket.GetChild(0))
+        if (ClientRef.gunSocket.childCount > 0)
         {
             Destroy(ClientRef.gunSocket.GetChild(0));
         }
