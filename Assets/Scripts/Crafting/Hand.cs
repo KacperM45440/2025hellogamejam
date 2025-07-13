@@ -302,6 +302,7 @@ public class Hand : MonoBehaviour
                     handRb.isKinematic = false;
                     DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
                 });
+                _rope.PlayPullSound();
 
                 _rope.handeTarget.DOKill();
                 _rope.handeTarget.DOMove(_rope.handeTarget.position + Vector3.down, 0.25f).OnComplete(() =>

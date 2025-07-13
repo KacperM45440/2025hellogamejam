@@ -19,6 +19,11 @@ public class Rope : MonoBehaviour
     public Light shoplight;
     public Light workshoplight;
     public Animator neonLogoAnimator;
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip rope1Sound;
+    [SerializeField] private AudioClip rope2Sound;
+    [SerializeField] private AudioClip changeEnviromentSound;
+
 
     private void Awake()
     {
@@ -55,10 +60,28 @@ public class Rope : MonoBehaviour
     {
         StartCoroutine(TransformStoreAnimation());
     }
+    
+    public void PlayDropSound()
+    {
+        if (finished) return;
+        audioSource.clip = rope1Sound;
+        audioSource.Play();
+    }
+    
+    public void PlayPullSound()
+    {
+        if (finished) return;
+        audioSource.clip = rope2Sound;
+        audioSource.Play();
+    }
+    
+    
 
     private IEnumerator TransformStoreAnimation()
     {
         yield return new WaitForSeconds(1f);
+        audioSource.clip = changeEnviromentSound;
+        audioSource.Play();
         DOTween.To(() => volume.weight, x => volume.weight = x, 0f, 1f);
         //DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
         Color orange = new Color(1f, 0.5f, 0f);
