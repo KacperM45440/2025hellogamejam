@@ -222,7 +222,7 @@ public class GameFlowController : MonoBehaviour
     
     private IEnumerator StoreChangeAnim()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(5f);
         FinishRequirement("GameFlowController");
     }
 
