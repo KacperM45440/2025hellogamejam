@@ -526,7 +526,7 @@ public class Hand : MonoBehaviour
             }
         }
     }
-
+    
     private void MoveHand()
     {
         
