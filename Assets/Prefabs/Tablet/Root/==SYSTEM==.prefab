@@ -421,7 +421,7 @@ MonoBehaviour:
   moneyCounter: {fileID: 0}
   currentMoney: 100
   currentMoneyInJar: 0
-  moneyRequiredToWin: 2000
+  moneyRequiredToWin: 3000
 --- !u!114 &3572493483141366180
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,5 +590,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlowControllerRef: {fileID: 3572493483141366180}
   blackScreen: {fileID: 0}
-  dayCount: {fileID: 0}
+  dayText: {fileID: 0}
+  dayCountOld: {fileID: 0}
+  dayCountNew: {fileID: 0}
+  lastDayText: {fileID: 0}
   continuePrompt: {fileID: 0}
