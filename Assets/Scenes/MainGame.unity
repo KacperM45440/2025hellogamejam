@@ -13215,6 +13215,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: _gunSocket
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6556525757591266360, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: cardboarder
       value: 
       objectReference: {fileID: 1594115526}

@@ -211,8 +211,9 @@ public class Hand : MonoBehaviour
 
     private void GiveGunToClient()
     {
+        currentItem.SetOutlineColor(Color.clear);
         _clientScript.ClientController.ClientReceiveGun(currentItem);
-        GameObject gun = currentItem.gameObject;
+        //GameObject gun = currentItem.gameObject;
         currentItem.itemPlaceholder.DOKill();
         Destroy(currentItem.itemPlaceholder.gameObject);
         CraftingMgr.Instance.currentItem = null;
@@ -220,8 +221,8 @@ public class Hand : MonoBehaviour
         _gripValue = 0f;
         currentItem = null;
 
-        gun.transform.DOMove(_clientScript.transform.position, 0.25f);
-        gun.transform.DOScale(0f, 0.25f).OnComplete(() => { Destroy(gun); });
+        //gun.transform.DOMove(_clientScript.transform.position, 0.25f);
+        //gun.transform.DOScale(0f, 0.25f).OnComplete(() => { Destroy(gun); });
     }
 
     private void TryDropCurrentItem(RaycastHit? hitInfo)
