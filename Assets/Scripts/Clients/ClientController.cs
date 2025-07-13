@@ -125,8 +125,13 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator WaitForClientArrival()
     {
-        yield return new WaitForSeconds(5f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
+        yield return new WaitForSeconds(2.5f);
+        Door.Instance.OpenDoor();
+        yield return new WaitForSeconds(2.5f); // CZAS TRWANIA ANIMACJI WEJ�CIA KLIENTA
+       
         GameFlowControllerRef.FinishRequirement(controllerName); // Informujemy GameFlowController, że klient dotarł
+        yield return new WaitForSeconds(1f);
+        Door.Instance.CloseDoor();
         //ClientArrived();
     }
 
@@ -259,6 +264,7 @@ public class ClientController : MonoBehaviour
         yield return new WaitForSeconds(2f);
         int payment = CalculatePayment();
         moneyControllerRef.gainMoney(payment);
+        Door.Instance.OpenDoor();
         yield return new WaitForSeconds(2f);
         ClientRef.GetComponent<Animator>().SetTrigger("ExitShop");
         StartCoroutine(WaitAfterLeavingShop());
@@ -267,12 +273,13 @@ public class ClientController : MonoBehaviour
     private IEnumerator WaitAfterLeavingShop()
     {
         yield return new WaitForSeconds(3f);
-
+        Door.Instance.CloseDoor();
         //Tylko aby wizualnie klient zniknął póki nie ma animacji wychodzenia
         ClientRef.transform.position = new Vector3(ClientRef.transform.position.x, ClientRef.transform.position.y - 1f, ClientRef.transform.position.z);
 
         todaysClients.RemoveAt(0);
         GameFlowControllerRef.FinishRequirement(controllerName);
+        
     }
 
     public class Client
