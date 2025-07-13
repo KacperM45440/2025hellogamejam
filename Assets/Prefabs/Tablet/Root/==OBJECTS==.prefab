@@ -1772,6 +1772,7 @@ MonoBehaviour:
   clampZItemSpawn: {x: -1, y: 1}
   itemSpawnRadius: 4
   craftingAnchor: {fileID: 6577419129413503928}
+  blueprintRef: {fileID: 0}
   currentItem: {fileID: 0}
   hand: {fileID: 3192488391798527372}
 --- !u!1 &5730098404626511770
@@ -2267,6 +2268,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3340936811677023267}
   - {fileID: 7609479138546657171}
   - {fileID: 7886345787506380181}
   - {fileID: 4108748933413579996}
@@ -3056,6 +3058,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ee20fb787ea81d4ab1009655292230f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &7093566175026579103
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6947621047708186481}
+    m_Modifications:
+    - target: {fileID: 1969517938060238617, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_Name
+      value: Neon Logo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -15.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.667
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+--- !u!95 &1174813955162492374 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8231647505600629577, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+  m_PrefabInstance: {fileID: 7093566175026579103}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3340936811677023267 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5488775850153704124, guid: 2bebfc780f7d1de458d986f10830f709, type: 3}
+  m_PrefabInstance: {fileID: 7093566175026579103}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8297352883402452275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3064,6 +3133,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6651107912802343023}
     m_Modifications:
+    - target: {fileID: 6051912170014496274, guid: 50836436929f36e42a3f4cf76012e6ce, type: 3}
+      propertyPath: neonLogoAnimator
+      value: 
+      objectReference: {fileID: 1174813955162492374}
     - target: {fileID: 6118487790565608268, guid: 50836436929f36e42a3f4cf76012e6ce, type: 3}
       propertyPath: m_Name
       value: Rope

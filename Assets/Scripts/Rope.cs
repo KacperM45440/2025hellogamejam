@@ -17,7 +17,7 @@ public class Rope : MonoBehaviour
     public Volume volume;
     public Light shoplight;
     public Light workshoplight;
-
+    public Animator neonLogoAnimator;
 
     private void Awake()
     {
@@ -52,6 +52,7 @@ public class Rope : MonoBehaviour
 
     public void ChangeVolume()
     {
+        neonLogoAnimator.SetTrigger("ChangeNeon");
         DOTween.To(() => volume.weight, x => volume.weight = x, 0f, 1f);
         //DOTween.To(() => light.intensity, x => light.intensity = x, 0.6f, 1f);
         Color orange = new Color(1f, 0.5f, 0f);
