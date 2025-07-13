@@ -638,7 +638,7 @@ public class Hand : MonoBehaviour
 
         _grabSequence = DOTween.Sequence();
         Vector3 targetHandMove = target.transform.position + Vector3.up * 0.2f;
-
+        currentItem.itemCollider.isTrigger = true;
         float d = 0.25f;
         _grabSequence.Insert(0f, handRb.transform.DORotateQuaternion(Quaternion.Euler(0f, 0f, 0f), d / 2f));
         _grabSequence.Insert(0f, handRb.transform.DOMove(targetHandMove, d).SetEase(Ease.InCubic).OnComplete(() =>
