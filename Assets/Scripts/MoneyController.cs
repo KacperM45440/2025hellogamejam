@@ -9,7 +9,7 @@ public class MoneyController : MonoBehaviour
     [SerializeField] public int currentMoney = 0;
 
     [SerializeField] public int currentMoneyInJar = 0;
-    [SerializeField] public int moneyRequiredToWin = 2000;
+    [SerializeField] public int moneyRequiredToWin = 3000;
 
     public void Start()
     {
