@@ -219,13 +219,13 @@ public class ClientController : MonoBehaviour
                 break;
         }
         Debug.Log("Current client mood: " + currentClientMood + " with satisfaction: " + currentClientSatisfaction);
-
-        ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
         StartCoroutine(WaitForGunInspection());
     }
 
     private IEnumerator WaitForGunInspection()
     {
+        yield return new WaitForSeconds(1f);
+        ClientRef.GetComponent<Animator>().SetTrigger("InspectGun");
         yield return new WaitForSeconds(3f);
         GameFlowControllerRef.FinishRequirement(controllerName);
 
