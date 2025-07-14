@@ -1411,6 +1411,18 @@ PrefabInstance:
       propertyPath: FlowControllerRef
       value: 
       objectReference: {fileID: 7250743721291627013}
+    - target: {fileID: 4617772581176828633, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: inventoryRef
+      value: 
+      objectReference: {fileID: 3332419181436489261}
+    - target: {fileID: 4617772581176828633, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: FlowControllerRef
+      value: 
+      objectReference: {fileID: 7250743721291627013}
+    - target: {fileID: 4617772581176828633, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
+      propertyPath: moneyControllerRef
+      value: 
+      objectReference: {fileID: 5707134436333010056}
     - target: {fileID: 6817109695643747487, guid: 2f72dd6bf927ee34bbe226cb09f037c8, type: 3}
       propertyPath: m_LocalPosition.z
       value: 5

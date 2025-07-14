@@ -2973,6 +2973,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1488183659044220730, guid: c8293aefc4a71c44084bd7dc9ca10900, type: 3}
   m_PrefabInstance: {fileID: 5349196643313429413}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &8864735837335159971 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3547134770169327366, guid: c8293aefc4a71c44084bd7dc9ca10900, type: 3}
+  m_PrefabInstance: {fileID: 5349196643313429413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb1c61f189dad44396e72d76535074e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6716064133393719292
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2981,6 +2992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 320943890887217600}
     m_Modifications:
+    - target: {fileID: 2099204146870222117, guid: 1a545309b4060354c97991e6859869c1, type: 3}
+      propertyPath: ClientControllerRef
+      value: 
+      objectReference: {fileID: 8864735837335159971}
     - target: {fileID: 5132041417126369095, guid: 1a545309b4060354c97991e6859869c1, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.81

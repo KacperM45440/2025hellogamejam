@@ -125,7 +125,7 @@ public class ClientController : MonoBehaviour
 
         if (ClientRef.gunSocket.childCount > 0)
         {
-            Destroy(ClientRef.gunSocket.GetChild(0));
+            Destroy(ClientRef.gunSocket.GetChild(0).gameObject);
         }
 
     }

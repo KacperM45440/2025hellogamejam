@@ -95,6 +95,7 @@ public class GameFlowController : MonoBehaviour
                 inventoryControllerRef.DestroyItems();
                 controllerRequirements.Add(UIControllerRef.ControllerName);
                 UIControllerRef.FinishDay();
+                tutorialArrowRef.SetActive(false);
                 break;
             default:
                 break;
@@ -169,12 +170,12 @@ public class GameFlowController : MonoBehaviour
                     if(currentDay == lastDay)
                     {
                         UIControllerRef.EndGameBlackScreenAnimation();
+                        return;
                     }
                     else
                     {
                         currentStage = GameStage.Tablet;
                     }
-                    currentStage = GameStage.Tablet;
                 }
                 break;
             case GameStage.Tablet:
