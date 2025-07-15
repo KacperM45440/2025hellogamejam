@@ -335,7 +335,7 @@ public class Item : MonoBehaviour
         if (itemType == ItemType.MONEY)
         {
             price = moneyValue;
-            description = "A total of " + moneyValue + " B$";
+            description = "A total of " + moneyValue + " $B";
             transform.DOScale(1f, 0.25f).From(0);
         }
     }
