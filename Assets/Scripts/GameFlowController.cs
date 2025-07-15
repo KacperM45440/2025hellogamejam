@@ -85,6 +85,8 @@ public class GameFlowController : MonoBehaviour
             case StageManager.GameStage.ClientLeaveStore:
                 controllerRequirements.Add(clientControllerRef.ControllerName);
                 clientControllerRef.ClientPaysThenLeaves();
+                controllerRequirements.Add(moneyControllerRef.ControllerName);
+                moneyControllerRef.WaitForPlayerCashIn();
                 break;
             case StageManager.GameStage.Tablet:
                 controllerRequirements.Add(tabletControllerRef.ControllerName);

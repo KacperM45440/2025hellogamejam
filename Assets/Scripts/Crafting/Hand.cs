@@ -36,6 +36,7 @@ public class Hand : MonoBehaviour
     private Item _newHoverItem;
     private ItemAnchorTarget _anchorTarget;
 
+    public MoneyController moneyControllerRef;
 
     [Range(0, 1)] public float lookAtWeight = 1.0f;
     public float maxWristPitch = 45f;
@@ -54,7 +55,6 @@ public class Hand : MonoBehaviour
     private float _gripValue = 0;
     
     private Vector3 _socketPosition;
-    
     
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip grabSound;
@@ -213,21 +213,29 @@ public class Hand : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            TryInteractWithInteractable(hitInfo);
+        }
     }
 
 
     private void GiveGunToClient()
     {
-        currentItem.SetOutlineColor(Color.clear);
         _clientScript.ClientController.ClientReceiveGun(currentItem);
+        RemoveCurrentItem();
+    }
+
+    public void RemoveCurrentItem()
+    {
         //GameObject gun = currentItem.gameObject;
+        currentItem.SetOutlineColor(Color.clear);
         currentItem.itemPlaceholder.DOKill();
         Destroy(currentItem.itemPlaceholder.gameObject);
         CraftingMgr.Instance.currentItem = null;
         CraftingMgr.Instance.RefreshCollider();
         _gripValue = 0f;
         currentItem = null;
-
         //gun.transform.DOMove(_clientScript.transform.position, 0.25f);
         //gun.transform.DOScale(0f, 0.25f).OnComplete(() => { Destroy(gun); });
     }
@@ -624,6 +632,11 @@ public class Hand : MonoBehaviour
         }
 
         CraftingMgr.Instance.RefreshCollider();
+
+        if(currentItem.itemType == ItemType.MONEY)
+        {
+            moneyControllerRef.HandPickedUpMoney(true);
+        }
     }
 
     public void DropItem(bool toCrafting = false)
@@ -631,7 +644,12 @@ public class Hand : MonoBehaviour
         if (!currentItem) return;
         
         currentItem.Drop(_handVelocity, toCrafting);
-    
+
+        if (currentItem.itemType == ItemType.MONEY)
+        {
+            moneyControllerRef.HandPickedUpMoney(false);
+        }
+
         currentItem = null;
         if (_grabSequence != null)
         {
@@ -646,6 +664,8 @@ public class Hand : MonoBehaviour
         }
 
         DOTween.To(() => _gripValue, x => _gripValue = x, 0f, 0.25f);
+
+
     }
 
     public void PutItemToCrafting(Transform target)

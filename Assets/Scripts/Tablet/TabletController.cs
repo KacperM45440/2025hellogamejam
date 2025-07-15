@@ -131,7 +131,12 @@ public class TabletController : MonoBehaviour
 
     private IEnumerator PullOutTabletAnim()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
+        storeContainer.SetActive(false);
+        yield return null;
+        storeContainer.SetActive(true);
+        Canvas.ForceUpdateCanvases();
+        yield return new WaitForSeconds(1f);
         CameraController.Instance.ShowTablet();
         handRef.SetUIHandBlock(true);
     }
@@ -266,8 +271,6 @@ public class TabletController : MonoBehaviour
 
             i++;
         }
-
-        Canvas.ForceUpdateCanvases();
     }
 
     private void ResetStoreContent()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
-public class ClientController : MonoBehaviour
+public class ClientController : Singleton<ClientController>
 {
     public enum ClientMood
     {
@@ -34,6 +34,8 @@ public class ClientController : MonoBehaviour
     [HideInInspector] public List<List<ItemCharacteristics>> ClientHates;
 
     public List<int> todaysClients = new List<int>();
+    public Transform MoneySpawnPoint;
+    public GameObject[] moneyVariants;
 
     private int currentClientSatisfaction = 0;
     private int currentGunValue = 0;
@@ -273,9 +275,26 @@ public class ClientController : MonoBehaviour
 
     private IEnumerator WaitAfterPaying()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(0.5f);
         int payment = CalculatePayment();
-        moneyControllerRef.gainMoney(payment);
+        int moneyVariant = 0;
+        if(payment < 100)
+        {
+            moneyVariant = 1;
+        }
+        else if(CurrentClientInt == 4)
+        {
+            moneyVariant = 2;
+        }
+
+        for (int i = 0; i < 2; i++)
+        {
+            GameObject moneyItem = Instantiate(moneyVariants[moneyVariant], MoneySpawnPoint.position, Quaternion.identity);
+            moneyItem.GetComponent<Item>().SetMoneyValue(payment);
+            yield return new WaitForSeconds(0.1f);
+        }
+        yield return new WaitForSeconds(1.5f);
+        //moneyControllerRef.gainMoney(payment);
         Door.Instance.OpenDoor();
         yield return new WaitForSeconds(2f);
         ClientRef.GetComponent<Animator>().SetTrigger("ExitShop");

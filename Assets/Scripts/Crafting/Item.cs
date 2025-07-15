@@ -14,7 +14,8 @@ public enum ItemType
     MAGAZINE, 
     STOCK,
     SIGHT,
-    BARREL
+    BARREL,
+    MONEY
 }
 
 [Serializable]
@@ -209,7 +210,14 @@ public class Item : MonoBehaviour
             {
                 rb.linearVelocity = Vector3.ClampMagnitude(rb.linearVelocity, 0.2f);
                 rb.angularVelocity = Vector3.ClampMagnitude(rb.angularVelocity, 0.2f);
-                transform.position = CraftingMgr.Instance.GetItemSpawnPosition();
+                if(itemType == ItemType.MONEY)
+                {
+                    transform.position = ClientController.Instance.MoneySpawnPoint.position;
+                }
+                else
+                {
+                    transform.position = CraftingMgr.Instance.GetItemSpawnPosition();
+                }
                 transform.eulerAngles =  transform.eulerAngles.With(x: 0, z: 0);
                 transform.localScale = Vector3.one;
                 isGrabed = false;
@@ -322,6 +330,15 @@ public class Item : MonoBehaviour
         // });
     }
 
+    public void SetMoneyValue(int moneyValue)
+    {
+        if (itemType == ItemType.MONEY)
+        {
+            price = moneyValue;
+            description = "A total of " + moneyValue + " B$";
+            transform.DOScale(1f, 0.25f).From(0);
+        }
+    }
 }
 
 

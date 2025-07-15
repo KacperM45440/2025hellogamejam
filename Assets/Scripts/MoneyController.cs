@@ -5,11 +5,24 @@ public class MoneyController : MonoBehaviour
 {
     public JarScript JarRef;
     public Image BeeRef;
+    public GameFlowController FlowControllerRef;
+    public MoneyJarScript jarRef;
+    public CashRegisterScript registerRef;
     [SerializeField] public TextMeshProUGUI moneyCounter;
     [SerializeField] public int currentMoney = 0;
 
     [SerializeField] public int currentMoneyInJar = 0;
     [SerializeField] public int moneyRequiredToWin = 3000;
+
+    private bool jarCashedIn = false;
+    private bool moneyCashedIn = false;
+
+    private string controllerName = "MoneyController";
+    public string ControllerName
+    {
+        get { return controllerName; }
+        set { controllerName = value; }
+    }
 
     public void Start()
     {
@@ -25,11 +38,19 @@ public class MoneyController : MonoBehaviour
     {
         Debug.Log("Gaining money: " + amount.ToString() + "$B");
         currentMoney += amount;
-        currentMoneyInJar += amount;
         UpdateUI();
 
-        JarRef.JarGO.gameObject.GetComponent<Animator>().SetTrigger("JarSpin");
         BeeRef.gameObject.GetComponent<Animator>().SetTrigger("BeeSpin");
+        moneyCashedIn = true;
+        CheckIfAllPlayerCashedIn();
+    }
+
+    public void gainMoneyToJar(int amount)
+    {
+        currentMoneyInJar += amount;
+        UpdateUI();
+        jarCashedIn = true;
+        CheckIfAllPlayerCashedIn();
     }
 
     public void spendMoney(int amount)
@@ -65,5 +86,29 @@ public class MoneyController : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private void CheckIfAllPlayerCashedIn()
+    {
+        if(jarCashedIn && moneyCashedIn)
+        {
+            FlowControllerRef.FinishRequirement(controllerName);
+            jarCashedIn = false;
+            moneyCashedIn = false;
+        }
+    }
+
+    public void WaitForPlayerCashIn()
+    {
+        jarRef.SetJarHungry(true);
+        registerRef.SetJarHungry(true);
+        jarCashedIn = false;
+        moneyCashedIn = false;
+    }
+
+    public void HandPickedUpMoney(bool value)
+    {
+        jarRef.HandPickedUpMoney(value);
+        registerRef.HandPickedUpMoney(value);
     }
 }
