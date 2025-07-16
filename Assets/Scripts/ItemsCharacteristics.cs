@@ -8,7 +8,7 @@ public enum ItemCharacteristics
     SLOW_SHOOTING,
     MILITARY,
     GIRLY,
-    NATURAL,
+    ECOLOGICAL,
     EXPENSIVE,
     CHEAP,
     LOTS_OF_BULLETS,

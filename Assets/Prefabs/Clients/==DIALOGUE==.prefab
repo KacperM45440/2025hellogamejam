@@ -155,75 +155,88 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Client1Greeting:
-  - Greetings...
-  - 'I, the mighty General, require your assistance in getting myself a brand new... '
-  - Special... "honey"...
-  - As I am preparing for my next...
-  - Battle.
+  - Salutations!
+  - I, the legendary General Buzzard, require your assistance in getting myself a
+    brand new...
+  - Special "honey"...
+  - As I am preparing for my upcoming...
+  - Epic battle.
   Client1Request:
-  - But, as you can predict, it cannot be just a plain ol' gun.
+  - But, as you may predict, I require more than just a plain ol' gun.
   - It has to be something greater!
-  - Something you've never seen before!
+  - Something that could turn the tides of war!
   - I desire a gun that will make all my enemies shiver!
-  - It has to be loud, and fast!
-  - Do you think you are able to create something like that?
+  - It has to be loud, fast and full of bullets!
+  - And none of that girly stuff.
+  - Can you create something like that? Or am I wasting my breath?
   Client1ResponseGood:
-  - Excellent! A gun worthy of all the money!
+  - Excellent! This weapon of mass destruction is worth all my money!
+  - Great job cadet!
   Client1ResponseAverage:
-  - Oh... it's just a plain old gun...
+  - Oh... It's just a plain old gun...
   - But I guess this will do.
   Client1ResponseBad:
-  - Great heavens, what is this?!
+  - Great heavens, you call this a weapon?!
   - Are you trying to insult me?!
   Client2Greeting:
-  - Well hello...
-  - Time is money, so please do it as fast as you can.
+  - Hello Mr. Bee Bee's.
+  - I am a representative of the B.E.Z. Company.
+  - Time is money, so let's cut straight to the chase.
   Client2Request:
-  - I am preparing to cut down the forest.
-  - I need something that will make it quicker.
-  - I'm not talking about simple chainsaw nor a simple gun...
-  - It has to be more efficient than that.
+  - We are preparing to cut down a huge chunk of forest.
+  - We need something that will minimize the costs and maximize the efficiency.
+  - I'm not talking about a simple chainsaw nor any other conventional equipment...
+  - The more blades it has, the better, as long as the timber remains in sellable
+    condition.
+  - Oh, and make sure it's eco-friendly or whatever. Shareholders love that!
   Client2ResponseGood:
-  - My, my... you are better than I thought!
+  - My, my... You are better than I thought.
+  - Please doing business with you.
   Client2ResponseAverage:
-  - As I said before, time is money...
-  - This won't give me more money.
+  - As I said before, time is money.
+  - This thing will barely save my company any time and any money.
   Client2ResponseBad:
-  - Tsk... you've just lost a great customer.
+  - Tsk... I'd be better off punching the trees with my bare hands.
+  - You've just lost a deal of a lifetime.
   Client3Greeting:
-  - Hello.
-  - I've heard a lot of good things about your facility...
-  - ... so I've decided to *shoot my shot*.
+  - Howdy, friend!
+  - I've heard a lot of good things about this store of yours...
+  - So I've decided to *shoot my shot*.
   Client3Request:
-  - I am tired of cooking!
-  - When I see prey, I want to immidiately eat it!
-  - I *hate* wasting time in the kitchen!
-  - Can you make me a gun that will cook meat at the same time?
+  - The hunting tournament is growing near and while I love the shooting part...
+  - Cooking the meat is just so boring! That's just a damn chore.
+  - When I see prey in the distance, I want to kill it and eat it right then and
+    there!
+  - Any chance you can make me a rifle with a built-in BBQ?
   Client3ResponseGood:
-  - Finally, I don't have to cook anymore.
+  - You son of a gun, this is exactly what I was looking for!
+  - I won't have to waste my time grilling my meat ever again.
   Client3ResponseAverage:
-  - Well... it's... something...
+  - Darn... It's... Alright I suppose.
+  - Just hope it doesn't let me down during the hunt.
   Client3ResponseBad:
-  - Which part of "I DON'T LIKE COOKING' did you not understand?!
+  - Which part of "I HATE COOKING" did you not understand?!
+  - You're an amateur, dang nabbit!
   Client4Greeting:
   - Hello darling, aren't you something sweet?
-  - Look, I'm not familiar with places like this, but...
-  - I heard you could help me with a little problem of mine...
+  - Look, I'm not really familiar with places like this.
+  - But I heard you could help me with a little problem of mine...
   Client4Request:
-  - You see... I've met a wonderful guy. Rich, I might add!
-  - 'Until one day, I''ve caught a glimpse of his bank account... '
-  - ...only to find out that he lost ALL of his money!
+  - You see... I've met this wonderful guy. Rich, I might add!
+  - Until one day, I've caught a glimpse of his bank account, only to find out that
+    he lost almost all of his money!
   - How cruel of him to lie to me like that!
-  - I want to teach him a lesson.
-  - I need a gun as beautiful as me, but also quiet and natural.
-  - Could you prepare something like this for me, darling?
+  - I want to teach him a lesson, with a gun as glamorous and elegant as me.
+  - Would you help this damsel in distress, darling?
   Client4ResponseGood:
   - That's marvelous!
-  - This should teach him a lesson!
+  - This should teach him how to treat a lady.
   Client4ResponseAverage:
   - I thought you were better than this...
+  - At least it's not my credit card.
   Client4ResponseBad:
-  - Ugh, I cannot do it with a gun as ugly as this!
+  - Ugh, this is quite dreadful.
+  - I wouldn't dream of being seen with something so ugly.
   Client5Greeting:
   - Shhh...
   - Just pretend I'm not here.

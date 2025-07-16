@@ -66,7 +66,6 @@ public class MoneyController : MonoBehaviour
 
     public void UpdateUI()
     {
-        Debug.Log("Updating money UI: " + currentMoney.ToString() + "$B");
         moneyCounter.text = currentMoney.ToString() + " $B";
     }
 

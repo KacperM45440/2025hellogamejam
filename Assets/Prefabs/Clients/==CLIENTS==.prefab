@@ -95,6 +95,9 @@ MonoBehaviour:
   ClientHeads: []
   ClientOffsets: []
   todaysClients: 
+  MoneySpawnPoint: {fileID: 0}
+  moneyVariants: []
+  cardboarder: {fileID: 0}
 --- !u!114 &6757430112606304542
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +116,7 @@ MonoBehaviour:
   Client1Head: {fileID: 919132149155446097, guid: b40b1f57a80d30945b3c4b8f13324f1c, type: 3}
   Client1HeadOffset: {x: 0, y: 3, z: 0}
   Client1Speech: 
-  Client1PrefferedItemCharacteristics: 000000000200000009000000040000000f000000
+  Client1PrefferedItemCharacteristics: 000000000200000009000000040000000f0000000a000000
   Client1HatedItemCharacteristics: 01000000030000000500000010000000
   Client2ID: 2
   Client2Name: B. E. Z. Nessman
@@ -121,8 +124,8 @@ MonoBehaviour:
   Client2Head: {fileID: 919132149155446097, guid: f79ca58b4f779114690cd0f965e5c8ee, type: 3}
   Client2HeadOffset: {x: 0, y: 7.5, z: 0}
   Client2Speech: 
-  Client2PrefferedItemCharacteristics: 020000000c000000060000000f00000007000000
-  Client2HatedItemCharacteristics: 030000000800000010000000
+  Client2PrefferedItemCharacteristics: 020000000c0000000600000008000000
+  Client2HatedItemCharacteristics: 0300000007000000100000000b0000000a000000
   Client3ID: 3
   Client3Name: Ash McStinger
   Client3Body: {fileID: 21300000, guid: 6b5c4ee58bf36494f83adc06819889e6, type: 3}
@@ -130,14 +133,14 @@ MonoBehaviour:
   Client3HeadOffset: {x: 0, y: 5.5, z: 0}
   Client3Speech: 
   Client3PrefferedItemCharacteristics: 0b0000000a0000000e000000
-  Client3HatedItemCharacteristics: 00000000110000000f00000010000000
+  Client3HatedItemCharacteristics: 110000000f0000001000000000000000
   Client4ID: 4
   Client4Name: Black Widow
   Client4Body: {fileID: 21300000, guid: e7646be0139b52c4091eb11a4161aad8, type: 3}
   Client4Head: {fileID: 919132149155446097, guid: 03ec992a65de301478f7faecc6d0ff5c, type: 3}
   Client4HeadOffset: {x: 0, y: 4.5, z: 0}
   Client4Speech: 
-  Client4PrefferedItemCharacteristics: 050000000700000001000000
+  Client4PrefferedItemCharacteristics: 05000000070000000100000001000000
   Client4HatedItemCharacteristics: 04000000000000000800000010000000
   Client5ID: 5
   Client5Name: Agent Black Jacket

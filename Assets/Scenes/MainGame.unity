@@ -12566,6 +12566,34 @@ PrefabInstance:
       propertyPath: backupFrameSpawnPoint
       value: 
       objectReference: {fileID: 1301559505}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: startingInventory.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[4]'
+      value: 
+      objectReference: {fileID: 471768773170236558, guid: f136539da8411d44d96f7772c2b8e767, type: 3}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[5]'
+      value: 
+      objectReference: {fileID: 6329708378664971276, guid: ffc54e2e6570c234c97131a460c61549, type: 3}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[6]'
+      value: 
+      objectReference: {fileID: 3494065859333351400, guid: b1b2f0aa22cc51f45baeaa3e653ffe26, type: 3}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[7]'
+      value: 
+      objectReference: {fileID: 6267778453695711234, guid: 21ef73cf16b82a14b9121bbebcdf7e4d, type: 3}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[8]'
+      value: 
+      objectReference: {fileID: 4073527712774051806, guid: 92890f6fbb72ef841af8ec0ec50546cb, type: 3}
+    - target: {fileID: 3332419181436489261, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
+      propertyPath: 'startingInventory.Array.data[9]'
+      value: 
+      objectReference: {fileID: 6785132056435240233, guid: 534b1959eae444c4db283440ac6bea39, type: 3}
     - target: {fileID: 3337191208980029486, guid: a116824b34479b74d94bc4cb099990ff, type: 3}
       propertyPath: m_AnchorMax.y
       value: 1
