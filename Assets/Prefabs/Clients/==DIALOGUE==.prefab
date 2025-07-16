@@ -238,19 +238,25 @@ MonoBehaviour:
   - Ugh, this is quite dreadful.
   - I wouldn't dream of being seen with something so ugly.
   Client5Greeting:
-  - Shhh...
-  - Just pretend I'm not here.
+  - Let's make this clear. You're still alive, because I want you alive.
+  - One wrong move and you'll end up like one of my many targets.
   Client5Request:
-  - I need a gun.
-  - Quick, neat, without any other sources of light.
-  - I need to be invisible.
-  - Do it fast.
+  - I'm not looking for a gun. I've got plenty of those.
+  - I'm looking for... The perfect tool.
+  - Something slow, something percise and something quiet.
+  - Something that won't get me killed working under cover of night.
+  - All in a one, reliable package.
+  - Do not mess this up.
   Client5ResponseGood:
-  - Thanks a lot.
+  - Yes... Perfect...
+  - Let's hope we'll never have to meet again.
+  - Or it won't end too well for you.
   Client5ResponseAverage:
-  - You could've done better...
+  - I'm a professional, and professionals have standards.
+  - This thing does not meet them.
   Client5ResponseBad:
-  - '*deathstare*'
+  - ...
+  - Once I'm done with my target, you're next on my list.
   Client6Greeting:
   - Um...
   - What a terrible day.

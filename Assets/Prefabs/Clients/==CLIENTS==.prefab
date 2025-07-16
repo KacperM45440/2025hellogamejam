@@ -140,7 +140,7 @@ MonoBehaviour:
   Client4Head: {fileID: 919132149155446097, guid: 03ec992a65de301478f7faecc6d0ff5c, type: 3}
   Client4HeadOffset: {x: 0, y: 4.5, z: 0}
   Client4Speech: 
-  Client4PrefferedItemCharacteristics: 05000000070000000100000001000000
+  Client4PrefferedItemCharacteristics: 050000000700000001000000
   Client4HatedItemCharacteristics: 04000000000000000800000010000000
   Client5ID: 5
   Client5Name: Agent Black Jacket
