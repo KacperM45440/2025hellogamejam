@@ -224,7 +224,7 @@ MonoBehaviour:
   circle: {fileID: 411534111128241452}
   parentItem: {fileID: 0}
   addedItem: {fileID: 0}
-  itemType: 0
+  itemTypes: 
 --- !u!135 &2783976159002704139
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -296,7 +296,7 @@ MonoBehaviour:
   circle: {fileID: 6457105440439955073}
   parentItem: {fileID: 0}
   addedItem: {fileID: 0}
-  itemType: 0
+  itemTypes: 
 --- !u!135 &6023993033292228006
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -583,11 +583,11 @@ MonoBehaviour:
   description: Gun
   itemAnchors:
   - anchor: {fileID: 1854174079162875708}
-    avaliableType: 6
+    avaliableTypes: 
   - anchor: {fileID: 5167624673438221335}
-    avaliableType: 5
+    avaliableTypes: 
   - anchor: {fileID: 3548174853562153206}
-    avaliableType: 4
+    avaliableTypes: 
   itemPlaceholder: {fileID: 7124626896435517644}
   itemAnchor: {fileID: 5228918849567749266}
   handGrabPosOffset: {x: 0, y: 0, z: 0}
@@ -601,7 +601,8 @@ MonoBehaviour:
   inCrafting: 0
   parentItem: {fileID: 0}
   itemCollider: {fileID: 4706554517477961556}
-  textMesh: {fileID: 4884737823207467886}
+  textMeshDescriptionRef: {fileID: 0}
+  textMeshNameRef: {fileID: 0}
   cardboarder: {fileID: 2595117060182479296}
 --- !u!54 &1486633355609335662
 Rigidbody:
@@ -1136,7 +1137,7 @@ MonoBehaviour:
   circle: {fileID: 5268761189886310642}
   parentItem: {fileID: 0}
   addedItem: {fileID: 0}
-  itemType: 0
+  itemTypes: 
 --- !u!135 &7827378496114595298
 SphereCollider:
   m_ObjectHideFlags: 0

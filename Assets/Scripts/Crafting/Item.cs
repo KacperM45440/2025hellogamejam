@@ -51,7 +51,8 @@ public class Item : MonoBehaviour
     private SpriteRenderer[] _circles;
     public Item parentItem;
     public Collider itemCollider;
-    public TextMeshPro textMesh;
+    public TextMeshPro textMeshDescriptionRef;
+    public TextMeshPro textMeshNameRef;
     [SerializeField] private Cardboarder cardboarder;
 
 
@@ -96,7 +97,8 @@ public class Item : MonoBehaviour
         //     textMesh.gameObject.SetActive(false);
         // }
          
-        textMesh.text = description;
+        textMeshDescriptionRef.text = description;
+        textMeshNameRef.text = name;
         outline.color = itemType == ItemType.FRAME ? Color.yellow : Color.white;
         outline.DOFade(isHovered ? 1f : 0f, 0.5f);
     }
@@ -108,7 +110,8 @@ public class Item : MonoBehaviour
 
     public void StartGrab()
     {
-        textMesh.gameObject.SetActive(false);
+        textMeshDescriptionRef.gameObject.SetActive(false);
+        textMeshNameRef.gameObject.SetActive(false);
         itemSprite.sortingOrder = 10;
         outline.sortingOrder = 9;
 
@@ -303,17 +306,23 @@ public class Item : MonoBehaviour
             }
         }
         if(!canShow)return;
-        textMesh.gameObject.SetActive(true);
-        textMesh.color = new Color(textMesh.color.r, textMesh.color.g, textMesh.color.b, 0f);
-        textMesh.DOKill();
-        textMesh.DOFade(1f, 0.5f).SetDelay(0.25f);
-      
+        textMeshDescriptionRef.gameObject.SetActive(true);
+        textMeshDescriptionRef.color = new Color(textMeshDescriptionRef.color.r, textMeshDescriptionRef.color.g, textMeshDescriptionRef.color.b, 0f);
+        textMeshDescriptionRef.DOKill();
+        textMeshDescriptionRef.DOFade(1f, 0.5f).SetDelay(0.25f);
+
+        textMeshNameRef.gameObject.SetActive(true);
+        textMeshNameRef.color = new Color(textMeshNameRef.color.r, textMeshNameRef.color.g, textMeshNameRef.color.b, 0f);
+        textMeshNameRef.DOKill();
+        textMeshNameRef.DOFade(1f, 0.5f).SetDelay(0.25f);
     }
     
     public void DisableInfoText()
     {
-        textMesh.DOKill(true);
-        textMesh.gameObject.SetActive(false);
+        textMeshDescriptionRef.DOKill(true);
+        textMeshDescriptionRef.gameObject.SetActive(false);
+        textMeshNameRef.DOKill(true);
+        textMeshNameRef.gameObject.SetActive(false);
 
         // Color color = textMesh.color;
         // color.a = 1f;
