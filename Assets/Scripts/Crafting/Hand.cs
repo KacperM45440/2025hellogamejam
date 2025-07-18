@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -262,7 +263,7 @@ public class Hand : MonoBehaviour
 
         if (((1 << hitInfo.Value.collider.gameObject.layer) & itemAnchorMask) != 0 && hitInfo.Value.collider.TryGetComponent(out _anchorTarget))
         {
-            if (!_anchorTarget.addedItem && _anchorTarget.itemType == currentItem.itemType)
+            if (!_anchorTarget.addedItem && _anchorTarget.itemTypes.Contains(currentItem.itemType))
             {
                 audioSource.clip = mountSounds[UnityEngine.Random.Range(0, mountSounds.Length)];
                 audioSource.Play();
@@ -533,7 +534,7 @@ public class Hand : MonoBehaviour
                 if (anchorHit.collider.TryGetComponent(out _anchorTarget))
                 {
                     currentItem.SetOutlineColor(_anchorTarget.addedItem ? Color.white :
-                        _anchorTarget.itemType == currentItem.itemType ? Color.green : Color.red);
+                        _anchorTarget.itemTypes.Contains(currentItem.itemType) ? Color.green : Color.red);
                     //currentItem.SetOutlineColor(Color.green);
                     _anchorTarget = null;
                 }

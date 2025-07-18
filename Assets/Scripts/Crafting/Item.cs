@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using NUnit.Framework;
 using TMPro;
@@ -22,7 +23,7 @@ public enum ItemType
 public struct ItemAnchor
 {
     public ItemAnchorTarget anchor;
-    public ItemType avaliableType;
+    public ItemType[] avaliableTypes;
 }
 
 
@@ -61,7 +62,7 @@ public class Item : MonoBehaviour
         {
             _circles[i] = itemAnchors[i].anchor.circle;
             itemAnchors[i].anchor.parentItem = this;
-            itemAnchors[i].anchor.itemType = itemAnchors[i].avaliableType;
+            itemAnchors[i].anchor.itemTypes = itemAnchors[i].avaliableTypes;
         }
         itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
         outline.sortingOrder = -1;
@@ -248,7 +249,7 @@ public class Item : MonoBehaviour
                     bool select = false;
                     if (handCurrentItem != null)
                     {
-                        select = handCurrentItem.itemType == itemAnchors[i].avaliableType;
+                        select = itemAnchors[i].avaliableTypes.Contains(handCurrentItem.itemType);
                     }
                     bool isAvailable = handCurrentItem == null || select;
                     

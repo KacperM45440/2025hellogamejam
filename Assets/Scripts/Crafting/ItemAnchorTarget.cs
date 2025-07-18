@@ -6,6 +6,6 @@ public class ItemAnchorTarget : MonoBehaviour
     public SpriteRenderer circle;
     public Item parentItem;
     public Item addedItem;
-    [HideInInspector] public ItemType itemType;
+    [HideInInspector] public ItemType[] itemTypes;
 
 }
