@@ -159,13 +159,13 @@ MonoBehaviour:
   Client6PrefferedItemCharacteristics: 1000000008000000
   Client6HatedItemCharacteristics: 0c0000000900000007000000
   Client7ID: 7
-  Client7Name: Pchelev
+  Client7Name: Stalker Pchelev
   Client7Body: {fileID: 21300000, guid: ca788f02edba9b94798128da2250bdea, type: 3}
   Client7Head: {fileID: 919132149155446097, guid: 8522968784f2a114bbf9aeb9b9461c6e, type: 3}
   Client7HeadOffset: {x: 0, y: 5.5, z: 0}
   Client7Speech: 
-  Client7PrefferedItemCharacteristics: 130000000d0000000a00000009000000
-  Client7HatedItemCharacteristics: 100000000000000003000000
+  Client7PrefferedItemCharacteristics: 130000000d0000000a00000002000000
+  Client7HatedItemCharacteristics: 0300000010000000
 --- !u!1001 &5584395401782439510
 PrefabInstance:
   m_ObjectHideFlags: 0

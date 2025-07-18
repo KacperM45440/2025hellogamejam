@@ -258,35 +258,42 @@ MonoBehaviour:
   - ...
   - Once I'm done with my target, you're next on my list.
   Client6Greeting:
-  - Um...
-  - What a terrible day.
+  - Um... hi. I'm just...
+  - I'm just looking I guess.
+  - Do you sell, uh... guns?
   Client6Request:
-  - Well...
-  - I want to kill myself, but...
-  - ...I am a coward.
-  - I can't even put a gun to my head.
-  - So I was thinking...
-  - ...maybe you could make me a gun...
-  - ...that will shoot me even when I aim in another direction?
+  - Well... I thought maybe this place would be... the last stop.
+  - Could you avoid adding sharp edges? Or... I dunno...
+  - Use some cheap parts, please. I don't want to be a bother more than I already
+    am.
+  - Damn it... I'm such a coward. If only I could aim the gun in another direction...
+  - ...Sorry, I know that sounds weird.
   Client6ResponseGood:
-  - Thank you for ending my misery.
+  - Wow.. that's... just what I was looking for.
+  - Thank you for ending my misery... I won't forget that.
   Client6ResponseAverage:
-  - Um... I hope it's going to work.
+  - Um... Are you sure this will work?
+  - I... I guess I'll give it a shot.
   Client6ResponseBad:
-  - How am I supposed to kill myself with... this?
+  - That's... not what I was expecting. It must be alll my fault.
+  - I'm terrible at whatever I do... I can't even end it correctly.
   Client7Greeting:
-  - '*muffled* ...hello...'
+  - 'Pryvit... mmmph... '
+  - Rrmmh... weapon... order... phhm...
   Client7Request:
-  - '*muffled* ...night...'
-  - '*muffled* ...mutants...'
-  - '*muffled* ...kaboom...'
-  - '*muffled*'
+  - Mfff... Kersk... rrrgh... nuclear... reactor...
+  - Hhmmp... light... hmpff... for... darkness... rhhmm...
+  - Mutants... mffpf... kaboom... mmhr... Ha!
+  - Mfff... make... automatic...
   Client7ResponseGood:
-  - '*muffled* indeed...'
+  - Djakuju... hmpp...!
+  - Fantastic... rrhrff... gun... ffrmp...
   Client7ResponseAverage:
-  - '*muffled* enough...'
+  - Seen... better... tchhp...
+  - Hmmpf... survive... ffrt... maybe...
   Client7ResponseBad:
-  - '*muffled* NO... MUTANTS...'
+  - Rrrghh... insult... weapon...? Pfah!
+  - Hmpff... mmgh... useless...!
 --- !u!1 &8697409525533974473
 GameObject:
   m_ObjectHideFlags: 0
