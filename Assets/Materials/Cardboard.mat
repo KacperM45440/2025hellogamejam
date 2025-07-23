@@ -40,8 +40,8 @@ Material:
     m_TexEnvs:
     - _BaseMap:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 5.5333333, y: 2.6533334}
-        m_Offset: {x: 0.23333335, y: 0.6666666}
+        m_Scale: {x: 4.346667, y: 2.5533333}
+        m_Offset: {x: 0.8933332, y: 0.7733333}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
