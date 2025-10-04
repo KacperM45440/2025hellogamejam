@@ -1,5 +1,6 @@
 using DG.Tweening;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MoneyJarScript : InteractableObject
@@ -40,9 +41,14 @@ public class MoneyJarScript : InteractableObject
         moneyCountRef.text = money;
     }
 
-    public void ToggleCollider(bool value)
+    public void EnableCollider()
     {
-        colliderRef.enabled = value;
+        colliderRef.enabled = true;
+    }
+
+    public void DisableCollider()
+    {
+        colliderRef.enabled = false;
     }
 
     public void HandPickedUpMoney(bool value)
@@ -51,7 +57,16 @@ public class MoneyJarScript : InteractableObject
         {
             return;
         }
-        ToggleCollider(value);
+
+        if (value)
+        {
+            EnableCollider();
+        }
+        else
+        {
+            DisableCollider();
+        }
+
         base.SetOutline(value);
     }
 
