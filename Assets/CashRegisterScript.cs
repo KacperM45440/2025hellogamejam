@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class CashRegisterScript : MoneyJarScript
 {
+    public override void ShowMoney(bool value)
+    {
+        return;
+    }
+
     public override void Interact()
     {
         isJarHungry = false;
