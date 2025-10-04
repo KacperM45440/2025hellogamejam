@@ -12,10 +12,20 @@ public class ClientScript : MonoBehaviour
     public bool isOutline;
     public Transform gunSocket;
     public AudioSource audioSource;
+    public bool outlinable = false;
     
+    public void SetOutlinable(bool value)
+    {
+        outlinable = value;
+    }
+
     public void SetOutline(bool value)
     {
         if (isOutline == value)
+        {
+            return;
+        }
+        if(!outlinable && value)
         {
             return;
         }

@@ -9,6 +9,7 @@ public class DialogueController : Singleton<DialogueController>
     public StageManager StageManagerRef;
     public DialogueData DialogueDataRef;
     public ClientController ClientRef;
+    public ClientScript ClientScriptRef;
     public BubbleController BubbleRef;
 
     [HideInInspector] public Dialogue mainDialogue;
@@ -61,6 +62,7 @@ public class DialogueController : Singleton<DialogueController>
             return;
         }
 
+        ClientScriptRef.SetOutlinable(true);
         //Debug.Log("sub: " + currentSubdialogue + "count: " + currentDialogue.Count);
 
         if (currentSubdialogue <= currentDialogue.Count - 1)
@@ -78,6 +80,8 @@ public class DialogueController : Singleton<DialogueController>
 
     private void ClearDialogueQueue()
     {
+        ClientScriptRef.SetOutlinable(false);
+        ClientScriptRef.SetOutline(false);
         currentDialogue.Clear();
         currentSubdialogue = 0;
         BubbleRef.ClearText();

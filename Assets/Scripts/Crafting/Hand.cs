@@ -113,7 +113,7 @@ public class Hand : MonoBehaviour
             if (Input.GetMouseButtonUp(0))
             {
                 Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, 100f, grabLayerMask | itemAnchorMask))
+                if (Physics.Raycast(ray, out RaycastHit hit, 100f, grabLayerMask | itemAnchorMask | clientMask))
                 {
                     HandleMouseUp(hit);
                 }
@@ -142,8 +142,6 @@ public class Hand : MonoBehaviour
                 socket.localPosition = _socketPosition;
             }
         }
-
-
     }
 
 
@@ -159,12 +157,11 @@ public class Hand : MonoBehaviour
             TryInteractWithInteractable(hitInfo);
         }
 
-        if (!hoveredItem && !currentItem&& !hoveredInteractable)
+        if (!hoveredItem && !currentItem && !hoveredInteractable)
         {
             TryProgressDialogue(hitInfo);
             return;
         }
-
 
         if (currentItem)
         {
@@ -177,6 +174,8 @@ public class Hand : MonoBehaviour
     {
         if (currentItem)
         {
+            if (TryInteractWithInteractable(hitInfo)) return;
+            TryGiveItemToClient(hitInfo);
             TryDropCurrentItem(hitInfo);
         }
         else
@@ -202,6 +201,7 @@ public class Hand : MonoBehaviour
     {
         if (hitInfo.HasValue && ((1 << hitInfo.Value.collider.gameObject.layer) & clientMask) != 0)
         {
+            if (currentItem.itemType != ItemType.FRAME) return;
             if (hitInfo.Value.collider.TryGetComponent(out _clientScript))
             {
                 if (_clientScript.ClientController.GetClientCanReceiveGun())
@@ -324,19 +324,24 @@ public class Hand : MonoBehaviour
             });
     }
 
-    private void TryInteractWithInteractable(RaycastHit? hitInfo)
+    private bool TryInteractWithInteractable(RaycastHit? hitInfo)
     {
+        Debug.Log("Trying to interact with interactable");
         if (hitInfo.HasValue &&
             ((1 << hitInfo.Value.collider.gameObject.layer) & grabLayerMask) != 0 &&
             hitInfo.Value.collider.TryGetComponent(out _interactable) && _interactable.interactable)
         {
             InteractWithInteractable();
+            return true;
         }
+        return false;
     }
 
 
     private void InteractWithInteractable()
     {
+        Debug.Log("Interacting with " + _interactable.name);
+
         _blockFollow = true;
         handRb.isKinematic = true;
         _moveSpeed = 0f;
@@ -634,7 +639,12 @@ public class Hand : MonoBehaviour
 
         CraftingMgr.Instance.RefreshCollider();
 
-        if(currentItem.itemType == ItemType.MONEY)
+        if(currentItem.itemType == ItemType.FRAME)
+        {
+            _clientScript.ClientController.PlayerPickedUpGun(currentItem);
+        }
+
+        if (currentItem.itemType == ItemType.MONEY)
         {
             moneyControllerRef.HandPickedUpMoney(true);
         }
@@ -645,6 +655,11 @@ public class Hand : MonoBehaviour
         if (!currentItem) return;
         
         currentItem.Drop(_handVelocity, toCrafting);
+
+        if (currentItem.itemType == ItemType.FRAME)
+        {
+            _clientScript.ClientController.PlayerDroppedGun();
+        }
 
         if (currentItem.itemType == ItemType.MONEY)
         {

@@ -154,6 +154,27 @@ public class ClientController : Singleton<ClientController>
         return canReveiveGun;
     }
 
+    public void PlayerPickedUpGun(Item Gun)
+    {
+        if(!canReveiveGun)
+        {
+            return;
+        }
+
+        ClientRef.SetOutlinable(true);
+    }
+
+    public void PlayerDroppedGun()
+    {
+        if (!canReveiveGun)
+        {
+            return;
+        }
+
+        ClientRef.SetOutlinable(false);
+    }
+
+
     public void ClientReceiveGun(Item gun)
     {
         if(!canReveiveGun)
