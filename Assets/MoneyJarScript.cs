@@ -13,7 +13,7 @@ public class MoneyJarScript : InteractableObject
 
     private void Start()
     {
-        colliderRef.enabled = false;
+        //colliderRef.enabled = false;
     }
 
     public void SetJarHungry(bool value)
@@ -24,11 +24,20 @@ public class MoneyJarScript : InteractableObject
 
     public override void SetOutline(bool value)
     {
-        if (!isJarHungry && value)
+        base.SetOutline(value);
+        ShowMoney(value);
+    }
+
+    public virtual void ShowMoney(bool value)
+    {
+        if (!value)
         {
+            moneyCountRef.text = "";
             return;
         }
-        base.SetOutline(value);
+
+        string money = moneyControllerRef.currentMoneyInJar.ToString() + " $B";
+        moneyCountRef.text = money;
     }
 
     public void ToggleCollider(bool value)
@@ -66,7 +75,7 @@ public class MoneyJarScript : InteractableObject
 
         moneyControllerRef.gainMoneyToJar(moneyAmount);
         animatorRef.SetTrigger("JarSpin");
-        moneyCountRef.text = moneyControllerRef.currentMoneyInJar.ToString() + " $B";
+        //moneyCountRef.text = moneyControllerRef.currentMoneyInJar.ToString() + " $B";
         if (moneyControllerRef.currentMoneyInJar >= moneyControllerRef.moneyRequiredToWin)
         {
             moneyCountRef.color = Color.green;
