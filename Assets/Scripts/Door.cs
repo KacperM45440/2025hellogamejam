@@ -1,10 +1,11 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 
 public class Door : Singleton<Door>
 {
     [SerializeField] private Transform doorTransform;
-    [SerializeField] private float openAngle = 90f;
+    [SerializeField] private float openAngle = 120f;
     [SerializeField] private float closeAngle = 0f;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private AudioClip openDoorSound;
@@ -16,8 +17,9 @@ public class Door : Singleton<Door>
     public void OpenDoor()
     {
         isOpen = true;
+        Vector3 doorRotation = doorTransform.rotation.eulerAngles;
         doorTransform.DOKill();
-        doorTransform.DOLocalRotate(new Vector3(0f, 0f, openAngle), 1f).SetEase(Ease.InOutSine);
+        doorTransform.DOLocalRotate(new Vector3(doorRotation.x, doorRotation.y, -openAngle), 1f).SetEase(Ease.InOutSine);
         audioSource.clip = openDoorSound;
         audioSource.Play();
     }
@@ -26,8 +28,9 @@ public class Door : Singleton<Door>
     public void CloseDoor()
     {
         isOpen = false;
+        Vector3 doorRotation = doorTransform.rotation.eulerAngles;
         doorTransform.DOKill();
-        doorTransform.DOLocalRotate(new Vector3(0f, 0f, closeAngle), 1f).SetEase(Ease.InOutSine).OnComplete(() =>
+        doorTransform.DOLocalRotate(new Vector3(doorRotation.x, doorRotation.y, openAngle), 1f).SetEase(Ease.InOutSine).OnComplete(() =>
         {
             audioSource.clip = closeDoorSound;
             audioSource.Play();

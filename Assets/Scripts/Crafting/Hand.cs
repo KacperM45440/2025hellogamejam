@@ -427,7 +427,11 @@ public class Hand : MonoBehaviour
         if (!active) return;
         if (_blockFollow || _blockFollowUI) return;
         MoveHand();
-        LookingForItem();
+        try
+        {
+            LookingForItem();
+        }
+        catch { }       
     }
 
     private void LookingForItem()
