@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 public class MoneyJarScript : InteractableObject
@@ -8,6 +9,8 @@ public class MoneyJarScript : InteractableObject
     public bool isJarHungry = false;
     public Hand handRef;
     public MoneyController moneyControllerRef;
+    public MeshFilter CashMesh;
+    public Mesh[] CashMeshes;
     [SerializeField] private Collider colliderRef;
     [SerializeField] private Animator animatorRef;
     [SerializeField] private TextMeshProUGUI moneyCountRef;
@@ -91,8 +94,23 @@ public class MoneyJarScript : InteractableObject
         moneyControllerRef.gainMoneyToJar(moneyAmount);
         animatorRef.SetTrigger("JarSpin");
         //moneyCountRef.text = moneyControllerRef.currentMoneyInJar.ToString() + " $B";
-        if (moneyControllerRef.currentMoneyInJar >= moneyControllerRef.moneyRequiredToWin)
+        
+        int currentMoney = moneyControllerRef.currentMoneyInJar;
+        int targetMoney = moneyControllerRef.moneyRequiredToWin;
+
+        Debug.Log(currentMoney + " : " + targetMoney);
+        
+        if (currentMoney < 0.5f * targetMoney)
         {
+            CashMesh.mesh = CashMeshes[0];
+        }
+        else if (currentMoney < targetMoney)
+        {
+            CashMesh.mesh = CashMeshes[1];
+        }
+        else
+        {
+            CashMesh.mesh = CashMeshes[2];
             moneyCountRef.color = Color.green;
         }
     }
