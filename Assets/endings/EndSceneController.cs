@@ -16,9 +16,10 @@ public class EndSceneController : MonoBehaviour
 
     [SerializeField] private Image Image;
     [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private float duration = 7f;
+    [SerializeField] private GameObject button;
+    private float duration = 2f;
 
-    void Start()
+    private void Start()
     {
         win = Convert.ToBoolean(PlayerPrefs.GetInt("GameWin"));
 
@@ -36,21 +37,16 @@ public class EndSceneController : MonoBehaviour
         Image.sprite = image;
         text.text = chooseText;
 
-        Image.DOFade(1f, duration * 3.5f).OnComplete(() =>
-        {
-
-                Invoke("FadeOut", duration);
-
-  
-        });
+        Image.DOFade(1f, duration);
     }
 
-    private void FadeOut()
+    public void FadeOut()
     {
+        button.SetActive(false);
+        text.DOFade(0f, duration);
         Image.DOFade(0f, duration).OnComplete(() =>
         {
             SceneManager.LoadScene(0);
-
         });
     }
 }

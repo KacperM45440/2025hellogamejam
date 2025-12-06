@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class ComicsController : MonoBehaviour
 {
-    [SerializeField] private Sprite[] comics; 
-    [SerializeField] private Image Image;     
+    [SerializeField] private Image[] comics;   
     [SerializeField] private float duration = 2f;  
-
     private int currentComicIndex = 0;  
+
     void Start()
     {
         if (comics.Length > 0)
@@ -20,35 +19,34 @@ public class ComicsController : MonoBehaviour
 
     private void ShowNextComic()
     {
-
         if (comics.Length == 0) return;
 
-        Image.sprite = comics[currentComicIndex];
+        Image currentComic = comics[currentComicIndex];
+        currentComic.gameObject.SetActive(true);
 
-        Image.DOFade(1f, duration).OnComplete(() =>
+        currentComic.DOFade(1f, duration).OnComplete(() =>
         {
-            if(currentComicIndex == comics.Length - 1)
-            {
-                Invoke("FadeOut", duration*3.5f);
-
-            }
-            else
             Invoke("FadeOut", duration);
         });
     }
 
     private void FadeOut()
     {
-        Image.DOFade(0f, duration).OnComplete(() =>
+        currentComicIndex++;
+
+        if (currentComicIndex < comics.Length)
         {
-            currentComicIndex++;
-
-            if (currentComicIndex < comics.Length)
+            ShowNextComic();
+        }
+        else
+        {
+            foreach(Image image in comics)
             {
-                ShowNextComic();
+                image.DOFade(0f, duration).OnComplete(() =>
+                {
+                    SceneManager.LoadScene(2);
+                });
             }
-            else SceneManager.LoadScene(2);
-
-        });
+        }
     }
 }
