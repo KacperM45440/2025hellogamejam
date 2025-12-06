@@ -14,10 +14,12 @@ public class MoneyJarScript : InteractableObject
     [SerializeField] private Collider colliderRef;
     [SerializeField] private Animator animatorRef;
     [SerializeField] private TextMeshProUGUI moneyCountRef;
+    [SerializeField] private Outline outlineRef;
 
     private void Start()
     {
-        //colliderRef.enabled = false;
+        outlineRef = GetComponent<Outline>();
+        outlineRef.enabled = false;
     }
 
     public void SetJarHungry(bool value)
@@ -28,7 +30,14 @@ public class MoneyJarScript : InteractableObject
 
     public override void SetOutline(bool value)
     {
-        base.SetOutline(value);
+        if (isOutline == value)
+        {
+            return;
+        }
+
+        isOutline = value;
+        outlineRef.enabled = value;
+
         ShowMoney(value);
     }
 
@@ -70,7 +79,7 @@ public class MoneyJarScript : InteractableObject
             DisableCollider();
         }
 
-        base.SetOutline(value);
+        SetOutline(value);
     }
 
     public override void Interact()
