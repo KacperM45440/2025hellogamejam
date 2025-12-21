@@ -839,7 +839,7 @@ GameObject:
   - component: {fileID: 119581259}
   - component: {fileID: 119581258}
   - component: {fileID: 119581257}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_07
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3299,7 +3299,7 @@ GameObject:
   - component: {fileID: 499319699}
   - component: {fileID: 499319698}
   - component: {fileID: 499319697}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_09
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4348,7 +4348,7 @@ GameObject:
   - component: {fileID: 808679941}
   - component: {fileID: 808679940}
   - component: {fileID: 808679939}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4487,7 +4487,7 @@ GameObject:
   - component: {fileID: 828985886}
   - component: {fileID: 828985885}
   - component: {fileID: 828985884}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5404,7 +5404,7 @@ GameObject:
   - component: {fileID: 1071375659}
   - component: {fileID: 1071375658}
   - component: {fileID: 1071375657}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_08
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5667,7 +5667,7 @@ GameObject:
   - component: {fileID: 1141883369}
   - component: {fileID: 1141883368}
   - component: {fileID: 1141883367}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12659,7 +12659,7 @@ GameObject:
   - component: {fileID: 2110862291}
   - component: {fileID: 2110862290}
   - component: {fileID: 2110862289}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Cube_04
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26004,7 +26004,7 @@ MonoBehaviour:
   moneyCounter: {fileID: 6423316858983832043}
   currentMoney: 100
   currentMoneyInJar: 0
-  moneyRequiredToWin: 3000
+  moneyRequiredToWin: 1500
 --- !u!114 &4842019863134523925
 MonoBehaviour:
   m_ObjectHideFlags: 0

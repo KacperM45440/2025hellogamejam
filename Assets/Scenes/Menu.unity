@@ -346,32 +346,55 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1222.5
       objectReference: {fileID: 0}
     - target: {fileID: 579903122770061368, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -150
+      objectReference: {fileID: 0}
+    - target: {fileID: 600460615619224782, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: 'programming
+
+
+        Dawid
+
+        Szczepaniak'
+      objectReference: {fileID: 0}
+    - target: {fileID: 989141593922982612, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_fontSize
+      value: 42
+      objectReference: {fileID: 0}
+    - target: {fileID: 989141593922982612, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: 994822939629345845, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: fde74336385cfe64caa8088064b18fc7, type: 3}
+    - target: {fileID: 1381623389284625193, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: 'You''re right.
+
+        I''ll stay.'
+      objectReference: {fileID: 0}
     - target: {fileID: 1701580062638354494, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -402,19 +425,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2755760249031470334, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2755760249031470334, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2755760249031470334, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 462.5
       objectReference: {fileID: 0}
     - target: {fileID: 2755760249031470334, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -98.2
       objectReference: {fileID: 0}
     - target: {fileID: 3098650885237990623, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_IsActive
@@ -448,6 +471,14 @@ PrefabInstance:
       propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3702669403425752266, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: "2d ARt\nUI/UX\n\nKamila \nSpychala"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728399667099203592, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -150
+      objectReference: {fileID: 0}
     - target: {fileID: 3818375896824225116, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -468,29 +499,48 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4249415228602323844, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: '3D models
+
+        level design
+
+
+        Solomiia
+
+        Skoropad'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4286816482235683538, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: "2D art\nAnimations\nWriting\n\nMonika \nRutkowska"
+      objectReference: {fileID: 0}
+    - target: {fileID: 4533928822966365163, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: "Game design\nProgramming\n\nKacper \nMarkiewicz"
+      objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 607.5
       objectReference: {fileID: 0}
     - target: {fileID: 5148629224376669735, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 5440111540757582262, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -531,6 +581,23 @@ PrefabInstance:
     - target: {fileID: 5983246478723099909, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6216188672618726108, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: 'Game design
+
+        programming
+
+
+        Michal
+
+        grzegorzek-
+
+        kiaszewicz'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449521904645266408, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 460
       objectReference: {fileID: 0}
     - target: {fileID: 6477648711132590042, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -578,19 +645,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6626162305683509017, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6626162305683509017, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6626162305683509017, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 462.5
       objectReference: {fileID: 0}
     - target: {fileID: 6626162305683509017, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -294.59998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6652699516264617270, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: No way, get me out of here!
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963269273890054226, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_fontSize
+      value: 65
+      objectReference: {fileID: 0}
+    - target: {fileID: 6963269273890054226, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 7096085197578355832, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_IsActive
@@ -747,6 +826,11 @@ PrefabInstance:
     - target: {fileID: 8839963436881700063, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8975342777891336202, guid: 5eaa6995b6977a4479d192359fbebec4, type: 3}
+      propertyPath: m_text
+      value: "Do you *really* want to leave? \n\nThink of all the good things we
+        could do together!"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
