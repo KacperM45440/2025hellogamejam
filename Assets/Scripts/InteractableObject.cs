@@ -6,7 +6,7 @@ public class InteractableObject : MonoBehaviour
 {
     public Transform handTarget;
     public SpriteRenderer Outline;
-    public bool isOutline;
+    public bool isOutline = false;
     public bool interactable = true;
 
 

@@ -206,7 +206,6 @@ public class ClientController : Singleton<ClientController>
             itemCharacteristicsList.AddRange(item.characteristics);
             inventoryControllerRef.RemoveFromInventoryByName(item.name);
         }
-        inventoryControllerRef.CheckFrameExistenceAndSpawnIfNeeded();
         ClientCalculateSatisfaction(itemCharacteristicsList, items);
     }
 

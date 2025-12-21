@@ -6,6 +6,7 @@ using UnityEngine;
 public class InventoryController : MonoBehaviour
 {
     public GameFlowController FlowControllerRef;
+    public Printer3DScript printer3DRef;
 
     public List<GameObject> startingInventory = new();
     public List<GameObject> currentInventory = new();
@@ -49,7 +50,6 @@ public class InventoryController : MonoBehaviour
             newItem.transform.position = CraftingMgr.Instance.GetItemSpawnPosition() + (new Vector3(0, (yPos++) / 50));
             spawnedItems.Add(newItem);
         }
-        CheckFrameExistenceAndSpawnIfNeeded();
         FlowControllerRef.FinishRequirement(controllerName);
     }
 
@@ -78,7 +78,7 @@ public class InventoryController : MonoBehaviour
         }
     }
 
-    public void CheckFrameExistenceAndSpawnIfNeeded()
+    public void CheckFramesAndEnable3DPrinter()
     {
         foreach (GameObject item in currentInventory)
         {
@@ -87,10 +87,15 @@ public class InventoryController : MonoBehaviour
                 return;
             }
         }
+
+        Debug.Log("No frames in inventory, enabling 3D printer.");
+        printer3DRef.SetReadyToPrint(true);
+        /* OLD SPAWN METHOD
         AddToInventory(defaultGunFrame);
         GameObject newItem = Instantiate(defaultGunFrame);
         newItem.transform.position = backupFrameSpawnPoint.position;
         spawnedItems.Add(newItem);
+        */
     }
 
     public void DestroyItems()

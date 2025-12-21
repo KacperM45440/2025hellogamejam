@@ -67,12 +67,14 @@ public class Item : MonoBehaviour
         }
         itemSprite.sortingOrder = (itemType == ItemType.FRAME) ? 0 : 1;
         outline.sortingOrder = -1;
-        cardboarder.Initialize(itemSprite);
 
         ClearCircles();
     }
-    
 
+    private void Start()
+    {
+        cardboarder.Initialize(itemSprite);
+    }
 
     public void SetHover(bool hover)
     {

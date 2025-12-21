@@ -55,6 +55,7 @@ public class GameFlowController : MonoBehaviour
             case StageManager.GameStage.ClientEnterStore:
                 controllerRequirements.Add(clientControllerRef.ControllerName);
                 clientControllerRef.CreateNextClient();
+                inventoryControllerRef.CheckFramesAndEnable3DPrinter();
                 break;
             case StageManager.GameStage.ClientGreeting:
                 controllerRequirements.Add(DialogueControllerRef.ControllerName);
