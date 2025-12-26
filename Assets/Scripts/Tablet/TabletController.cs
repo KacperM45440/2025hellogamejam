@@ -184,6 +184,20 @@ public class TabletController : MonoBehaviour
         {
             StartCoroutine(PlaceOrderAsync());
         }
+        else
+        {
+            StartCoroutine(SkipOrder());
+        }
+    }
+
+    private IEnumerator SkipOrder()
+    {
+        yield return null;
+        Debug.Log("Placed order");
+        loadingScreen.SetActive(true);
+        loadingScreen.GetComponent<TabletLoadingScreen>().StartLoading();
+        shopScreen.SetActive(false);
+        moneyControllerRef.spendMoney(currentTotalPrice);
     }
 
     private IEnumerator PlaceOrderAsync()
@@ -255,7 +269,7 @@ public class TabletController : MonoBehaviour
                 currentType = item.itemType;
                 GameObject spacer = Instantiate(storeSpacerPrefab, storeContainer.transform);
                 lastSpacer = spacer.GetComponent<StoreSpacer>();
-                string spacerName = "Gun " + currentType.ToString().Substring(0, 1) + currentType.ToString().Substring(1).ToLower() + "s";
+                string spacerName = currentType.ToString().Substring(0, 1) + currentType.ToString().Substring(1).ToLower() + "s";
                 lastSpacer.InitializeSpacer(spacerName);
                 storeContents.Add(spacer);
             }
