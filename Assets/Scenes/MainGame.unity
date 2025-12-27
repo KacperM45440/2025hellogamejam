@@ -32880,7 +32880,7 @@ MonoBehaviour:
   moneyCounter: {fileID: 6423316858983832043}
   currentMoney: 0
   currentMoneyInJar: 0
-  moneyRequiredToWin: 1500
+  moneyRequiredToWin: 3000
 --- !u!114 &4842019863134523925
 MonoBehaviour:
   m_ObjectHideFlags: 0

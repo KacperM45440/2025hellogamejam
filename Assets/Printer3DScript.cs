@@ -1,8 +1,5 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.Rendering.DebugUI;
 
 public class Printer3DScript : InteractableObject
 {
