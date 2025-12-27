@@ -11,9 +11,9 @@ public class EndSceneController : MonoBehaviour
     [SerializeField] private bool win;
     [SerializeField] private Sprite winImage;
     [SerializeField] private Sprite loseImage;
-    [SerializeField] private string winText = "Congratulations! You saved the Queen!";
-    [SerializeField] private string loseText = "Oh... poor Queen.";
-
+    [SerializeField] private string winText;
+    [SerializeField] private string loseText;
+    [SerializeField] private Image flair;
     [SerializeField] private Image Image;
     [SerializeField] private TextMeshProUGUI text;
     [SerializeField] private GameObject button;
@@ -44,6 +44,7 @@ public class EndSceneController : MonoBehaviour
     {
         button.SetActive(false);
         text.DOFade(0f, duration);
+        flair.DOFade(0f, duration);
         Image.DOFade(0f, duration).OnComplete(() =>
         {
             SceneManager.LoadScene(0);
