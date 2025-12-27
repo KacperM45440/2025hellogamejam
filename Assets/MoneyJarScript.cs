@@ -100,6 +100,7 @@ public class MoneyJarScript : InteractableObject
             Destroy(moneyItem.gameObject);
         });
 
+        GetComponent<AudioSource>().Play();
         moneyControllerRef.gainMoneyToJar(moneyAmount);
         animatorRef.SetTrigger("JarSpin");
         //moneyCountRef.text = moneyControllerRef.currentMoneyInJar.ToString() + " $B";

@@ -27,6 +27,7 @@ public class CashRegisterScript : MoneyJarScript
             Destroy(moneyItem.gameObject);
         });
 
+        GetComponent<AudioSource>().Play();
         moneyControllerRef.gainMoney(moneyAmount);
         //animatorRef.SetTrigger("JarSpin"); //Animacja podskakuj¹cej kasy by³¹by fajna        
     }

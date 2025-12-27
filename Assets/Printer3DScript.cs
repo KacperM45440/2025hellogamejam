@@ -30,6 +30,7 @@ public class Printer3DScript : InteractableObject
         interactable = false;
 
         animatorRef.SetTrigger("Print");
+        GetComponent<AudioSource>().Play();
     }
 
     public void SpawnGunFrame()
